@@ -1,0 +1,147 @@
+
+.newsSection {
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.newsSectHeader {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 2rem 3rem 1rem 3rem;
+}
+
+.headerText h2 {
+    font-size: 2.5rem;
+    font-weight: 400;
+}
+
+.moreNewsTxt {
+    border-bottom: 1px solid white;
+    transition: all .5s ease;
+}
+
+.moreNewsTxt p {
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.moreNewsTxt:hover {
+    border-bottom: 1px solid black;
+}
+
+.newPreviews {
+    width: 100%;
+    flex: 1;
+}
+
+.newsTopPriority {
+    width: 100%;
+    height: 55%;
+    display: flex;
+    padding: 0.3rem 2rem;
+    gap: 1rem;
+}
+
+
+
+.newsPreview {
+    flex: 1;
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding-left: 1.5rem;
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+
+.bgImageCont {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+}
+
+.bgImageCont img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blackOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+
+.infoWrapper {
+    z-index: 7;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 90%;
+}
+
+.infoWrapper h4 {
+    font-weight: 600;
+}
+
+.readMoreBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    color: black;
+    width: max-content;
+    cursor: pointer;
+    position: relative;
+}
+
+.pulsatingBox.readMore {
+    background-color: #ffffff53;
+    display: none;
+}
+
+.readMoreBtn:hover .pulsatingBox.readMore {
+    display: flex;
+}
+
+
+.postedTime {
+    margin-top: .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .3rem;
+}
+
+
+.newslesserPriority {
+    display: flex;
+    width: 100%;
+    height: 45%;
+    padding: 0.3rem 2rem;
+    gap: 1rem;
+    box-sizing: border-box;
+    overflow: hidden;
+}

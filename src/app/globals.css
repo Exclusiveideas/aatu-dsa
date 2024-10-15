@@ -3,7 +3,8 @@
   --foreground: #171717;
 
   --button-primary: #FFA2A2;
-  --button-secondary: #CA0202;
+  --button-secondary: #CA0202
+  --button-secondary: #ed9537;
 }
 
 @media (prefers-color-scheme: dark) {

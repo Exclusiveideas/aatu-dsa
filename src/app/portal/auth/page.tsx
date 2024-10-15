@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import './auth.css'
 
 const AuthPage = () => {
   return (
-    <div>Auth Page</div>
+    <div className='authPage'>Auth Page</div>
   )
 }
 

@@ -1,25 +1,25 @@
 import Image from "next/image";
 import React from "react";
-import logo from '@/app/assets/logo.png';
 import './navbar.css'
+import Link from "next/link";
 
 const Navbar = () => {
   return (
     <div className="navbarWrapper">
-      <div className="logoWrapper">
+      <a href="/" className="logoWrapper">
         <Image
-          src={logo}
+          src={'/logo.png'} 
           width={190}
           height={80}
-          alt="Background logo"
+          alt="tech-u logo"
           className='logo'
         />
-      </div>
+      </a>
       <div className="portalBtnWrapper">
-        <div className="portalBtn">
+        <Link href="/portal/auth" className="portalBtn">
             <div className="pulsatingBox"></div>
             Portal
-        </div>
+        </Link>
         
       </div>
     </div>

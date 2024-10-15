@@ -1,0 +1,91 @@
+
+.heroSectWrapper {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.heroInfo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding-left: 3rem;
+    padding-bottom: 13.5rem;
+    z-index: 3;
+}
+
+.infoBox {
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: fit-content;
+}
+
+.infoBox h1 {
+    font-size: 4rem;
+}
+
+.infoBox p {
+    font-size: 16px;
+    max-width: 80%;
+    line-height: 30px;
+}
+
+
+
+
+
+@keyframes fade {
+    0% {
+      opacity: 0;
+    }
+    33% {
+      opacity: 1;
+    }
+    66% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  .arrowContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+  
+  .arrow {
+    font-size: 24px;
+    opacity: 0;
+    animation: fade 2s infinite;
+    width: 35px;
+  }
+  
+  .arrow:nth-child(1) {
+    animation-delay: 0.05s;
+  }
+  
+  .arrow:nth-child(2) {
+    animation-delay: .2s;
+    margin-top: -25px;
+  }
+  
+  .arrow:nth-child(3) {
+    animation-delay: .5s;
+    margin-top: -25px;
+  }
