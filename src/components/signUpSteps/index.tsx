@@ -4,11 +4,16 @@ import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
-export const StepOne = ({ nextProcess }: any) => {
+export const StepOne = ({ nextProcess, setAuthLogin }: any) => {
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
     // console.log(e.target[0].value)
     nextProcess();
+  };
+
+  const gotoLogin = () => {
+    setAuthLogin(true)
   };
 
   return (
@@ -29,9 +34,14 @@ export const StepOne = ({ nextProcess }: any) => {
       <div className="formInput">
         <input placeholder="Programme" required className="inputBox" />
       </div>
-      <button className="authBtn" type="submit">
-        Continue
-      </button>
+      <div className="formBtns">
+        <div className="authBtn alternate" onClick={gotoLogin}>
+          Log In
+        </div>
+        <button className="authBtn" type="submit">
+          Continue
+        </button>
+      </div>
     </form>
   );
 };
