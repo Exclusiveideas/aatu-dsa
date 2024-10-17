@@ -3,8 +3,9 @@
   --foreground: #171717;
   --button-primary: #FFA2A2;
   --button-secondary: #CA0202;
-  --button-tertiary: #fc9222a9;
-  --footer: #f0ae6c2d;
+  /* --button-tertiary: #fc9222a9; */
+  --button-tertiary: #ffa2a2;
+  --footer: #fceded;
   
   background: var(--background);
   color: var(--foreground);

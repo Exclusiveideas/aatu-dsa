@@ -1,0 +1,78 @@
+
+.stdPortal {
+    --navbar-bg: #f9dfdf90;
+    --selected-opt: #ffffff;
+    --selected-lighter: #ffffff76;
+
+
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: white;
+    color: black;
+    display: flex;
+    box-sizing: border-box;
+}
+
+.vertNavbar {
+    height: 100%;
+    flex: .2;
+    background-color: var(--navbar-bg);
+    display: flex;
+    flex-direction: column;
+}
+
+.navContentWrapper {
+    flex: .8;
+    height: 100%;
+    padding: 2rem;
+}
+
+.vnTopSect {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vnTopSect .logo {
+    cursor: pointer;
+    transform: scale(.6);
+}
+
+.vnMidSect {
+    width: 100%;
+    flex: 1;
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+}
+
+.vnOption {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* border: 1px solid black; */
+    gap: 1rem;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: transparent;
+}
+
+.vnOption.selectedOpt {
+    background-color: var(--selected-opt);
+}
+
+.vnOption:hover {
+    background-color: var(--selected-lighter);
+}
+
+.vnBottomSect {
+    display: flex;
+    width: 100%;
+    /* border: 1px solid black; */
+}

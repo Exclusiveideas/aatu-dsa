@@ -149,6 +149,14 @@ form {
     color: white;
 }
 
+.authBtn:hover .circularProgress {
+    color: black;
+}
+
+.circularProgress {
+    color: white;
+}
+
 
 
 /* Steps styles */
@@ -242,7 +250,7 @@ form {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: max-content;
+    width: 100%;
     margin-top: 1rem;
     box-sizing: border-box;
     gap: 1rem;
@@ -278,4 +286,8 @@ form {
 .selectFile {
     font-size: 12px;
     color: red;
+}
+
+.selectFile.stepThree {
+    margin-top: 1rem;
 }

@@ -2,6 +2,7 @@ import React from "react";
 import "./heroSection.css";
 import ImageCarousel from "../imgCarousel";
 import Navbar from "../navbar";
+import Link from "next/link";
 
 const HeroSection = () => {
   return (
@@ -16,6 +17,12 @@ const HeroSection = () => {
             department to keep you informed and updated with all essential
             information regarding your hostel experience.
           </p>
+          <div className="heroBtn">
+          <Link href="/portal/auth" className="portalBtn">
+            {/* <div className="pulsatingBox"></div> */}
+            Portal
+        </Link>
+          </div>
         </div>
         <div className="arrowContainer">
             <img src="/down.svg" alt="scroll down arrow" className="arrow" />
@@ -25,6 +32,6 @@ const HeroSection = () => {
       </div>
     </div>
   );
-};
+}; 
 
 export default HeroSection;
