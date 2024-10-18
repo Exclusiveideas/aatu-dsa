@@ -8,8 +8,26 @@ import GiteIcon from "@mui/icons-material/Gite";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
 import LogoutIcon from "@mui/icons-material/Logout";
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import HomeComp from "@/components/studentPortalComp/home";
+import RoomComp from "@/components/studentPortalComp/room";
+import HRulesComp from "@/components/studentPortalComp/hRules";
+import SRulesComp from "@/components/studentPortalComp/sRules";
+import OyshaComp from "@/components/studentPortalComp/oysha";
 
 const navOpts = [
+  {
+    name: "Home",
+    Icon: (
+      <HomeOutlinedIcon
+        sx={{
+          color: "black",
+          cursor: "pointer",
+          fontSize: "25px",
+        }}
+      />
+    ),
+  },
   {
     name: "My Room",
     Icon: (
@@ -107,7 +125,13 @@ const StudentPortal = () => {
           </div>
         </div>
       </div>
-      <div className="navContentWrapper">content</div>
+      <div className="navContentWrapper">
+        {activeOpt == 0 && <HomeComp />}
+        {activeOpt == 1 && <RoomComp />}
+        {activeOpt == 2 && <HRulesComp />}
+        {activeOpt == 3 && <SRulesComp />}
+        {activeOpt == 4 && <OyshaComp />}
+      </div>
     </div>
   );
 };

@@ -1,0 +1,112 @@
+
+
+.sPortalHome {
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.topBarWrapper {
+    width: 100%;
+    padding: 1rem;
+    padding-right: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: .8rem;
+}
+
+.topBarWrapper .mail_icon {
+    width: 20px;
+    aspect-ratio: 1;
+    cursor: pointer;
+}
+
+.profilePicCirc {
+    width: 30px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    /* border: 1px solid black; */
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profilePicCirc .profilePic {
+    width: 100%;
+    height: 100%;
+}
+
+
+.bodySection {
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 100%;
+    padding: 0 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.bodySection_Top {
+    background-color: #F5F5F5;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    border-radius: 24px;
+    padding: 4rem 2rem;
+    gap: 1rem;
+}
+
+.bodySection_Top .welcomeTxt {
+    font-size: 40px;
+    font-weight: 300;
+}
+
+.bodySection_Top .subNote {
+    font-size: 15px;
+}
+
+
+.bodySection_Mid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* padding: 1rem; */
+    gap: 1rem;
+}
+
+.sectInfoWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
+    padding: 2.5rem 1.5rem;
+    background-color: #F5F5F5;
+    border-radius: 24px;
+    align-items: flex-start;
+    justify-content: center;
+    flex: 1;
+}
+
+.bodySection_Bottom {
+    /* border: 1px solid black; */
+}
+
+.sectInfoWrapper.bottomSect {
+    padding: 4rem 1.5rem;
+    gap: 1.5rem;
+}
+
+.sectInfoWrapper.bottomSect .title {
+    font-size: 26px;
+}
+
+.sectInfoWrapper.bottomSect .description {
+    list-style-type: square;
+    padding-left: 2rem;
+}
