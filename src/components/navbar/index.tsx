@@ -4,9 +4,9 @@ import './navbar.css'
 import Link from "next/link";
 
 
-const Navbar = ({ allNewsPage }: any) => {
+const Navbar = ({ newPage }: any) => {
   return (
-    <div className={`navbarWrapper ${allNewsPage && 'solid'}`}>
+    <div className={`navbarWrapper ${newPage && 'solid'}`}>
       <a href="/" className="logoWrapper">
         <Image
           src={'/logo.png'} 

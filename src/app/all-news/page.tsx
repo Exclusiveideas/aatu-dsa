@@ -53,7 +53,7 @@ const AllNewsPage = () => {
 
   return (
     <div className="allNewsWrapper">
-      <Navbar allNewsPage />
+      <Navbar newPage />
       <div className="newsCollection">
         {/* {newsItems?.slice(0, visibleCount).map((newsItem) => (
           <NewsPreview key={newsItem.id} {...newsItem} />

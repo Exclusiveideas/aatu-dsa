@@ -1,5 +1,121 @@
 
-
 .newsPageWrapper {
-    
+    width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+    box-sizing: border-box;
+
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    color: black;
+}
+
+.headerSection {
+    width: 100%;
+    height: 45vh;
+    box-sizing: border-box;
+    display: flex;
+    border: 1px solid black;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding-left: 3rem;
+    padding-bottom: 3rem;
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.imgContainer {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+}
+
+.imgContainer > img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+
+.blackOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65);
+}
+
+
+.infoWrapper {
+    z-index: 7;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 90%;
+    gap: .5rem;
+}
+
+.infoWrapper > .headerTxt {
+    font-size: 4rem;
+    font-weight: 500;
+}
+
+.infoWrapper .postedTime {
+    display: flex;
+    align-items: center;
+    justify-self: flex-start;
+    gap: 1rem;
+    padding-top: .5rem;
+    font-size: 13px;
+}
+
+
+.newsBodySection {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 3rem;
+}
+
+.newsBody {
+    min-width: 50%;
+    max-width: 60vw;
+}
+
+.txtContent {
+    box-sizing: border-box;
+    width: 100%;
+    height: max-content;
+    overflow-x: hidden;
+    word-wrap: break-word;
+    text-align: left;
+}
+
+
+
+.moreNewsSection {
+    display: grid;
+    width: 100vw;
+    min-height: 50vh;
+    height: 100%;
+    padding: 2rem ;
+    box-sizing: border-box;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 1rem;
+    column-gap: 1rem;
 }

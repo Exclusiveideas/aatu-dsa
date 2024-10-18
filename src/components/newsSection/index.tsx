@@ -1,5 +1,4 @@
-'use client';
-
+"use client";
 
 import React from "react";
 import "./newsSection.css";
@@ -11,8 +10,7 @@ const NewsSection = () => {
 
   const gotoAllNews = () => {
     router.push("/all-news");
-  }
-  
+  };
 
   return (
     <div className="newsSection">
@@ -30,10 +28,10 @@ const NewsSection = () => {
           <NewsPreview topP />
         </div>
         <div className="newslesserPriority">
-        <NewsPreview />
-        <NewsPreview />
-        <NewsPreview />
-        <NewsPreview />
+          <NewsPreview />
+          <NewsPreview />
+          <NewsPreview />
+          <NewsPreview />
         </div>
       </div>
     </div>
