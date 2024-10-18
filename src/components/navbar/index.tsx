@@ -3,9 +3,10 @@ import React from "react";
 import './navbar.css'
 import Link from "next/link";
 
-const Navbar = () => {
+
+const Navbar = ({ allNewsPage }: any) => {
   return (
-    <div className="navbarWrapper">
+    <div className={`navbarWrapper ${allNewsPage && 'solid'}`}>
       <a href="/" className="logoWrapper">
         <Image
           src={'/logo.png'} 

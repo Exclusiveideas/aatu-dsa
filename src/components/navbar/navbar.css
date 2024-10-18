@@ -14,6 +14,11 @@
     width: 100vw;
     height: max-content;
     padding-right: 4rem;
+    margin-top: .5rem;
+}
+
+.navbarWrapper.solid {
+  position: static;
 }
 
 .logoWrapper {
@@ -22,7 +27,7 @@
 
 .portalBtn {
     padding: .8rem 2.5rem;
-    background-color: var(--button-tertiary);
+    background-color: #ffa2a2;
     font-size: 17px;
     cursor: pointer;
     display: flex;
@@ -37,7 +42,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: #f7a65031;
+    background-color: #ffa2a24f;
     z-index: -1;
     animation: pulsate 1.3s infinite; /* pulsating animation */
 }
