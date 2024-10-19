@@ -8,12 +8,15 @@ import GiteIcon from "@mui/icons-material/Gite";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
 import LogoutIcon from "@mui/icons-material/Logout";
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import HomeComp from "@/components/studentPortalComp/home";
 import RoomComp from "@/components/studentPortalComp/room";
 import HRulesComp from "@/components/studentPortalComp/hRules";
 import SRulesComp from "@/components/studentPortalComp/sRules";
 import OyshaComp from "@/components/studentPortalComp/oysha";
+
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 
 const navOpts = [
   {
@@ -86,6 +89,11 @@ const StudentPortal = () => {
     return;
   }
 
+  const student = {
+    mail: "muftau@gmail.com",
+    name: "Sanusi Adebayo",
+  };
+
   return (
     <div className="stdPortal">
       <div className="vertNavbar">
@@ -126,6 +134,28 @@ const StudentPortal = () => {
         </div>
       </div>
       <div className="navContentWrapper">
+        <div className="topBarWrapper">
+          <Tooltip title={`${student?.mail}`}>
+            <IconButton>
+              <img
+                src="/mail_unread.svg"
+                alt="mail icon"
+                className="mail_icon"
+              />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={`${student?.name}`}>
+            <IconButton>
+              <div className="profilePicCirc">
+                <img
+                  src="/me.jpg"
+                  alt="profile picture"
+                  className="profilePic"
+                />
+              </div>
+            </IconButton>
+          </Tooltip>
+        </div>
         {activeOpt == 0 && <HomeComp />}
         {activeOpt == 1 && <RoomComp />}
         {activeOpt == 2 && <HRulesComp />}

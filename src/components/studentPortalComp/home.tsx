@@ -23,12 +23,6 @@ const HomeComp = () => {
 
   return (
     <div className="sPortalHome">
-      <div className="topBarWrapper">
-        <img src="/mail_unread.svg" alt="mail icon" className="mail_icon" />
-        <div className="profilePicCirc">
-          <img src="/me.jpg" alt="profile picture" className="profilePic" />
-        </div>
-      </div>
       <div className="bodySection">
         <div className="bodySection_Top">
           <h2 className="welcomeTxt">Welcome back {user?.fullName}</h2>
