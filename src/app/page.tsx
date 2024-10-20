@@ -1,8 +1,19 @@
-import Image from "next/image";
+
 import styles from "./page.module.css";
 import HeroSection from "@/components/heroSection/index";
 import NewsSection from "@/components/newsSection/index";
-import Footer from "@/components/footer";
+import { Skeleton } from "@mui/material";
+import dynamic from "next/dynamic";
+
+
+const DynamicFooter = dynamic(() => import('@/components/footer'), {
+  loading: () => (
+    <div className={styles.footerSkeleton}>
+      <Skeleton variant="rounded" width={"100%"} height={"100%"} />
+    </div>
+  )
+})
+
 
 const HomePage = () => {
   return (
@@ -14,7 +25,7 @@ const HomePage = () => {
         <NewsSection />
       </main>
       <footer className={styles.footer}>
-        <Footer />
+        <DynamicFooter />
       </footer>
     </div>
   );

@@ -80,7 +80,7 @@ export const handleAuthTypeTransition = (authImgRef: any, moveableWrapRef: any, 
 
 
 export function validateStepOne( updatedInfo: any, setFormErr: any ) {
-  const { fullName, matric, email, programme, level } = updatedInfo;
+  const { fullName, matric, email, programme, faculty } = updatedInfo;
 
   // Full Name validation
   if (fullName.length < 5) {
@@ -113,22 +113,15 @@ export function validateStepOne( updatedInfo: any, setFormErr: any ) {
     return false;
   }
 
-  // University Programme validation
-  if (programme === '' || programme.length < 5) {
+  // University Faculty validation
+  if (faculty === '' || faculty.length < 5) {
     setFormErr('Correct University Programme is required');
     return false;
   }
 
-  // Current Level validation
-  if (level === '') {
-    alert('Current Level is required');
-    return false;
-  }
-  
-  const validLevels = ['100', '200', '300', '400', '500'];
-
-  if(!validLevels.includes(level)) {
-    setFormErr('Invalid programme level.')
+  // University Programme validation
+  if (programme === '' || programme.length < 5) {
+    setFormErr('Correct University Programme is required');
     return false;
   }
 
@@ -136,7 +129,34 @@ export function validateStepOne( updatedInfo: any, setFormErr: any ) {
   return true
 }
 
-export function validateStepThree(password: string, confirmPassword: string, setPassErr: any ) {
+export function validateStepThree(level: string, gender: string, password: string, setPassErr: any ) {
+
+  // level validation
+  if (!level) {
+    setPassErr('Your current Level is required');
+    return false;
+  }
+  
+  const validLevels = ['100', '200', '300', '400', '500'];
+
+  if(!validLevels.includes(level)) {
+    setPassErr('Invalid programme level.')
+    return false;
+  }
+
+  // gender validation
+  if (gender === '') {
+    setPassErr('Your gender is required');
+    return false;
+  }
+  
+  const validGenders = ['male', 'female'];
+
+  if(!validGenders.includes(gender)) {
+    setPassErr('Invalid programme level.')
+    return false;
+  }
+
 
   // Password validation
   if (password === '') {
@@ -151,11 +171,20 @@ export function validateStepThree(password: string, confirmPassword: string, set
     setPassErr('Password must contain both letters and numbers');
     return false;
   }
-  if (password !== confirmPassword) {
-    setPassErr('Passwords do not match');
-    return false;
-  }
 
   // If all checks pass
+  return true;
+}
+
+
+export function validateAllInfo( finalFormData: any, setRegisterError: any ) {
+  const { fullName, matric, email, faculty, programme, level, gender, password } = finalFormData;
+
+  const stepOneVal = validateStepOne({ fullName, matric, email, programme, faculty }, setRegisterError);
+  if(!stepOneVal) return false;
+  
+  const stepThreeVal = validateStepThree( level, gender, password , setRegisterError);
+  if(!stepThreeVal) return false;
+
   return true;
 }

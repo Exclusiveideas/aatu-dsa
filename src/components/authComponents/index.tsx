@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 import Image from "next/image";
 import { StepOne, StepThree, StepTwo } from "@/components/signUpSteps";
-import { nextProcess, prevProcess, setRef } from "@/utils/functions";
+import { nextProcess, prevProcess, setRef, validateAllInfo } from "@/utils/authFunctions";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { loginData, signUpData } from "@/types/auth";
@@ -15,11 +15,21 @@ import { v4 as uuidv4 } from "uuid";
 import { storage } from "../../firebase/firebaseConfig";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { CircularProgress } from "@mui/material";
+import useAuthStore from "@/store/authStore";
 
-export const LoginComp = ({ setAuthLogin, router }: any) => {
+
+
+
+export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen }: any) => {
   const [toggleShow, settoggleShow] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [islogging, setIslogging] = useState(false);
+
+
+  // global state
+  const updateIsAuthenticated = useAuthStore((state) => state.updateIsAuthenticated);
+  const updateStudent = useAuthStore((state) => state.updateStudent);
+  const updateToken = useAuthStore((state) => state.updateToken);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -32,15 +42,24 @@ export const LoginComp = ({ setAuthLogin, router }: any) => {
   };
 
   const loginUser = async (formData: loginData) => {
-    const response = await signIn(formData);
+    const response: any  = await signIn(formData);
+
     if (response?.status != 200) {
       setLoginError(response?.error);
       setIslogging(false);
       return;
     }
+    const fetchedStudent = response?.user.data
+
 
     // save user details
-    // response?.user
+    updateIsAuthenticated(true);
+    updateStudent(fetchedStudent?.result);
+    updateToken(fetchedStudent?.token);
+    
+
+    setIslogging(false);
+    setSnackbarOpen(true);
 
     router.push("/portal/student");
   };
@@ -123,32 +142,53 @@ export const LoginComp = ({ setAuthLogin, router }: any) => {
   );
 };
 
+
+
+
 export const SignUpComp = ({
   signUpStep,
   setSignUpStep,
   stepsRef,
   setAuthLogin,
   router,
+  setSnackbarOpen
 }: any) => {
   const [signUpInfo, setSignUpInfo] = useState({
     fullName: "",
     matric: "",
     email: "",
+    faculty: "",
     programme: "",
     imageLink: "",
+    level: '',
+    gender: "",
     password: "",
   });
   const [uploadImage, setUploadImage] = useState(null);
   const [registerError, setRegisterError] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
 
+  
+  // global state
+  const updateIsAuthenticated = useAuthStore((state) => state.updateIsAuthenticated);
+  const updateStudent = useAuthStore((state) => state.updateStudent);
+  const updateToken = useAuthStore((state) => state.updateToken);
+
   const createUser = async (formData: signUpData) => {
     setIsRegistering(true);
+
+    // one last form validation
+    const finalValidation = validateAllInfo(formData, setRegisterError);
+    if(!finalValidation) return false;
+
     uploadPic(formData);
   };
 
   const uploadPic = (formData: signUpData) => {
-    if (!uploadImage) return;
+    if (!uploadImage) {
+      setIsRegistering(false);
+      return;
+    }
 
     const storageRef = ref(storage, `studentPictures/${uuidv4()}`);
     const uploadTask = uploadBytesResumable(storageRef, uploadImage);
@@ -164,11 +204,9 @@ export const SignUpComp = ({
       () => {
         getDownloadURL(uploadTask.snapshot.ref)
           .then((downloadURL) => {
-            // console.log('File available at', downloadURL);
             uploadNewUser(downloadURL, formData);
           })
           .catch((error) => {
-            // console.error('Failed to get download URL:', error);
             setRegisterError("Failed to get download URL - try again.");
             setIsRegistering(false);
           });
@@ -181,7 +219,6 @@ export const SignUpComp = ({
       ...formData,
       imageLink: userImage,
     };
-    //   console.log('updated; ', updatedSignUpInfo)
     const response: any = await signUp(updatedSignUpInfo);
 
     if (response?.status != 200) {
@@ -190,12 +227,16 @@ export const SignUpComp = ({
       return;
     }
 
-    console.log("newUser: ", response);
+    const createdStudent = response?.user.data
 
     // save user details
-    // response?.user
+    updateIsAuthenticated(true);
+    updateStudent(createdStudent?.result);
+    updateToken(createdStudent?.token);
+
 
     setIsRegistering(false);
+    setSnackbarOpen(true);
 
     router.push("/portal/student");
   };
@@ -213,7 +254,7 @@ export const SignUpComp = ({
           height={150}
           alt="tech-u logo"
           className="logo"
-        />
+        /> 
       </a>
       <h2>Create your account</h2>
       <div className="formBox">
@@ -250,11 +291,3 @@ export const SignUpComp = ({
     </>
   );
 };
-
-
-
-// matric: 1125/23/1/014
-// pass: Hunteraurum304
-
-
-// add forgot password

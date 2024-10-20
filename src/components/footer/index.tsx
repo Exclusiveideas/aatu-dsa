@@ -26,13 +26,13 @@ const Footer = () => {
               target="_blank"
               className="creditsTxt"
             >
-              Muftau
+              Muftau Jimoh
             </a>
           </p>
           <p className="developer">
             Designed By:{" "}
             <a
-              href="https://muftau-scripts.web.app/"
+              href="https://thestudio21.webflow.io/"
               rel="noopener noreferrer"
               target="_blank"
               className="creditsTxt"

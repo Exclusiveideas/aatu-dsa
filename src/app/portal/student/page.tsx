@@ -1,14 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./student.css";
 import Image from "next/image";
-import BedIcon from "@mui/icons-material/Bed";
-import GiteIcon from "@mui/icons-material/Gite";
-import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
-import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
 import LogoutIcon from "@mui/icons-material/Logout";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import HomeComp from "@/components/studentPortalComp/home";
 import RoomComp from "@/components/studentPortalComp/room";
 import HRulesComp from "@/components/studentPortalComp/hRules";
@@ -17,82 +12,30 @@ import OyshaComp from "@/components/studentPortalComp/oysha";
 
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
+import useAuthStore from "@/store/authStore";
+import { useRouter } from "next/navigation";
+import { navOpts } from "@/utils/constant";
 
-const navOpts = [
-  {
-    name: "Home",
-    Icon: (
-      <HomeOutlinedIcon
-        sx={{
-          color: "black",
-          cursor: "pointer",
-          fontSize: "25px",
-        }}
-      />
-    ),
-  },
-  {
-    name: "My Room",
-    Icon: (
-      <BedIcon
-        sx={{
-          color: "black",
-          cursor: "pointer",
-          fontSize: "25px",
-        }}
-      />
-    ),
-  },
-  {
-    name: "Hostel Rules & Reg",
-    Icon: (
-      <GiteIcon
-        sx={{
-          color: "black",
-          cursor: "pointer",
-          fontSize: "25px",
-        }}
-      />
-    ),
-  },
-  {
-    name: "School Rules & Reg",
-    Icon: (
-      <SchoolOutlinedIcon
-        sx={{
-          color: "black",
-          cursor: "pointer",
-          fontSize: "25px",
-        }}
-      />
-    ),
-  },
-  {
-    name: "OYSHIA",
-    Icon: (
-      <HealthAndSafetyIcon
-        sx={{
-          color: "black",
-          cursor: "pointer",
-          fontSize: "25px",
-        }}
-      />
-    ),
-  },
-];
+
 
 const StudentPortal = () => {
   const [activeOpt, setActiveOpt] = useState(0);
+  
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const logout = useAuthStore((state) => state.logout);
+  const studentInfo = useAuthStore((state) => state.student);
 
-  function Logout() {
-    console.log("logging out...");
-    return;
+  const router = useRouter();
+
+  function logOutStudent() {
+    logout();
   }
 
-  const student = {
-    mail: "muftau@gmail.com",
-    name: "Sanusi Adebayo",
-  };
+
+  useEffect(() => {
+    if(!isAuthenticated) router.push("/portal/auth");
+  }, [isAuthenticated])
+  
 
   return (
     <div className="stdPortal">
@@ -121,7 +64,7 @@ const StudentPortal = () => {
           ))}
         </div>
         <div className="vnBottomSect">
-          <div className="vnOption" onClick={Logout}>
+          <div className="vnOption" onClick={logOutStudent}>
             <LogoutIcon
               sx={{
                 color: "black",
@@ -135,7 +78,7 @@ const StudentPortal = () => {
       </div>
       <div className="navContentWrapper">
         <div className="topBarWrapper">
-          <Tooltip title={`${student?.mail}`}>
+          <Tooltip title={`${studentInfo?.email}`}>
             <IconButton>
               <img
                 src="/mail_unread.svg"
@@ -144,7 +87,7 @@ const StudentPortal = () => {
               />
             </IconButton>
           </Tooltip>
-          <Tooltip title={`${student?.name}`}>
+          <Tooltip title={`${studentInfo?.fullName}`}>
             <IconButton>
               <div className="profilePicCirc">
                 <img

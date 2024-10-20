@@ -37,7 +37,7 @@ export const signUp = async (formData: any) => {
     } catch (err: any) {
         return {
             status: err?.response?.status || '',
-            error: err?.response?.data?.message || 'Problem registering user - reload page'
+            error: err?.response?.data?.message || 'Problem registering user to the server - Try again.'
         }
     }
     

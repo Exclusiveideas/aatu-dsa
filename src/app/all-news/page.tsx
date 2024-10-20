@@ -3,69 +3,85 @@
 import React, { useEffect, useState } from "react";
 import "./allNews.css";
 import Navbar from "@/components/navbar";
-import { CircularProgress } from "@mui/material";
-import Footer from "@/components/footer";
+import { CircularProgress, Skeleton } from "@mui/material";
 
-import { firestore } from "../../firebase/firebaseConfig";
 import NewsPreview from "@/components/newsPreview";
+import useNewsStore from "@/store/newsStore";
+import { fetchNews } from "@/utils/newsFunctions";
+import dynamic from "next/dynamic";
+
+const DynamicFooter = dynamic(() => import('@/components/footer'), {
+  loading: () => (
+    <div className="footerSkeleton">
+      <Skeleton variant="rounded" width={"100%"} height={"100%"} />
+    </div>
+  )
+})
+
+
 
 const AllNewsPage = () => {
   const [fetchError, setFetchError] = useState("");
-
-  const [newsItems, setNewsItems] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(12);
+  const [newsItems, setNewsItems] = useState<Array<any>>([]);
   const [loading, setLoading] = useState(false);
-  const [lastDoc, setLastDoc] = useState(null);
+
+  const fetchedNews = useNewsStore((state) => state.fetchedNews);
+  const isFetching = useNewsStore((state) => state.isFetching);
+  const fetchNewsError = useNewsStore((state) => state.fetchNewsError);
+
+
+  const lastDoc = useNewsStore((state) => state.lastDoc);
+  const updateFetchedNews = useNewsStore((state) => state.updateFetchedNews);
+  const updateLastDoc = useNewsStore((state) => state.updateLastDoc);
+  const updateFetchedNewsError = useNewsStore((state) => state.updateFetchedNewsError);
+  const updateIsFetching = useNewsStore((state) => state.updateIsFetching);
 
   useEffect(() => {
     // Fetch the initial news items
-    // fetchNews();
-  }, []);
-
-  const fetchNews = async () => {
-    setLoading(true);
-    try {
-      const newsCollection = firestore
-        .collection("news")
-        .orderBy("date", "desc")
-        .limit(12);
-      const snapshot = lastDoc
-        ? await newsCollection.startAfter(lastDoc).get()
-        : await newsCollection.get();
-      const news = snapshot.docs.map((doc: any) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setNewsItems((prevNewsItems) => [...prevNewsItems, ...news]);
-      setLastDoc(snapshot.docs[snapshot.docs.length - 1]);
-    } catch (error) {
-      console.error("Error fetching news:", error);
-      setFetchError("Error fetching news - Try reloading the page.");
-    } finally {
-      setLoading(false);
+    if (!fetchedNews[0]) {
+      fetchNews({ lastDoc, updateFetchedNews, updateLastDoc, updateFetchedNewsError, updateIsFetching });
+    } else {
+      setNewsItems([...fetchedNews])
     }
-  };
+  }, [fetchedNews]);
+
+
 
   const loadMoreNews = () => {
-    setVisibleCount((prevVisibleCount) => prevVisibleCount + 12);
-    fetchNews();
+    setLoading(true);
+    fetchNews({ lastDoc, updateFetchedNews, updateLastDoc, updateFetchedNewsError, updateIsFetching });
   };
+
+  useEffect(() => {
+    setLoading(isFetching);
+  }, [isFetching])
+
+  useEffect(() => {
+    setFetchError(fetchNewsError);
+  }, [fetchNewsError])
+
 
   return (
     <div className="allNewsWrapper">
       <Navbar newPage />
-      <div className="newsCollection">
-        {/* {newsItems?.slice(0, visibleCount).map((newsItem) => (
-          <NewsPreview key={newsItem.id} {...newsItem} />
-        ))} */}
-        {Array.from({ length: 12 }).map(() => (
-          <NewsPreview allNewsPage={true} />
-        ))}
-      </div>
+      {newsItems[0] ? (
+        <div className="newsCollection">
+          {newsItems?.map((news, index) => (
+            <NewsPreview key={index} news={news} allNewsPage={true} />
+          ))}
+        </div>
+      ) : (
+        <div className="newsCollection">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <Skeleton key={index} variant="rounded" animation="wave" width={"100%"} height={"100%"} />
+          ))}
+
+        </div>
+      )}
       <div className="loadMoreWrapper">
         {newsItems[0] && (
           <div className="loadMoreBtn" onClick={loadMoreNews}>
-            {!loading && visibleCount < newsItems.length ? ( // checks if there are more news items to display than the currently visible count
+            {!loading ? (
               <>
                 <p>Load More</p>
               </>
@@ -73,10 +89,10 @@ const AllNewsPage = () => {
               <CircularProgress size="13px" className="circularProgress" />
             )}
           </div>
-        )} 
-        {fetchError && <p className="selectFile">{fetchError}</p>}
+        )}
+        {fetchError && <p className="errorText">{fetchError}</p>}
       </div>
-      <Footer />
+      <DynamicFooter />
     </div>
   );
 };
