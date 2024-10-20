@@ -14,7 +14,7 @@ const HeroSection = () => {
           <h1>Welcome to the Student Hostel Portal!</h1>
           <p>
             This website has been designed for the Dean of Student Affairs
-            department to keep you informed and updated with all essential
+            to keep you informed and updated with all essential
             information regarding your hostel experience.
           </p>
           <div className="heroBtn">

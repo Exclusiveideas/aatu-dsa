@@ -15,6 +15,7 @@ const Footer = () => {
             height={80}
             alt="tech-u logo"
             className="logo"
+            priority={true}
           />
         </a>
         <div className="credits">

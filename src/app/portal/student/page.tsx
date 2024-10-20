@@ -48,6 +48,7 @@ const StudentPortal = () => {
               height={150}
               alt="tech-u logo"
               className="logo"
+              priority={true}
             />
           </a>
         </div>

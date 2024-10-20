@@ -1,9 +1,7 @@
 import { NewsState } from "@/types/new";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 const useNewsStore = create<NewsState>()(
-  persist(
     (set) => ({
       fetchedNews: [],
       lastDoc: null,
@@ -26,10 +24,7 @@ const useNewsStore = create<NewsState>()(
           isFetching: isFetching,
         })),
     }),
-    {
-      name: "fetched-News",
-    }
-  )
 );
+
 
 export default useNewsStore;

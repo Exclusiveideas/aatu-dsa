@@ -77,6 +77,7 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen }: any) => {
           height={150}
           alt="tech-u logo"
           className="logo"
+          priority={true}
         />
       </a>
       <h2>Login to your account</h2>
@@ -254,6 +255,7 @@ export const SignUpComp = ({
           height={150}
           alt="tech-u logo"
           className="logo"
+          priority={true}
         /> 
       </a>
       <h2>Create your account</h2>

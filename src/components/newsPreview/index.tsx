@@ -1,22 +1,15 @@
 import HistoryIcon from "@mui/icons-material/History";
 import "../newsSection/newsSection.css";
 import { useRouter } from "next/navigation";
-
-const NewsPreview = ({ topP, firstTopP, allNewsPage }: any) => {
+ 
+const NewsPreview = ({ topP, firstTopP, allNewsPage, news }: any) => {
   const router = useRouter();
-
-  let headerTxt = "Hostel Orientation for New Students";
-  let shortDesc =
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum dolorum aperiam vitae accusantium nam quaerat officiis nobis doloribus tempora cum in, praesentium, impedit ea beatae rem, magnam eveniet ducimus ipsum.";
-  let createdOn = "1 Oct 2024";
 
   let maxLen = topP ? 120 : 60;
   let newsBgImg = "/welcome.jpeg";
- 
-  const newsID = "sampleID";
 
   const gotoSingleNewsPage = () => {
-    router.push(`/all-news/news?newsID=${newsID}`);
+    if(news?.id) router.push(`/all-news/news?newsID=${news?.id}`);
   };
 
   return (
@@ -33,7 +26,7 @@ const NewsPreview = ({ topP, firstTopP, allNewsPage }: any) => {
         <img src={newsBgImg} alt="news image" />
       </div>
       <div className="infoWrapper" style={{ gap: topP ? ".5rem" : ".2rem" }}>
-        <h4 style={{ fontSize: topP ? (firstTopP ?  "3.2rem" : "2.7rem") : "2.1rem" }}>{headerTxt}</h4>
+        <h4 style={{ fontSize: topP ? (firstTopP ?  "3.2rem" : "2.7rem") : "2.1rem" }}>{news?.title.stringValue || "No Title"}</h4>
         <p
           style={{
             fontSize: topP ? "13px" : "11px",
@@ -41,7 +34,7 @@ const NewsPreview = ({ topP, firstTopP, allNewsPage }: any) => {
           }}
           className="shortDesc"
         >
-          {shortDesc.slice(0, maxLen - 3) + "..."}
+          {news?.message?.stringValue? (news?.message?.stringValue)?.slice(0, maxLen - 3) + "..." : "Now preview description for this news"}
         </p>
         <div
           style={{
@@ -63,7 +56,7 @@ const NewsPreview = ({ topP, firstTopP, allNewsPage }: any) => {
               fontSize: "13px",
             }}
           />
-          <p>{createdOn}</p>
+          <p>{news?.createdOn || "No timestamp"}</p>
         </div>
       </div>
     </div>

@@ -10,3 +10,11 @@ export interface NewsState {
     updateFetchedNewsError: (fetchNewsError: string) => void;
     updateIsFetching: (isFetching: boolean) => void;
   }
+
+export interface FetchNewsProps {
+  lastDoc: any | null; // Firestore document snapshot type
+  updateFetchedNews: (news: any[]) => void;
+  updateLastDoc: (doc: any) => void;
+  updateFetchedNewsError: (error: string) => void;
+  updateIsFetching: (isFetching: boolean) => void;
+}

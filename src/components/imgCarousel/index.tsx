@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import "./imageCarousel.css";
+import Image from "next/image";
 
 const ImageCarousel = () => {
   const [index, setIndex] = useState(0);
