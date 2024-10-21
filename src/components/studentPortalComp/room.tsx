@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ArrowLeftOutlinedIcon from "@mui/icons-material/ArrowLeftOutlined";
 import ArrowRightOutlinedIcon from "@mui/icons-material/ArrowRightOutlined";
 import { Checkbox } from "@mui/material";
+import './sPortal.css';
+import HostelCard from "./hostelCard";
 
 const cardInfos = [
   [
@@ -26,6 +28,9 @@ const cardInfos = [
 const RoomComp = () => {
   const [alertCounter, setAlertCounter] = useState(1);
 
+  const assignedRoom = "El-salem, Block C upper bunkA";
+
+
   const changeCounter = (dir: string) => {
     if (dir == "next") {
       setAlertCounter((prevCount: any) =>
@@ -39,8 +44,8 @@ const RoomComp = () => {
   };
 
   return (
-    <div className="sPortalRoom">
-      <div className="sPR_InfoWrapper">
+    <div className="cardWrapper">
+      <div className="card_InfoWrapper">
         {alertCounter < 5 ? (
           <InfoCard
             cardInfos={cardInfos}
@@ -48,14 +53,16 @@ const RoomComp = () => {
             changeCounter={changeCounter}
           />
         ) : (
-          <HostelCard changeCounter={changeCounter} />
+          <HostelCard cardTitle={'Important Info'} leftArrowClicked={changeCounter} cardText={`You’ve been allocated to ${assignedRoom}.`} downloadUrl={''} fileName={''}/>
         )}
       </div>
-    </div>
+    </div> 
   );
 };
 
 export default RoomComp;
+
+
 
 const InfoCard = ({ cardInfos, alertCounter, changeCounter }: any) => {
   const [checked, setChecked] = useState(false);
@@ -126,31 +133,4 @@ const InfoCard = ({ cardInfos, alertCounter, changeCounter }: any) => {
   );
 };
 
-const HostelCard = ({ changeCounter }: any) => {
-  const assignedRoom = "El-salem, Block C upper bunkA";
 
-  const downloadAssignedRoom = () => {};
-
-  return (
-    <div className="sPR_infoCardCont">
-      <h3 className="cardTitle">Important Info</h3>
-      <div className="card_body">
-        <p>You’ve been allocated to {assignedRoom}.</p>
-      </div>
-      <div className="hostelBottom">
-        <div className="counterIcon" onClick={() => changeCounter("back")}>
-          <ArrowLeftOutlinedIcon
-            sx={{
-              color: "black",
-              cursor: "pointer",
-              fontSize: "134x",
-            }}
-          />
-        </div>
-        <div className="continueBtn" onClick={downloadAssignedRoom}>
-          <p>Download</p>
-        </div>
-      </div>
-    </div>
-  );
-};

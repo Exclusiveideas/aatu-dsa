@@ -122,7 +122,7 @@
 
 /* roomComp */
 
-.sPortalRoom {
+.cardWrapper {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
@@ -132,8 +132,7 @@
     justify-content: center;
 }
 
-.sPR_InfoWrapper {
-    /* border: 1px solid black; */
+.card_InfoWrapper {
     width: 45%;
 }
 
@@ -233,7 +232,7 @@
     cursor: pointer;
     color: white;
     border: 1px solid transparent;
-    transition: background-color 0.4s ease-in;
+    transition: background-color 0.4s ease-in, color 0.4s ease-in;
     background-color: #ca0202c9;
 }
 
@@ -271,3 +270,5 @@
     width: 100%;
     height: 20%;
 }
+
+/* Hostel Rules Component Styles */

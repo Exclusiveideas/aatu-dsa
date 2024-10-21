@@ -26,9 +26,9 @@
     flex: .8;
     height: 100vh;
     padding: 1rem;
-    padding-bottom: 0;
-    /* border: 1px solid black; */
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 .vnTopSect {

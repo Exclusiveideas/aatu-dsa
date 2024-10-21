@@ -1,8 +1,18 @@
 import React from 'react'
+import './sPortal.css';
+import HostelCard from './hostelCard';
 
 const HRulesComp = () => {
+
+  const downloadUrl = '';
+  const fileName = 'Hostel Rules and Regulations'
+
   return (
-    <div>HRulesComp</div>
+    <div className='cardWrapper'>
+      <div className="card_InfoWrapper">
+        <HostelCard cardTitle={'Download The Hostel Rules'} cardText={"Click the button to doownload the university hostel rules and regulations."} downloadUrl={downloadUrl} fileName={fileName} />
+      </div>
+    </div>
   )
 }
 

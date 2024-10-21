@@ -23,9 +23,10 @@ export const signIn = async (formData: loginData) => {
         const user = await API.post('/auth/login', formData)
         return { status: 200, user }
     } catch (err: any) {
+        console.log("err: ", err)
         return {
-            status: err.response.status,
-            error: err.response.data.message
+            status: err?.response?.status || 500,
+            error: err?.response?.data?.message || err?.message || 'Problem logging user to the server - Try again.'
         }
     }
     
@@ -36,8 +37,8 @@ export const signUp = async (formData: any) => {
         return { status: 200, user }
     } catch (err: any) {
         return {
-            status: err?.response?.status || '',
-            error: err?.response?.data?.message || 'Problem registering user to the server - Try again.'
+            status: err?.response?.status || 500,
+            error: err?.response?.data?.message || err?.message || 'Problem registering user to the server - Try again.'
         }
     }
     
