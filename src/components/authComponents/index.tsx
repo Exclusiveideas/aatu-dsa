@@ -22,6 +22,7 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMe
   const [toggleShow, settoggleShow] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [islogging, setIslogging] = useState(false);
+  const [switched, setSwitched] = useState(false);
   const stepsRef = useRef([]);
 
 
@@ -87,6 +88,12 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMe
     setAuthLogin(false);
   };
 
+  const changeAltLogin = (dir: string) => {
+    setSwitched(prevState => dir =='next' ? true: false)
+    switchAltLogin({ dir, stepsRef});
+  }
+
+
   return (
     <div className="loginComp">
       <a href="/">
@@ -99,18 +106,21 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMe
           priority={true}
         />
       </a>
-      <h2>Login to your account</h2>
+      <h2>{!switched ? 'Login to your account': 'Reset your password'}</h2>
       <div className="formBox login">
         <div ref={(el: any) => setRef(el, 0, stepsRef)} className="altCont">
-          <Login changeAltLogin={() => switchAltLogin({ dir: "next", stepsRef})} handleSubmit={handleSubmit} setLoginError={setLoginError} toggleShow={toggleShow} settoggleShow={settoggleShow} loginError={loginError} gotoSignUp={gotoSignUp} islogging={islogging} />
+          <Login changeAltLogin={changeAltLogin} handleSubmit={handleSubmit} setLoginError={setLoginError} toggleShow={toggleShow} settoggleShow={settoggleShow} loginError={loginError} gotoSignUp={gotoSignUp} islogging={islogging} />
         </div>
         <div ref={(el: any) => setRef(el, 1, stepsRef)} className="altCont">
-          <ForgotPassword changeAltLogin={() => switchAltLogin({ dir: "prev", stepsRef})} handleSubmit={handleSubmit} setLoginError={setLoginError} toggleShow={toggleShow} settoggleShow={settoggleShow} loginError={loginError} islogging={islogging} />
+          <ForgotPassword changeAltLogin={changeAltLogin} handleSubmit={handleSubmit} setLoginError={setLoginError} toggleShow={toggleShow} settoggleShow={settoggleShow} loginError={loginError} islogging={islogging} />
         </div>      
       </div>
     </div>
   );
-};
+}
+
+
+
 
 
 

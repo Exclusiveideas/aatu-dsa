@@ -73,7 +73,7 @@ const AllNewsPage = () => {
       ) : (
         <div className="newsCollection">
           {Array.from({ length: 8 }).map((_, index) => (
-            <Skeleton key={index} variant="rounded" animation="wave" width={"100%"} height={"100%"} />
+            <Skeleton key={index} variant="rounded" animation="wave" className="skeletonClass" />
           ))}
 
         </div>

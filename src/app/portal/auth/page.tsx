@@ -2,13 +2,14 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import "./auth.css";
-import { handleAuthTypeTransition, uploadNewUser } from "@/utils/authFunctions";
+import { handleAuthTypeTransition } from "@/utils/authFunctions";
 import { useRouter } from "next/navigation";
 import Snackbar from '@mui/material/Snackbar';
 import Fade from '@mui/material/Fade';
 
 import { LoginComp, SignUpComp } from "@/components/authComponents";
 import useAuthStore from "@/store/authStore";
+import useWindowWidth from "../../../../hooks/useWindowWidth";
 
 const AuthPage = () => {
   const [authLogin, setAuthLogin] = useState(true);
@@ -19,17 +20,22 @@ const AuthPage = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackBarMessage, setSnackbarMessage] = useState('Redirecting you now...');
 
+  const smallerWindow = useWindowWidth();
+
   const router = useRouter();
 
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   useEffect(() => {
-    handleAuthTypeTransition(authImgRef, moveableWrapRef, authLogin);
-  }, [authLogin]);
+    if(!smallerWindow) handleAuthTypeTransition(authImgRef, moveableWrapRef, authLogin);
+  }, [authLogin, smallerWindow]);
 
-  useEffect(() => {
+
+  useEffect(() => { 
     if (isAuthenticated) router.push("/portal/student");
   }, [isAuthenticated]);
+
+  
 
   return (
     <div className="authPage">

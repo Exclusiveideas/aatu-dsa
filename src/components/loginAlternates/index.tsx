@@ -81,7 +81,7 @@ export const Login = ({
             )}
           </button>
         </div>
-        <p className="forgotPassText" onClick={changeAltLogin}>
+        <p className="forgotPassText" onClick={() => changeAltLogin('next')}>
           Forgot your password? click here.
         </p>
       </form>
@@ -258,7 +258,7 @@ export const ForgotPassword = ({
           </div>
           {loginError && <p className="selectFile">{loginError}</p>}
           <div className="formBtns">
-            <div className="authBtn alternate" onClick={changeAltLogin}>
+            <div className="authBtn alternate" onClick={() => changeAltLogin('back')}>
               Sign In
             </div>
             <button className="authBtn" type="submit">

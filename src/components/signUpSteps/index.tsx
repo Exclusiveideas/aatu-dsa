@@ -251,7 +251,7 @@ export const StepThree = ({
 
   const handleLevelChange = (event: {
     target: { value: React.SetStateAction<string> };
-  }) => {
+  }) => { 
     setLevel(event.target.value);
   };
 
@@ -317,6 +317,7 @@ export const StepThree = ({
             <MenuItem value={'300'}>300</MenuItem>
             <MenuItem value={'400'}>400</MenuItem>
             <MenuItem value={'500'}>500</MenuItem>
+            <MenuItem value={'spillover'}>Spillover</MenuItem>
           </Select>
         </FormControl>
       </div>

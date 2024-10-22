@@ -96,15 +96,11 @@ export function validateStepOne( updatedInfo: any, setFormErr: any ) {
   }
 
   // Matric Number validation
-  if (matric === '') {
-    setFormErr('Matric Number is required.');
+  if (matric === '' || matric.length < 8) {
+    setFormErr('Correct Matric or Reg Number is required.');
     return false;
   }
-  // Check if the input contains only digits and slashes
-  if (!/^[\d/]+$/.test(matric) || matric.length < 8) {
-    setFormErr('Matric Number should be in right format.');
-    return false;
-  }
+
 
   // Email validation
   if (email === '') {
@@ -152,7 +148,7 @@ export function validateStepThree(level: string, gender: string, password: strin
     return false;
   }
   
-  const validLevels = ['100', '200', '300', '400', '500'];
+  const validLevels = ['100', '200', '300', '400', '500', 'spillover'];
 
   if(!validLevels.includes(level)) {
     setPassErr('Invalid programme level.')

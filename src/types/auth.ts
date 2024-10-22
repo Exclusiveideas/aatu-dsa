@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 export interface loginAltProps {
-  changeAltLogin: () => void;
+  changeAltLogin: (dir: string) => void;
   handleSubmit: (e: any, action: string) => void;
   loginError: string;
   setLoginError: Dispatch<SetStateAction<string>>;
@@ -12,7 +12,7 @@ export interface loginAltProps {
 }
 
 export interface forgotPassProps {
-  changeAltLogin: () => void;
+  changeAltLogin: (dir: string) => void;
   handleSubmit: (e: any, action: string) => void;
   loginError: string;
   setLoginError: Dispatch<SetStateAction<string>>;
