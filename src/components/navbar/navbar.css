@@ -61,3 +61,53 @@
       opacity: 0;
     }
   }
+
+
+
+
+  /* Media Queries */
+
+
+/* @media (max-width: 480px) {
+  .portalBtnWrapper {
+    display: none;
+  }
+
+  .logoWrapper {
+    transform: scale(.8);
+  }
+} */
+
+
+
+@media (max-width: 550px) {
+  .portalBtnWrapper {
+    display: none;
+  }
+
+  .logoWrapper {
+    transform: scale(.8);
+  }
+}
+
+
+@media (max-width: 768px) {
+  .portalBtnWrapper {
+    transform: scale(.8);
+  }
+
+  .logoWrapper {
+    transform: scale(.9);
+  }
+}
+
+
+@media (max-width: 1200px) {
+  .portalBtnWrapper {
+    transform: scale(1);
+  }
+
+  .logoWrapper {
+    transform: scale(1);
+  }
+}

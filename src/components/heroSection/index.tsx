@@ -5,7 +5,7 @@ import Navbar from "../navbar";
 import Link from "next/link";
 
 const HeroSection = () => {
-  return (
+  return ( 
     <div className="heroSectWrapper">
       <Navbar />
       <ImageCarousel />
@@ -19,7 +19,7 @@ const HeroSection = () => {
           </p>
           <div className="heroBtn">
           <Link href="/portal/auth" className="portalBtn">
-            {/* <div className="pulsatingBox"></div> */}
+            <div className="pulsatingBox"></div>
             Portal
         </Link>
           </div>

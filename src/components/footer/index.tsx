@@ -3,7 +3,7 @@ import "./footer.css";
 import Image from "next/image";
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear(); 
 
   return (
     <div className="footerWrapper">
@@ -43,7 +43,6 @@ const Footer = () => {
           </p>
         </div>
       </div>
-
       <div className="copyrightInfo">
         <p>&copy; copyright {currentYear}</p>
       </div>

@@ -10,23 +10,17 @@ const NewsPreview = ({ topP, firstTopP, allNewsPage, news }: any) => {
 
   const gotoSingleNewsPage = () => {
     if(news?.id) router.push(`/all-news/news?newsID=${news?.id}`);
-  };
+  }; 
+
 
   return (
-    <div
-      className="newsPreview"
-      style={{
-        flex: topP ? (firstTopP ? ".6" : ".4") : "1",
-        paddingBottom: topP ? "3rem" : "1.5rem",
-        minHeight: allNewsPage && "350px",
-      }}
-    > 
+    <div className={`newsPreview ${topP ? 'topP': ''} ${firstTopP ? 'firstTopP' : ''} ${allNewsPage ? 'allNewsPage' : ''}`}> 
       <div className="bgImageCont">
         <div className="blackOverlay"></div>
         <img src={newsBgImg} alt="news image" />
       </div>
-      <div className="infoWrapper" style={{ gap: topP ? ".5rem" : ".2rem" }}>
-        <h4 style={{ fontSize: topP ? (firstTopP ?  "3.2rem" : "2.7rem") : "2.1rem" }}>{news?.title.stringValue || "No Title"}</h4>
+      <div className={`infoWrapper ${topP && 'topP'}`}>
+        <h4 className={`newsTitle ${topP ? 'topPTxt': ''} ${firstTopP ? 'firstTopPTxt': ''}`}>{news?.title.stringValue || "No Title"}</h4>
         <p
           style={{
             fontSize: topP ? "13px" : "11px",

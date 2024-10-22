@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import "./imageCarousel.css";
-import Image from "next/image";
 
 const ImageCarousel = () => {
   const [index, setIndex] = useState(0);
@@ -27,10 +26,10 @@ const ImageCarousel = () => {
           <img
             src={`/${image}`}
             alt={`carousel image ${i}`}
-            style={{ width: "100%", height: "100%" }}
+            className="carouselImage"
           />
         </div>
-      ))}
+      ))} 
     </div>
   );
 };

@@ -49,6 +49,10 @@
   padding: .9rem 2.5rem;
 }
 
+.heroBtn > .portalBtn > .pulsatingBox {
+  display: none;
+}
+
 
 
 @keyframes fade {
@@ -96,3 +100,75 @@
     animation-delay: .5s;
     margin-top: -25px;
   }
+
+
+
+
+  
+  
+
+/* Media Queries */
+
+
+
+@media (max-width: 550px) {
+
+  .heroInfo {
+    padding-left: 0rem;
+  }
+
+  .infoBox {
+    align-items: center;
+    justify-content: center;
+
+    padding: .8rem;
+    text-align: center;
+    gap: 1.3rem;
+  }
+
+  .infoBox h1 {
+    font-size: 13vw;
+    margin-top: 0;
+    width: 100%;
+  }
+
+  .infoBox p {
+    font-size: 3vw;
+    line-height: 4.5vw;
+    max-width: 100%;
+  }
+
+
+  .heroBtn>.portalBtn {
+    transform: scale(.9);
+  }
+
+  .heroBtn>.portalBtn>.pulsatingBox {
+    display: flex;
+    transform: scale(.8);
+  }
+
+  .arrowContainer {
+    gap: 1.3vw;
+  }
+  .arrow {
+    width: 8vw;
+  }
+  
+
+}
+
+
+@media (min-width: 1400px) {
+  .infoBox h1 {
+    font-size: 5vw;
+    margin-top: 0;
+    width: 100%;
+  }
+
+  .infoBox p {
+    font-size: 1vw;
+    line-height: 1.3vw;
+    max-width: 60%;
+  }
+}

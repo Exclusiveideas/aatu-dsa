@@ -12,7 +12,7 @@ const Navbar = ({ newPage }: any) => {
           src={'/logo.png'} 
           width={190}
           height={80}
-          alt="tech-u logo"
+          alt="tech-u logo" 
           className='logo'
           priority={true}
         />
@@ -22,7 +22,6 @@ const Navbar = ({ newPage }: any) => {
             <div className="pulsatingBox"></div>
             Portal
         </Link>
-        
       </div>
     </div>
   );
