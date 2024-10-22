@@ -3,12 +3,13 @@ import "../../app/portal/auth/auth.css";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { CircularProgress, FormControl, FormHelperText } from "@mui/material";
+import { CircularProgress, FormControl } from "@mui/material";
 import { validateStepOne, validateStepThree } from "@/utils/authFunctions";
 
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { FACULTY_LIST, PROGRAMMES_LIST } from "@/utils/constant";
 
 
 
@@ -23,6 +24,22 @@ import Select from "@mui/material/Select";
 
 export const StepOne = ({ nextProcess, setAuthLogin, setSignUpInfo }: any) => {
   const [formErr, setFormErr] = useState("");
+  const [faculty, setFaculty] = React.useState('');
+  const [programme, setProgramme] = React.useState('');
+
+
+  const handleFacultyChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setFaculty(event.target.value);
+  };
+
+  const handleProgrameChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setProgramme(event.target.value);
+  };
+
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -31,8 +48,8 @@ export const StepOne = ({ nextProcess, setAuthLogin, setSignUpInfo }: any) => {
       fullName: e?.target[0].value,
       matric: e?.target[1].value,
       email: e?.target[2].value,
-      faculty: e?.target[3].value,
-      programme: e?.target[4].value,
+      faculty: faculty,
+      programme: programme,
     };
 
     const validated = validateStepOne(updatedInfo, setFormErr);
@@ -82,20 +99,38 @@ export const StepOne = ({ nextProcess, setAuthLogin, setSignUpInfo }: any) => {
         />
       </div>
       <div className="formInput">
-        <input
-          placeholder="Faculty"
-          required
-          className="inputBox"
-          onFocus={clearErr}
-        />
+        <FormControl sx={{ width: "100%" }}>
+          <InputLabel id="faculty-select-label">Faculty</InputLabel>
+          <Select
+            labelId="faculty-select-label"
+            id="faculty-select"
+            value={faculty}
+            label="faculty"
+            onChange={handleFacultyChange}
+            onFocus={clearErr}
+          >
+            {FACULTY_LIST?.map((faculty, index) => (
+              <MenuItem key={index} value={faculty}>{faculty}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
       <div className="formInput">
-        <input
-          placeholder="Programme"
-          required
-          className="inputBox"
-          onFocus={clearErr}
-        />
+        <FormControl sx={{ width: "100%" }}>
+          <InputLabel id="programme-select-label">Programme</InputLabel>
+          <Select
+            labelId="programme-select-label"
+            id="programme-select"
+            value={programme}
+            label="programme"
+            onChange={handleProgrameChange}
+            onFocus={clearErr}
+          >
+            {PROGRAMMES_LIST?.map((programme, index) => (
+              <MenuItem key={index} value={programme}>{programme}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
       {formErr && <p className="selectFile">{formErr}</p>}
       <div className="formBtns">
@@ -265,7 +300,7 @@ export const StepThree = ({
   }, [isRegistering]);
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="stepThree">
       <div className="formInput">
         <FormControl sx={{ width: "100%" }}>
           <InputLabel id="level-select-label">Level</InputLabel>

@@ -76,15 +76,23 @@ h2 {
     font-size: 1.5rem;
     font-weight: 200;
     margin-top: .5rem;
+    align-self: center;
 }
 
 .formBox {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    min-width: 40%;
     box-sizing: border-box;
     margin-top: 2.3rem;
+    position: relative;
+    width: 100%;
+}
+
+.formBox.login {
+    overflow-x: hidden;
+    height: 100%;
+    box-sizing: border-box;
     position: relative;
 }
 
@@ -97,6 +105,7 @@ form {
     flex-direction: column;
     width: 100%;
     height: 100%;
+    /* border: 1px solid black; */
 }
 
 .formInput {
@@ -125,10 +134,11 @@ form {
     font-size: 13px;
     border: none;
     cursor: pointer;
-    margin-top: .7rem;
     color: white;
     border: 1px solid transparent;
     transition: all 0.4s ease-in;
+    flex: 1;
+    min-width: 210px;
 }
 
 .authBtn.alternate {
@@ -165,13 +175,12 @@ form {
     transition: all .8s ease-in-out;    
     opacity: 0;
     box-sizing: border-box;
-    width: max-content;
+    width: 100%;
 }
 
 .stepCont:nth-of-type(1) {
     opacity: 1;
     margin-top: 1rem; 
-    width: 100%;
 }
 
 .stepCont:nth-of-type(2) {
@@ -190,12 +199,11 @@ form {
 .stepTwo {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: .7rem;
     align-items: center;
     justify-content: center;
     margin-top: 2rem;
     box-sizing: border-box;
-    padding: .5rem;
 }
 
 .addImgCirc {
@@ -210,10 +218,12 @@ form {
     cursor: pointer;
     position: relative;
     z-index: 8;
+    box-sizing: border-box;
 }
 
 .tapTxt {
     font-size: 13px;
+    margin-top: 1rem;
 }
 
 
@@ -246,14 +256,14 @@ form {
 
 
 
-  .formBtns {
+.formBtns {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     margin-top: 1rem;
     box-sizing: border-box;
-    gap: 1rem;
+    gap: .5rem;
   }
 
 
@@ -290,4 +300,56 @@ form {
 
 .selectFile.stepThree {
     margin-top: 1rem;
+}
+
+.signUpcomp {
+    overflow-x: hidden;
+    height: 100%;
+    box-sizing: border-box;
+    /* width: max-content; */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.stepThree {
+    width: 100%;
+    flex: 1;
+}
+
+.loginComp {
+    overflow-x: hidden;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 100%;     
+}
+
+/* Alt login  styles */
+
+.altCont {
+    transition: all .8s ease-in-out;    
+    opacity: 0;
+}
+
+.altCont:nth-of-type(1) {
+    opacity: 1;
+    margin-top: 1rem; 
+}
+
+.altCont:nth-of-type(2) {
+    position: absolute;
+    left: 100%;
+    top: 1rem;
+    width: 100%;
+}
+
+.forgotPassText {
+    font-size: 13px;
+    align-self: center;
+    margin-top: 2rem;
+    text-decoration: underline;
+    cursor: pointer;
+    text-transform: capitalize;
 }

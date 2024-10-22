@@ -1,29 +1,28 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 import { StepOne, StepThree, StepTwo } from "@/components/signUpSteps";
-import { nextProcess, prevProcess, setRef, validateAllInfo } from "@/utils/authFunctions";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { loginData, signUpData } from "@/types/auth";
-import { signIn, signUp } from "@/api";
+import { switchAltLogin, nextProcess, prevProcess, setRef, validateAllInfo } from "@/utils/authFunctions";
+import { loginData, signUpCompProps, signUpData } from "@/types/auth";
+import { resetPassword, signIn, signUp } from "@/api";
 import { registerStepDesc } from "@/utils/constant";
 import { v4 as uuidv4 } from "uuid";
 
 import { storage } from "../../firebase/firebaseConfig";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { CircularProgress } from "@mui/material";
 import useAuthStore from "@/store/authStore";
+import { ForgotPassword, Login } from "../loginAlternates";
 
 
 
 
-export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen }: any) => {
+export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMessage }: any) => {
   const [toggleShow, settoggleShow] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [islogging, setIslogging] = useState(false);
+  const stepsRef = useRef([]);
 
 
   // global state
@@ -31,14 +30,17 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen }: any) => {
   const updateStudent = useAuthStore((state) => state.updateStudent);
   const updateToken = useAuthStore((state) => state.updateToken);
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
+  const handleSubmit = (e: any, action: string) => {
     setIslogging(true);
 
-    loginUser({
-      matric: e.target[0].value,
-      password: e.target[1].value,
-    });
+    if (action == 'login') {
+      loginUser({
+        matric: e.target[0].value,
+        password: e.target[1].value,
+      });
+    } else {
+      resetUserPassword(e);
+    }
   };
 
   const loginUser = async (formData: loginData) => {
@@ -64,12 +66,29 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen }: any) => {
     router.push("/portal/student");
   };
 
+
+  const resetUserPassword = async(e: any) => {
+    const response: any  = await resetPassword(e);
+
+    if (response?.status != 200) {
+      setLoginError(response?.error);
+      setIslogging(false);
+      return;
+    } else {
+      setIslogging(false);
+      setSnackbarMessage("Password reset was successful - Don't forget your new password")
+      setSnackbarOpen(true);
+    }
+    
+    setTimeout(() => window && window?.location.reload(), 1000);
+  }
+
   const gotoSignUp = () => {
     setAuthLogin(false);
   };
 
   return (
-    <>
+    <div className="loginComp">
       <a href="/">
         <Image
           src={"/logo.png"}
@@ -81,67 +100,19 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen }: any) => {
         />
       </a>
       <h2>Login to your account</h2>
-      <div className="formBox">
-        <form onSubmit={handleSubmit}>
-          <div className="formInput">
-            <input
-              placeholder="Matric No./Reg No."
-              required
-              className="inputBox"
-              onFocus={() => setLoginError("")}
-            />
-          </div>
-          <div className="formInput thirdFormInput">
-            <div
-              className="visibilityCont"
-              onClick={() => settoggleShow((prev) => !prev)}
-            >
-              {!toggleShow ? (
-                <RemoveRedEyeIcon
-                  sx={{
-                    color: "black",
-                    cursor: "pointer",
-                    fontSize: "20px",
-                  }}
-                />
-              ) : (
-                <VisibilityOffIcon
-                  sx={{
-                    color: "black",
-                    cursor: "pointer",
-                    fontSize: "20px",
-                  }}
-                />
-              )}
-            </div>
-            <input
-              placeholder="Password"
-              type={toggleShow ? "text" : "password"}
-              required
-              className="inputBox"
-              onFocus={() => setLoginError("")}
-            />
-          </div>
-          {loginError && <p className="selectFile">{loginError}</p>}
-          <div className="formBtns">
-            <div className="authBtn alternate" onClick={gotoSignUp}>
-              Sign Up
-            </div>
-            <button className="authBtn" type="submit">
-              {islogging ? (
-                <>
-                  <CircularProgress size="13px" className="circularProgress" />
-                </>
-              ) : (
-                <p>Log In</p>
-              )}
-            </button>
-          </div>
-        </form>
+      <div className="formBox login">
+        <div ref={(el: any) => setRef(el, 0, stepsRef)} className="altCont">
+          <Login changeAltLogin={() => switchAltLogin({ dir: "next", stepsRef})} handleSubmit={handleSubmit} setLoginError={setLoginError} toggleShow={toggleShow} settoggleShow={settoggleShow} loginError={loginError} gotoSignUp={gotoSignUp} islogging={islogging} />
+        </div>
+        <div ref={(el: any) => setRef(el, 1, stepsRef)} className="altCont">
+          <ForgotPassword changeAltLogin={() => switchAltLogin({ dir: "prev", stepsRef})} handleSubmit={handleSubmit} setLoginError={setLoginError} toggleShow={toggleShow} settoggleShow={settoggleShow} loginError={loginError} islogging={islogging} />
+        </div>      
       </div>
-    </>
+    </div>
   );
 };
+
+
 
 
 
@@ -149,11 +120,10 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen }: any) => {
 export const SignUpComp = ({
   signUpStep,
   setSignUpStep,
-  stepsRef,
   setAuthLogin,
   router,
   setSnackbarOpen
-}: any) => {
+}: signUpCompProps) => {
   const [signUpInfo, setSignUpInfo] = useState({
     fullName: "",
     matric: "",
@@ -174,6 +144,9 @@ export const SignUpComp = ({
   const updateIsAuthenticated = useAuthStore((state) => state.updateIsAuthenticated);
   const updateStudent = useAuthStore((state) => state.updateStudent);
   const updateToken = useAuthStore((state) => state.updateToken);
+
+  const stepsRef = useRef([]);
+
 
   const createUser = async (formData: signUpData) => {
     setIsRegistering(true);
@@ -247,7 +220,7 @@ export const SignUpComp = ({
   }, [signUpInfo]);
 
   return (
-    <>
+    <div className="signUpcomp">
       <a href="/">
         <Image
           src={"/logo.png"}
@@ -290,6 +263,6 @@ export const SignUpComp = ({
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };

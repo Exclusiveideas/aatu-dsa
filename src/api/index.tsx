@@ -31,6 +31,8 @@ export const signIn = async (formData: loginData) => {
     }
     
 }
+
+
 export const signUp = async (formData: any) => {
     try {
         const user = await API.post('/auth/register', formData)
@@ -39,6 +41,21 @@ export const signUp = async (formData: any) => {
         return {
             status: err?.response?.status || 500,
             error: err?.response?.data?.message || err?.message || 'Problem registering user to the server - Try again.'
+        }
+    }
+    
+}
+
+export const resetPassword = async (resetPassDetails: any) => {
+
+    try {
+        const { status } = await API.patch('/auth/resetPass', resetPassDetails)
+        return { status }
+    } catch (err: any) {
+        console.log('err: ', err)
+        return {
+            status: err?.response?.status || 500,
+            error: err?.response?.data?.message || err?.message || 'Problem resetting your password - Try again.'
         }
     }
     

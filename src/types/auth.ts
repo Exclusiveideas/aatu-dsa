@@ -1,3 +1,27 @@
+import { Dispatch, SetStateAction } from "react";
+
+export interface loginAltProps {
+  changeAltLogin: () => void;
+  handleSubmit: (e: any, action: string) => void;
+  loginError: string;
+  setLoginError: Dispatch<SetStateAction<string>>;
+  toggleShow: boolean;
+  settoggleShow: Dispatch<SetStateAction<boolean>>;
+  gotoSignUp: () => void;
+  islogging: boolean;
+}
+
+export interface forgotPassProps {
+  changeAltLogin: () => void;
+  handleSubmit: (e: any, action: string) => void;
+  loginError: string;
+  setLoginError: Dispatch<SetStateAction<string>>;
+  toggleShow: boolean;
+  settoggleShow: Dispatch<SetStateAction<boolean>>;
+  islogging: boolean;
+}
+
+
 export interface loginData {
   matric: string;
   password: string;
@@ -10,6 +34,14 @@ export interface signUpData {
   programme: string;
   imgLink: string;
   password: string;
+}
+
+export interface signUpCompProps {
+  signUpStep: number;
+  setSignUpStep: Dispatch<SetStateAction<number>>;
+  setAuthLogin: Dispatch<SetStateAction<boolean>>,
+  router: any;
+  setSnackbarOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface AuthState {
@@ -37,4 +69,12 @@ export interface Student {
   updatedAt: String,
   __v: any,
   _id: String | null;
+}
+
+
+
+
+export interface switchAltLoginProps {
+  dir: string;
+  stepsRef: any;
 }

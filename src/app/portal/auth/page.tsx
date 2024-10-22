@@ -13,11 +13,11 @@ import useAuthStore from "@/store/authStore";
 const AuthPage = () => {
   const [authLogin, setAuthLogin] = useState(true);
   const [signUpStep, setSignUpStep] = useState(1);
-  const stepsRef = useRef([]);
   const authImgRef = useRef(null);
   const moveableWrapRef = useRef(null);
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackBarMessage, setSnackbarMessage] = useState('Redirecting you now...');
 
   const router = useRouter();
 
@@ -44,12 +44,11 @@ const AuthPage = () => {
       <div className="rightAuthWrapper">
         <div ref={moveableWrapRef} className="moveableWrapper">
           {authLogin ? (
-            <LoginComp setAuthLogin={setAuthLogin} router={router} setSnackbarOpen={setSnackbarOpen}/>
+            <LoginComp setAuthLogin={setAuthLogin} router={router} setSnackbarOpen={setSnackbarOpen} setSnackbarMessage={setSnackbarMessage}/>
           ) : (
             <SignUpComp
               signUpStep={signUpStep}
               setSignUpStep={setSignUpStep}
-              stepsRef={stepsRef}
               setAuthLogin={setAuthLogin}
               router={router}
               setSnackbarOpen={setSnackbarOpen}
@@ -61,7 +60,7 @@ const AuthPage = () => {
         open={snackbarOpen}
         onClose={() => setSnackbarOpen(false)}
         TransitionComponent={Fade}
-        message="Redirecting you now..."
+        message={snackBarMessage}
         autoHideDuration={300}
       />
     </div>

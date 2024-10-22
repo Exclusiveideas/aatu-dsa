@@ -1,8 +1,11 @@
+import { switchAltLoginProps } from "@/types/auth";
+import { FACULTY_LIST, PROGRAMMES_LIST } from "./constant";
+
 export const setRef = (element: any, index: number, stepsRef: any) => {
   stepsRef.current[index] = element;
 };
 
-export function handleTransition(prevStep: any, dir: any, stepsRef: any, createUser: any) {
+export function handleTransition(prevStep: number, dir: string, stepsRef: any, createUser: () => void) {
   const stepsLen = stepsRef.current?.length;
 
   if (dir == "next") {
@@ -84,22 +87,22 @@ export function validateStepOne( updatedInfo: any, setFormErr: any ) {
 
   // Full Name validation
   if (fullName.length < 5) {
-    setFormErr('Full Name is required');
+    setFormErr('Full Name is required.');
     return false;
   }
   if (!/^[a-zA-Z\s]+$/.test(fullName)) {
-    setFormErr('Full Name can only contain letters and spaces');
+    setFormErr('Full Name can only contain letters and spaces.');
     return false;
   }
 
   // Matric Number validation
   if (matric === '') {
-    setFormErr('Matric Number is required');
+    setFormErr('Matric Number is required.');
     return false;
   }
   // Check if the input contains only digits and slashes
   if (!/^[\d/]+$/.test(matric) || matric.length < 8) {
-    setFormErr('Matric Number should be in right format');
+    setFormErr('Matric Number should be in right format.');
     return false;
   }
 
@@ -109,19 +112,31 @@ export function validateStepOne( updatedInfo: any, setFormErr: any ) {
     return false;
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    setFormErr('Please enter a valid email address');
+    setFormErr('Please enter a valid email address.');
     return false;
   }
 
   // University Faculty validation
-  if (faculty === '' || faculty.length < 5) {
-    setFormErr('Correct University Programme is required');
+  if (faculty === '') {
+    setFormErr('University faculty is required.');
+    return false;
+  }
+  
+
+  if(!FACULTY_LIST.includes(faculty)) {
+    setFormErr('Invalid faculty level.')
     return false;
   }
 
+
   // University Programme validation
-  if (programme === '' || programme.length < 5) {
-    setFormErr('Correct University Programme is required');
+  if (programme === '') {
+    setFormErr('University Programme is required.');
+    return false;
+  }
+
+  if(!PROGRAMMES_LIST.includes(programme)) {
+    setFormErr('Invalid programme level.')
     return false;
   }
 
@@ -187,4 +202,59 @@ export function validateAllInfo( finalFormData: any, setRegisterError: any ) {
   if(!stepThreeVal) return false;
 
   return true;
+}
+
+
+
+
+
+export function switchAltLogin({ dir, stepsRef }: switchAltLoginProps ) {
+
+  if (dir == "next") {
+
+    // scale down the prev step
+    if (!stepsRef.current[0]) return;
+    stepsRef.current[0].style.transform = "scale(0)";
+    stepsRef.current[0].style.opacity = "0";
+
+    //slide in the next step
+
+    if (!stepsRef.current[1]) return;
+
+    stepsRef.current[1].style.opacity = "1";
+    stepsRef.current[1].style.left = "0";
+  } else {
+
+    //slide out the prev step
+    if (!stepsRef.current[1]) return;
+
+    stepsRef.current[1].style.opacity = "0";
+    stepsRef.current[1].style.left = "100%";
+
+    // scale up the next step
+    if (!stepsRef.current[0]) return;
+
+    stepsRef.current[0].style.transform = "scale(1)";
+    stepsRef.current[0].style.opacity = "1";
+  }
+}
+
+
+
+export const validateResetPasswordVals = (props: any, password: string, setLoginError: any) => {
+   // Password validation
+   if (password === "") {
+     setLoginError("Password is required");
+     return false;
+   }
+   if (password.length < 5) {
+     setLoginError("Password must be at least 5 characters long");
+     return false;
+   }
+   if (!/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) {
+     setLoginError("Password must contain both letters and numbers");
+     return false;
+   }
+
+  return validateStepOne(props, setLoginError);
 }
