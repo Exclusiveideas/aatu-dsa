@@ -54,6 +54,13 @@ export interface AuthState {
   updateToken: (token: string) => void;
 }
 
+export interface PortalState {
+  mobileNavbarOpen: boolean;
+  changePicModalOpen: boolean,
+  toggleMobileNavbar: () => void;
+  toggleChangePicModal: () => void
+}
+
 export interface Student {
   fullName: String;
   matric: String;

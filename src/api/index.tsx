@@ -60,3 +60,20 @@ export const resetPassword = async (resetPassDetails: any) => {
     }
     
 }
+
+
+export const updateStdPassport = async (updatePassportDet: any) => {
+    // console.log('details: ', updatePassportDet);
+
+    try {
+        const { status } = await API.patch('/student/updatePassport', updatePassportDet);
+        return { status }
+    } catch (err: any) {
+        console.log('err: ', err)
+        return {
+            status: err?.response?.status || 500,
+            error: err?.response?.data?.message || err?.message || 'Problem resetting your password - Try again.'
+        }
+    }
+    
+}

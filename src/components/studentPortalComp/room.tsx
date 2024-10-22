@@ -97,7 +97,6 @@ const InfoCard = ({ cardInfos, alertCounter, changeCounter }: any) => {
         )}
       </div>
       <div className="cardBottom">
-        <div className="directionDiv">
           <div className="counterIcon" onClick={() => changeCounter("back")}>
             <ArrowLeftOutlinedIcon
               sx={{
@@ -106,7 +105,6 @@ const InfoCard = ({ cardInfos, alertCounter, changeCounter }: any) => {
                 fontSize: "134x",
               }}
             />
-          </div>
         </div>
         <div className="counterDiv">
           <p>{alertCounter} of 4</p>

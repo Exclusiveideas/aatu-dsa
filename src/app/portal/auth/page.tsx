@@ -9,7 +9,7 @@ import Fade from '@mui/material/Fade';
 
 import { LoginComp, SignUpComp } from "@/components/authComponents";
 import useAuthStore from "@/store/authStore";
-import useWindowWidth from "../../../../hooks/useWindowWidth";
+import useWindowWidth from "@/utils/hooks/useWindowWidth";
 
 const AuthPage = () => {
   const [authLogin, setAuthLogin] = useState(true);

@@ -7,7 +7,7 @@ import useAuthStore from "@/store/authStore";
 
 
 const HomeComp = () => {
-  const studentInfo = useAuthStore((state) => state.student);
+  const studentInfo = useAuthStore<any>((state) => state.student);
 
 const midSectInfo = [
   {
@@ -23,13 +23,13 @@ const midSectInfo = [
     textTwo: `Programme: ${studentInfo?.programme}`,
   },
 ];
-
+ 
   return (
     <div className="sPortalHome">
       {studentInfo ? (
         <div className="bodySection">
           <div className="bodySection_Top">
-            <h2 className="welcomeTxt">Welcome back {studentInfo?.fullName}</h2>
+            <h2 className="welcomeTxt">Welcome back <span>{studentInfo?.fullName}</span></h2>
             <p className="subNote">
               School resumes on the 20th of November, 2024
             </p>
@@ -58,14 +58,14 @@ const midSectInfo = [
           </div>
         </div>
       ) : (
-        <div className="skeletonCont">
-          <Skeleton variant="rounded" animation="wave" width={"100%"} height={"30%"} />
-          <div className="midSkeleton">
-            <Skeleton variant="rounded" animation="wave" width={"30%"} height={"100%"} />
-            <Skeleton variant="rounded" animation="wave" width={"30%"} height={"100%"} />
-            <Skeleton variant="rounded" animation="wave" width={"30%"} height={"100%"} />
+        <div className="bodySection">
+          <Skeleton variant="rounded" animation="wave" className="skeletonPortalOne" />
+          <div className="bodySection_Mid">
+            <Skeleton variant="rounded" animation="wave" className="skeletonPortalTwo" />
+            <Skeleton variant="rounded" animation="wave" className="skeletonPortalTwo" />
+            <Skeleton variant="rounded" animation="wave" className="skeletonPortalTwo" />
           </div>
-          <Skeleton variant="rounded" animation="wave" width={"100%"} height={"35%"} />
+          <Skeleton variant="rounded" animation="wave" className="skeletonPortalThree" />
         </div>
       )}
     </div>

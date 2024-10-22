@@ -7,7 +7,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 
 export const registerStepDesc = [
   "Personal information",
-  "Upload your picture",
+  "Upload your passport",
   "Secure your account",
 ];
 

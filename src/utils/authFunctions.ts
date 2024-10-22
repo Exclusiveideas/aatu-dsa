@@ -1,5 +1,12 @@
 import { switchAltLoginProps } from "@/types/auth";
 import { FACULTY_LIST, PROGRAMMES_LIST } from "./constant";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { storage } from "@/firebase/firebaseConfig";
+import { v4 as uuidv4 } from "uuid";
+
+
+
+
 
 export const setRef = (element: any, index: number, stepsRef: any) => {
   stepsRef.current[index] = element;
@@ -202,8 +209,6 @@ export function validateAllInfo( finalFormData: any, setRegisterError: any ) {
 
 
 
-
-
 export function switchAltLogin({ dir, stepsRef }: switchAltLoginProps ) {
 
   if (dir == "next") {
@@ -254,3 +259,36 @@ export const validateResetPasswordVals = (props: any, password: string, setLogin
 
   return validateStepOne(props, setLoginError);
 }
+
+
+
+
+export const uploadPic = (uploadImage: any, sucessFunc: any, failFunc: any, setIsUploading:any) => {
+
+  const storageRef = ref(storage, `studentPictures/${uuidv4()}`);
+  const uploadTask = uploadBytesResumable(storageRef, uploadImage);
+
+  
+
+  uploadTask.on(
+    "state_changed",
+    null,
+    (error) => {
+      //   console.error('Upload failed:', error);
+      failFunc("Image upload failed - try again.")
+      setIsUploading(false)
+    },
+    () => {
+      getDownloadURL(uploadTask.snapshot.ref)
+        .then((downloadURL) => {
+          sucessFunc(downloadURL);
+          // uploadNewUser(downloadURL, formData);
+        })
+        .catch((error) => {
+          failFunc("Failed to get download URL - try again.")
+          setIsUploading(false)
+          // setIsRegistering(false);
+        });
+    }
+  );
+};

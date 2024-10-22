@@ -205,12 +205,12 @@ export const StepTwo = ({ nextProcess, prevProcess, setUploadImage }: any) => {
         />
       </label>
       {!file ? (
-        <p className="tapTxt">Click to upload your picture</p>
+        <p className="tapTxt">Click to upload your passport</p>
       ) : (
         <p className="tapTxt">Selected file: {file?.name}</p>
       )}
       {noSelected && (
-        <p className="selectFile">Please upload your picture to continue</p>
+        <p className="selectFile">Please upload your correct passport to continue</p>
       )}
       <div className="formBtns">
         <div className="authBtn alternate" onClick={goBack}>
