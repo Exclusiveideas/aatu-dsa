@@ -6,6 +6,8 @@ import ArrowRightOutlinedIcon from "@mui/icons-material/ArrowRightOutlined";
 import { Checkbox } from "@mui/material";
 import './sPortal.css';
 import HostelCard from "./hostelCard";
+import useAuthStore from "@/store/authStore";
+import usePortalStore from "@/store/portalStore";
 
 const cardInfos = [
   [
@@ -28,10 +30,19 @@ const cardInfos = [
 const RoomComp = () => {
   const [alertCounter, setAlertCounter] = useState(1);
 
-  const assignedRoom = "El-salem, Block C upper bunkA";
+  const studentInfo = useAuthStore((state) => state.student);
+  const toggleChangePicModal = usePortalStore(
+    (state) => state.toggleChangePicModal
+  );
+
+  const assignedRoom = studentInfo?.bedSpace ? `You've been assigned to ${studentInfo?.bedSpace}.`: "You've not been assigned any room yet.";
 
 
   const changeCounter = (dir: string) => {
+    if(alertCounter == 4 && !studentInfo?.OyshiaSubmitted) {
+      toggleChangePicModal()
+      return
+    }
     if (dir == "next") {
       setAlertCounter((prevCount: any) =>
         prevCount < 5 ? prevCount + 1 : prevCount
@@ -53,7 +64,7 @@ const RoomComp = () => {
             changeCounter={changeCounter}
           />
         ) : (
-          <HostelCard cardTitle={'Important Info'} leftArrowClicked={changeCounter} cardText={`You’ve been allocated to ${assignedRoom}.`} downloadUrl={''} fileName={''}/>
+          <HostelCard cardTitle={'Important Info'} leftArrowClicked={changeCounter} cardText={assignedRoom} downloadUrl={''} fileName={''}/>
         )}
       </div>
     </div> 

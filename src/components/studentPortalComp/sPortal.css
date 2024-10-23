@@ -107,6 +107,19 @@
     max-width: 600px;
 }
 
+.oyshiaCopy_cardWrapper {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+
+
 .sPR_infoCardCont {
     padding: 1.5rem 2.5rem;
     padding-bottom: .5rem;
@@ -243,34 +256,111 @@
 
 
 
+
+/* Oyshia Component */
+
+.oyshiaComp {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    padding-bottom: .5rem;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+
+.formCard {
+    box-sizing: border-box;
+    min-width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+
+
+    box-shadow: 9px 8px 36px 8px rgba(0, 0, 0, 0.26);
+    -webkit-box-shadow: 9px 8px 36px 8px rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 9px 8px 36px 8px rgba(0, 0, 0, 0.26);
+}
+
+h3.oyshiaTitle {
+    color: black;
+}
+
+.formsContainer {
+    width: 100%;
+}
+
+
+.oyshiaCounterWrapper {
+    /* border: 1px solid black; */
+}
+
+.oyshiaCounterWrapper>h4 {
+    border-bottom: 1px dotted black;
+    padding-bottom: .5rem;
+}
+
+.oyshiaCounterWrapper>h4>span {
+    font-size: 1.5rem;
+    color: #10835B;
+}
+.oyshiaCounterWrapper>h4>span.notAssigned {
+    color: #105983;
+    font-size: 1rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Media Queries */
 
 
 
 
 @media (max-width: 380px) {
-        
-.card_InfoWrapper {
-    max-width: 90vw;
+
+    .card_InfoWrapper {
+        max-width: 90vw;
+    }
+
+
+    .sPR_infoCardCont {
+        padding: 1.5rem .5rem;
+        gap: 1.3rem;
+    }
+
+
+    .cardBottom {
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .card_body {
+        font-size: 12px;
+    }
+
 }
 
-
-.sPR_infoCardCont {
-    padding: 1.5rem .5rem;
-    gap: 1.3rem;
-}
-
-
-.cardBottom {
-    justify-content: space-between;
-    gap: 1rem;
-}
-
-.card_body {
-    font-size: 12px;
-}
-
-}
 @media (max-width: 550px) {
 
     .bodySection {
@@ -324,10 +414,36 @@
         gap: 1.3rem;
     }
 
+    .sPR_infoCardCont .cardTitle {
+        font-size: 5vw;
+        text-align: center;
+    }
 
     .card_body {
         font-size: 13px;
     }
+
+
+    .oyshiaCounterWrapper>h4 {
+        text-align: center;
+        font-size: 3.5vw;
+    }
+
+    .oyshiaCounterWrapper>h4>span {
+        font-size: 5vw;
+        display: block;
+        margin-top: .5rem;
+    }
+
+    .oyshiaCounterWrapper>h4>span.notAssigned {
+        font-size: 3vw;
+        margin-top: .3rem;
+    }
+
+    
+h3.oyshiaTitle {
+    font-size: 4.5vw;
+}
 }
 
 @media (max-width: 979px) {

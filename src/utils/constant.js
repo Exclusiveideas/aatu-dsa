@@ -113,3 +113,17 @@ export const FACULTY_LIST = [
   "Natural and Applied Science",
   "Environmental Science",
 ]
+
+
+export const MARITALSTATUS_LIST = [
+  "Single",
+  "Married",
+  "Divorced",
+  "Widowed",
+]
+
+export const IDMEANS_LIST = [
+  "NIN",
+  "VOTERS CARD",
+  "DRIVERS LICENSE",
+]

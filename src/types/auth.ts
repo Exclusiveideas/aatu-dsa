@@ -57,8 +57,10 @@ export interface AuthState {
 export interface PortalState {
   mobileNavbarOpen: boolean;
   changePicModalOpen: boolean,
+  changeImageSelected: boolean,
   toggleMobileNavbar: () => void;
   toggleChangePicModal: () => void
+  toggleImageSelected: () => void
 }
 
 export interface Student {
@@ -74,11 +76,35 @@ export interface Student {
   bedSpace: String | null;
   createdAt: String,
   updatedAt: String,
+  OyshiaSubmitted?: boolean,
+  OyshiaDetails?: OyshiaDetails,
   __v: any,
   _id: String | null;
 }
 
-
+export interface OyshiaDetails {
+  surname: String;
+  othername: String;
+  sex: String;
+  dob: any;
+  maritalStatus: String;
+  phoneNumber: Number;
+  IDMeans: String;
+  IDNumber: Number;
+  matricNo: String;
+  emailAddress: String;
+  faculty: String;
+  department: String;
+  stateOfOrigin: String;
+  lga: String;
+  genotype: String;
+  bloodGroup: String;
+  medicalConditions: String;
+  nextOfKinName: String;
+  nextOfKinNumber: Number;
+  nextOfKinAddress: String;
+  oyshiaNumber?: Number;
+}
 
 
 export interface switchAltLoginProps {

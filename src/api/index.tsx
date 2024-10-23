@@ -23,7 +23,6 @@ export const signIn = async (formData: loginData) => {
         const user = await API.post('/auth/login', formData)
         return { status: 200, user }
     } catch (err: any) {
-        console.log("err: ", err)
         return {
             status: err?.response?.status || 500,
             error: err?.response?.data?.message || err?.message || 'Problem logging user to the server - Try again.'
@@ -52,7 +51,6 @@ export const resetPassword = async (resetPassDetails: any) => {
         const { status } = await API.patch('/auth/resetPass', resetPassDetails)
         return { status }
     } catch (err: any) {
-        console.log('err: ', err)
         return {
             status: err?.response?.status || 500,
             error: err?.response?.data?.message || err?.message || 'Problem resetting your password - Try again.'
@@ -63,16 +61,28 @@ export const resetPassword = async (resetPassDetails: any) => {
 
 
 export const updateStdPassport = async (updatePassportDet: any) => {
-    // console.log('details: ', updatePassportDet);
 
     try {
         const { status } = await API.patch('/student/updatePassport', updatePassportDet);
         return { status }
     } catch (err: any) {
-        console.log('err: ', err)
         return {
             status: err?.response?.status || 500,
             error: err?.response?.data?.message || err?.message || 'Problem resetting your password - Try again.'
+        }
+    }
+    
+}
+
+export const submitOyshiaForm = async (OyshiaForm: any) => {
+
+    try {
+        const result = await API.patch('/student/submitOyshia', OyshiaForm);
+        return { status: 200, data: result?.data}
+    } catch (err: any) {
+        return {
+            status: err?.response?.status || 500,
+            error: err?.response?.data?.message || err?.message || 'Problem submitting your OYSHIA details - Try again.'
         }
     }
     

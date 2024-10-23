@@ -2,13 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import "./student.css";
+import '../auth/auth.css'
+import '@/components/studentPortalComp/sPortal.css';
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HomeComp from "@/components/studentPortalComp/home";
 import RoomComp from "@/components/studentPortalComp/room";
 import HRulesComp from "@/components/studentPortalComp/hRules";
 import SRulesComp from "@/components/studentPortalComp/sRules";
-import OyshaComp from "@/components/studentPortalComp/oysha";
+import OyshiaComp from "@/components/studentPortalComp/oyshia";
 
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
@@ -38,6 +40,13 @@ const StudentPortal = () => {
   const toggleChangePicModal = usePortalStore(
     (state) => state.toggleChangePicModal
   );
+  const toggleImageSelected = usePortalStore(
+    (state) => state.toggleImageSelected
+  );
+  const changeImageSelected = usePortalStore(
+    (state) => state.changeImageSelected
+  );
+
 
   const router = useRouter();
 
@@ -46,13 +55,26 @@ const StudentPortal = () => {
   }
 
 
+
   useEffect(() => {
-    if (!isAuthenticated) router.push("/portal/auth");
-  }, [isAuthenticated]);
+    if (!isAuthenticated) {
+      const timeoutId = setTimeout(() => {
+        router.push("/portal/auth");
+      }, 2000);
+
+      
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isAuthenticated, router]);
 
   useEffect(() => {
     if (mobileNavbarOpen) toggleMobileNavbar();
   }, [activeOpt]);
+
+  const handlePicClicked = () => {
+    toggleChangePicModal()
+    toggleImageSelected()
+  }
 
 
   return (
@@ -118,7 +140,7 @@ const StudentPortal = () => {
               </IconButton>
             </Tooltip>
             <Tooltip title={`${studentInfo?.fullName}`}>
-              <IconButton onClick={toggleChangePicModal}>
+              <IconButton onClick={handlePicClicked}>
                 <div className="profilePicCirc">
                   <img
                     src={`${studentInfo?.imageLink || '/me.jpg'}`}
@@ -134,14 +156,16 @@ const StudentPortal = () => {
         {activeOpt == 1 && <RoomComp />}
         {activeOpt == 2 && <HRulesComp />}
         {activeOpt == 3 && <SRulesComp />}
-        {activeOpt == 4 && <OyshaComp />}
+        {activeOpt == 4 && <OyshiaComp />}
       </div>
       <Backdrop
         sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
         open={changePicModalOpen}
         onClick={() => {}}
       >
-        <ChangeImageComp />
+        <>
+        {changeImageSelected ? <ChangeImageComp /> : <OyshiaRequired setActiveOpt={setActiveOpt} />}
+        </>
       </Backdrop>
     </div>
   );
@@ -155,7 +179,49 @@ export default StudentPortal;
 
 
 
+const OyshiaRequired = ({setActiveOpt}: any) => {
+  const [redirecting, setRedirecting] = useState(false);
 
+  const changePicModalOpen = usePortalStore(
+    (state) => state.changePicModalOpen
+  );
+  const toggleChangePicModal = usePortalStore(
+    (state) => state.toggleChangePicModal
+  );
+
+  useEffect(() => {
+    const timeoutIds: any = [];
+  
+    if (changePicModalOpen) {
+      timeoutIds.push(
+        setTimeout(() => {
+          setRedirecting(true);
+        }, 1500)
+      );
+  
+      timeoutIds.push(
+        setTimeout(() => {
+          setActiveOpt(4);
+          toggleChangePicModal();
+          setRedirecting(false);
+        }, 3000)
+      );
+    }
+  
+    // Cleanup function to clear all timeouts when the component unmounts or changePicModalOpen changes
+    return () => {
+      timeoutIds.forEach((timeoutId: any) => clearTimeout(timeoutId));
+    };
+  }, [changePicModalOpen]);
+
+  return (
+    <div className="oyshia_cardWrapper">
+      <div className="oyshia_InfoWrapper">
+        <p>{redirecting ? "Redirecting you now..." : "You must fill out and submit your OYSHIA form first."}</p>
+      </div>
+    </div>
+  );
+};
 
 
 
@@ -180,6 +246,9 @@ const ChangeImageComp = () => {
 
   const toggleChangePicModal = usePortalStore(
     (state) => state.toggleChangePicModal
+  );
+  const toggleImageSelected = usePortalStore(
+    (state) => state.toggleImageSelected
   );
 
   const handleFileChange = (event: any) => {
@@ -234,7 +303,8 @@ const ChangeImageComp = () => {
   const closeBackDrop = () => {
     if(isUpdating) return;
 
-    toggleChangePicModal()
+    toggleChangePicModal();
+    toggleImageSelected();
   }
 
   

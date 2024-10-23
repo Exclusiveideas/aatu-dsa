@@ -8,7 +8,7 @@ const AutoRedirect = () => {
 
   useEffect(() => {
     // Automatically redirect to another page after the component mounts
-    router.push('/portal/auth'); // Change '/target-page' to your desired route
+    router.push('/portal/auth'); // 
   }, [router]);
 
   return (

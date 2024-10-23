@@ -10,7 +10,7 @@ const SRulesComp = () => {
   return (
     <div className='cardWrapper'>
       <div className="card_InfoWrapper">
-        <HostelCard cardTitle={'Download The School Rules'} cardText={"Click the button to doownload the university's rules and regulations."} downloadUrl={downloadUrl} fileName={fileName} />
+        <HostelCard cardTitle={'Download The School Rules'} cardText={"Click the button to download the university's rules and regulations."} downloadUrl={downloadUrl} fileName={fileName} />
       </div>
     </div>
   )
