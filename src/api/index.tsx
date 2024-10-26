@@ -6,7 +6,7 @@ const API = axios.create({ baseURL: process.env.NEXT_PUBLIC_SERVER_URI});
 
 
 
-export const fetchStudentData = async (matric: string) => {
+export const fetchStudentData = async (matric: String) => {
     
     if(!matric) return
 

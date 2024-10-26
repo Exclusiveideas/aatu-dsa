@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 const NewsPreview = ({ topP, firstTopP, allNewsPage, news }) => {
   const router = useRouter();
 
-  let maxLen = topP ? 120 : 60;
-  let newsBgImg = "/welcome.jpeg";
+  const maxLen = topP ? 120 : 60;
+  const newsBgImg = "/welcome.jpeg";
 
   const gotoSingleNewsPage = () => {
     if(news?.id) router.push(`/all-news/news?newsID=${news?.id}`);

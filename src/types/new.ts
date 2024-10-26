@@ -1,20 +1,19 @@
 
 
 export interface NewsState {
-    fetchedNews: Array<any>;
-    lastDoc: null | any;
-    fetchNewsError: string;
+    fetchedNews: Array;
+    lastDoc: null;
+    fetchNewsError: String;
     isFetching: boolean;
-    updateFetchedNews: (fetchedNews: Array<any>) => void;
+    updateFetchedNews: (fetchedNews: Array) => void;
     updateLastDoc: (lastDoc) => void;
-    updateFetchedNewsError: (fetchNewsError: string) => void;
+    updateFetchedNewsError: (fetchNewsError: String) => void;
     updateIsFetching: (isFetching: boolean) => void;
   }
 
 export interface FetchNewsProps {
-  lastDoc | null; // Firestore document snapshot type
   updateFetchedNews: (news[]) => void;
   updateLastDoc: (doc) => void;
-  updateFetchedNewsError: (error: string) => void;
+  updateFetchedNewsError: (error: String) => void;
   updateIsFetching: (isFetching: boolean) => void;
 }

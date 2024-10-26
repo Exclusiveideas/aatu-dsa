@@ -26,7 +26,7 @@ const ChangeImageComp = () => {
       (state) => state.changePicModalOpen
     );
   
-    const studentInfo = useAuthStore<any>((state) => state.student);
+    const studentInfo = useAuthStore((state) => state.student);
   
     const toggleChangePicModal = usePortalStore(
       (state) => state.toggleChangePicModal
@@ -66,7 +66,7 @@ const ChangeImageComp = () => {
   
       setTimeout(() => {
         toggleChangePicModal(false);
-        window && window?.location.reload();
+        window?.location.reload();
       }, 1500);
     };
   

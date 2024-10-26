@@ -10,7 +10,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import Link from "next/link";
 
 const NewsSection = () => {
-  const [availableNews, setAvailableNews] = useState<Array<any>>([])
+  const [availableNews, setAvailableNews] = useState<Array>([])
 
   const fetchedNews = useNewsStore((state) => state.fetchedNews);
   const lastDoc = useNewsStore((state) => state.lastDoc);

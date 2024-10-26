@@ -31,7 +31,7 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMe
   const updateStudent = useAuthStore((state) => state.updateStudent);
   const updateToken = useAuthStore((state) => state.updateToken);
 
-  const handleSubmit = (e, action: string) => {
+  const handleSubmit = (e, action: String) => {
     setIslogging(true);
 
     if (action == 'login') {
@@ -88,8 +88,8 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMe
     setAuthLogin(false);
   };
 
-  const changeAltLogin = (dir: string) => {
-    setSwitched(prevState => dir =='next' ? true: false)
+  const changeAltLogin = (dir: String) => {
+    setSwitched(() => dir =='next' ? true: false)
     switchAltLogin({ dir, stepsRef});
   }
 
@@ -180,8 +180,7 @@ export const SignUpComp = ({
     uploadTask.on(
       "state_changed",
       null,
-      (error) => {
-        //   console.error('Upload failed:', error);
+      () => {
         setRegisterError("Image upload failed - try again.");
         setIsRegistering(false);
       },
@@ -190,7 +189,7 @@ export const SignUpComp = ({
           .then((downloadURL) => {
             uploadNewUser(downloadURL, formData);
           })
-          .catch((error) => {
+          .catch(() => {
             setRegisterError("Failed to get download URL - try again.");
             setIsRegistering(false);
           });
@@ -198,7 +197,7 @@ export const SignUpComp = ({
     );
   };
 
-  const uploadNewUser = async (userImage: string, formData: signUpData) => {
+  const uploadNewUser = async (userImage: String, formData: signUpData) => {
     const updatedSignUpInfo = {
       ...formData,
       imageLink: userImage,

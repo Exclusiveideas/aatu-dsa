@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 
 export interface loginAltProps {
-  changeAltLogin: (dir: string) => void;
-  handleSubmit: (e, action: string) => void;
-  loginError: string;
+  changeAltLogin: (dir: String) => void;
+  handleSubmit: (e, action: String) => void;
+  loginError: String;
   setLoginError: Dispatch<SetStateAction<string>>;
   toggleShow: boolean;
   settoggleShow: Dispatch<SetStateAction<boolean>>;
@@ -12,9 +12,9 @@ export interface loginAltProps {
 }
 
 export interface forgotPassProps {
-  changeAltLogin: (dir: string) => void;
-  handleSubmit: (e, action: string) => void;
-  loginError: string;
+  changeAltLogin: (dir: String) => void;
+  handleSubmit: (e, action: String) => void;
+  loginError: String;
   setLoginError: Dispatch<SetStateAction<string>>;
   toggleShow: boolean;
   settoggleShow: Dispatch<SetStateAction<boolean>>;
@@ -23,17 +23,17 @@ export interface forgotPassProps {
 
 
 export interface loginData {
-  matric: string;
-  password: string;
+  matric: String;
+  password: String;
 }
 
 export interface signUpData {
-  fullName: string;
-  matric: string;
-  email: string;
-  programme: string;
-  imgLink: string;
-  password: string;
+  fullName: String;
+  matric: String;
+  email: String;
+  programme: String;
+  imgLink: String;
+  password: String;
 }
 
 export interface signUpCompProps {
@@ -51,7 +51,7 @@ export interface AuthState {
   logout: () => void;
   updateIsAuthenticated: (isAuthenticated: boolean) => void;
   updateStudent: (student: Student) => void;
-  updateToken: (token: string) => void;
+  updateToken: (token: String) => void;
 }
 
 export interface PortalState {
@@ -108,6 +108,6 @@ export interface OyshiaDetails {
 
 
 export interface switchAltLoginProps {
-  dir: string;
+  dir: String;
   stepsRef;
 }

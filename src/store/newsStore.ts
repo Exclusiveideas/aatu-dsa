@@ -7,7 +7,7 @@ const useNewsStore = create<NewsState>()(
       lastDoc: null,
       fetchNewsError: "",
       isFetching: false,
-      updateFetchedNews: (fetchedNews: Array<any>) =>
+      updateFetchedNews: (fetchedNews: Array) =>
         set((state) => ({
             fetchedNews: [...state.fetchedNews, ...fetchedNews ],
         })),
@@ -15,7 +15,7 @@ const useNewsStore = create<NewsState>()(
         set(() => ({
           lastDoc: lastDoc,
         })),
-      updateFetchedNewsError: (fetchNewsError: string) =>
+      updateFetchedNewsError: (fetchNewsError: String) =>
         set(() => ({
           fetchNewsError: fetchNewsError,
         })),

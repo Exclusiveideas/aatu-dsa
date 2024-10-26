@@ -28,8 +28,7 @@ export const fetchNews = async ({ lastDoc, updateFetchedNews, updateLastDoc, upd
       if(!news[0]) return;
       updateFetchedNews(news);
       updateLastDoc(snapshot.docs[snapshot.docs.length - 1]);
-    } catch (error) {
-      // console.log('err: ', error)
+    } catch () {
       updateFetchedNewsError('Error fetching news - Try reloading the page.');
     } finally {
       updateIsFetching(false);

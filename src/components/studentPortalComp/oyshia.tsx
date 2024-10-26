@@ -76,8 +76,8 @@ const FormOne = ({ studentInfo }) => {
   const [formSuccess, setFormSuccess] = useState("");
   const [maritalStatus, setMaritalStatus] = useState("");
   const [IDMeans, setIDMeans] = useState("");
-  const selectOneRef = useRef<any>(null);
-  const selectTwoRef = useRef<any>(null);
+  const selectOneRef = useRef(null);
+  const selectTwoRef = useRef(null);
 
   const updateStudent = useAuthStore((state) => state.updateStudent);
 
@@ -100,7 +100,7 @@ const FormOne = ({ studentInfo }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let OyshiaForm = {
+    const OyshiaForm = {
       maritalStatus: selectOneRef?.current?.value,
       IDMeans: selectTwoRef?.current?.value,
     };

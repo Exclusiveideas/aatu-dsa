@@ -12,7 +12,7 @@ export const setRef = (element, index: number, stepsRef) => {
   stepsRef.current[index] = element;
 };
 
-export function handleTransition(prevStep: number, dir: string, stepsRef, createUser: () => void) {
+export function handleTransition(prevStep: number, dir: String, stepsRef, createUser: () => void) {
   const stepsLen = stepsRef.current?.length;
 
   if (dir == "next") {
@@ -147,7 +147,7 @@ export function validateStepOne( updatedInfo, setFormErr ) {
   return true
 }
 
-export function validateStepThree(level: string, gender: string, password: string, setPassErr ) {
+export function validateStepThree(level: String, gender: String, password: String, setPassErr ) {
 
   // level validation
   if (!level) {
@@ -242,7 +242,7 @@ export function switchAltLogin({ dir, stepsRef }: switchAltLoginProps ) {
 
 
 
-export const validateResetPasswordVals = (props, password: string, setLoginError) => {
+export const validateResetPasswordVals = (props, password: String, setLoginError) => {
    // Password validation
    if (password === "") {
      setLoginError("Password is required");
@@ -273,8 +273,7 @@ export const uploadPic = (uploadImage, sucessFunc, failFunc, setIsUploading) => 
   uploadTask.on(
     "state_changed",
     null,
-    (error) => {
-      //   console.error('Upload failed:', error);
+    () => {
       failFunc("Image upload failed - try again.")
       setIsUploading(false)
     },
@@ -284,7 +283,7 @@ export const uploadPic = (uploadImage, sucessFunc, failFunc, setIsUploading) => 
           sucessFunc(downloadURL);
           // uploadNewUser(downloadURL, formData);
         })
-        .catch((error) => {
+        .catch(() => {
           failFunc("Failed to get download URL - try again.")
           setIsUploading(false)
           // setIsRegistering(false);

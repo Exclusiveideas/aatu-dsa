@@ -15,7 +15,7 @@ const demoImage = "/welcome.jpeg";
 
 const NewsPage = () => {
   const searchParams = useSearchParams();
-  const [currentNews, setCurrentNews] = useState<any>({});
+  const [currentNews, setCurrentNews] = useState({});
   const [extractedID, setExtractedID] = useState<string | null>(null);
 
   const fetchedNews = useNewsStore((state) => state.fetchedNews);
@@ -54,7 +54,7 @@ const NewsPage = () => {
     }
   }, [fetchedNews]);
 
-  const fetchIDNews = (id: string | null) => {
+  const fetchIDNews = (id: String | null) => {
     const filteredArray = fetchedNews?.filter((item) => item?.id == id);
     setCurrentNews({ ...filteredArray[0] });
   };

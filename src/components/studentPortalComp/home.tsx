@@ -7,7 +7,7 @@ import useAuthStore from "@/store/authStore";
 
 
 const HomeComp = () => {
-  const studentInfo = useAuthStore<any>((state) => state.student);
+  const studentInfo = useAuthStore((state) => state.student);
 
 const midSectInfo = [
   {

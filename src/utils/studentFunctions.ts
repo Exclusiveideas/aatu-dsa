@@ -2,8 +2,8 @@ import axios from "axios";
 import download from "downloadjs";
 
 export const handleDownloadFile = async (
-  downloadUrl: string,
-  fileName: string
+  downloadUrl: String,
+  fileName: String
 ) => {
   if (!downloadUrl) {
     console.log("no file to download");
