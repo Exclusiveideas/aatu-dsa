@@ -1,5 +1,4 @@
 "use client";
-import { fetchStudentData } from "@/api";
 import styles from "./page.module.css";
 import HeroSection from "@/components/heroSection/index";
 import NewsSection from "@/components/newsSection/index";

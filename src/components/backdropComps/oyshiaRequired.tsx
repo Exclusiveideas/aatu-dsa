@@ -4,7 +4,7 @@ import "../../app/portal/student/student.css";
 
 
 
-const OyshiaRequired = ({ setActiveOpt }: any) => {
+const OyshiaRequired = ({ setActiveOpt }) => {
     const [redirecting, setRedirecting] = useState(false);
   
     const changePicModalOpen = usePortalStore(
@@ -15,7 +15,7 @@ const OyshiaRequired = ({ setActiveOpt }: any) => {
     );
   
     useEffect(() => {
-      const timeoutIds: any = [];
+      const timeoutIds = [];
   
       if (changePicModalOpen) {
         timeoutIds.push(
@@ -35,7 +35,7 @@ const OyshiaRequired = ({ setActiveOpt }: any) => {
   
       // Cleanup function to clear all timeouts when the component unmounts or changePicModalOpen changes
       return () => {
-        timeoutIds.forEach((timeoutId: any) => clearTimeout(timeoutId));
+        timeoutIds.forEach((timeoutId) => clearTimeout(timeoutId));
       };
     }, [changePicModalOpen]);
   

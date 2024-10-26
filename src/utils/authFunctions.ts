@@ -8,11 +8,11 @@ import { v4 as uuidv4 } from "uuid";
 
 
 
-export const setRef = (element: any, index: number, stepsRef: any) => {
+export const setRef = (element, index: number, stepsRef) => {
   stepsRef.current[index] = element;
 };
 
-export function handleTransition(prevStep: number, dir: string, stepsRef: any, createUser: () => void) {
+export function handleTransition(prevStep: number, dir: string, stepsRef, createUser: () => void) {
   const stepsLen = stepsRef.current?.length;
 
   if (dir == "next") {
@@ -51,7 +51,7 @@ export function handleTransition(prevStep: number, dir: string, stepsRef: any, c
   }
 }
 
-export const nextProcess = (stepsRef: any, setSignUpStep: any, createUser: any) => {
+export const nextProcess = (stepsRef, setSignUpStep, createUser) => {
   const stepsLen = stepsRef.current?.length;
   setSignUpStep((prevStep: number) => {
     handleTransition(prevStep - 1, "next", stepsRef, createUser);
@@ -61,7 +61,7 @@ export const nextProcess = (stepsRef: any, setSignUpStep: any, createUser: any) 
   });
 };
 
-export const prevProcess = (stepsRef: any, setSignUpStep: any, createUser: any) => {
+export const prevProcess = (stepsRef, setSignUpStep, createUser) => {
   setSignUpStep((prevStep: number) => {
     handleTransition(prevStep, "prev", stepsRef, createUser);
 
@@ -76,7 +76,7 @@ export const uploadNewUser = () => {
 
 
 
-export const handleAuthTypeTransition = (authImgRef: any, moveableWrapRef: any, authLogin: boolean) => {
+export const handleAuthTypeTransition = (authImgRef, moveableWrapRef, authLogin: boolean) => {
   if (!authImgRef.current || !moveableWrapRef.current) return;
 
   if (!authLogin) {
@@ -89,7 +89,7 @@ export const handleAuthTypeTransition = (authImgRef: any, moveableWrapRef: any, 
 };
 
 
-export function validateStepOne( updatedInfo: any, setFormErr: any ) {
+export function validateStepOne( updatedInfo, setFormErr ) {
   const { fullName, matric, email, programme, faculty } = updatedInfo;
 
   // Full Name validation
@@ -147,7 +147,7 @@ export function validateStepOne( updatedInfo: any, setFormErr: any ) {
   return true
 }
 
-export function validateStepThree(level: string, gender: string, password: string, setPassErr: any ) {
+export function validateStepThree(level: string, gender: string, password: string, setPassErr ) {
 
   // level validation
   if (!level) {
@@ -195,7 +195,7 @@ export function validateStepThree(level: string, gender: string, password: strin
 }
 
 
-export function validateAllInfo( finalFormData: any, setRegisterError: any ) {
+export function validateAllInfo( finalFormData, setRegisterError ) {
   const { fullName, matric, email, faculty, programme, level, gender, password } = finalFormData;
 
   const stepOneVal = validateStepOne({ fullName, matric, email, programme, faculty }, setRegisterError);
@@ -242,7 +242,7 @@ export function switchAltLogin({ dir, stepsRef }: switchAltLoginProps ) {
 
 
 
-export const validateResetPasswordVals = (props: any, password: string, setLoginError: any) => {
+export const validateResetPasswordVals = (props, password: string, setLoginError) => {
    // Password validation
    if (password === "") {
      setLoginError("Password is required");
@@ -263,7 +263,7 @@ export const validateResetPasswordVals = (props: any, password: string, setLogin
 
 
 
-export const uploadPic = (uploadImage: any, sucessFunc: any, failFunc: any, setIsUploading:any) => {
+export const uploadPic = (uploadImage, sucessFunc, failFunc, setIsUploading) => {
 
   const storageRef = ref(storage, `studentPictures/${uuidv4()}`);
   const uploadTask = uploadBytesResumable(storageRef, uploadImage);

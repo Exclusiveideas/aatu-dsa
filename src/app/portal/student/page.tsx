@@ -93,7 +93,7 @@ const StudentPortal = () => {
   }, [studentInfo?.matric]); // Runs on every hard reload
 
   const fetchNewDetails = async () => {
-    const { status, student }: any = await fetchStudentData(
+    const { status, student } = await fetchStudentData(
       studentInfo?.matric
     );
     if (status != 200) return;

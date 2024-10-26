@@ -70,7 +70,7 @@ export default OyshiaComp;
 
 
 
-const FormOne = ({ studentInfo }: any) => {
+const FormOne = ({ studentInfo }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErr, setFormErr] = useState("");
   const [formSuccess, setFormSuccess] = useState("");
@@ -97,10 +97,10 @@ const FormOne = ({ studentInfo }: any) => {
     setFormErr("");
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let OyshiaForm: any = {
+    let OyshiaForm = {
       maritalStatus: selectOneRef?.current?.value,
       IDMeans: selectTwoRef?.current?.value,
     };
@@ -129,7 +129,7 @@ const FormOne = ({ studentInfo }: any) => {
       ...OyshiaForm,
     };
 
-    const submittedResult: any = await submitOyshiaForm(submissionDetails);
+    const submittedResult = await submitOyshiaForm(submissionDetails);
     
     if (submittedResult.status == 200) {
       updateStudent(submittedResult?.data.updatedStudent);

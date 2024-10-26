@@ -19,7 +19,7 @@ export const Login = ({
   islogging,
 }: loginAltProps) => {
 
-    const preHandleSubmit = (e: any) => {
+    const preHandleSubmit = (e) => {
         e.preventDefault();
         handleSubmit(e, 'login');
     }
@@ -120,7 +120,7 @@ export const ForgotPassword = ({
       setProgramme(event.target.value);
     };
 
-    const preHandleSubmit = (e: any) => {
+    const preHandleSubmit = (e) => {
         e.preventDefault();
 
         

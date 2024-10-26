@@ -2,7 +2,7 @@ import HistoryIcon from "@mui/icons-material/History";
 import "../newsSection/newsSection.css";
 import { useRouter } from "next/navigation";
  
-const NewsPreview = ({ topP, firstTopP, allNewsPage, news }: any) => {
+const NewsPreview = ({ topP, firstTopP, allNewsPage, news }) => {
   const router = useRouter();
 
   let maxLen = topP ? 120 : 60;

@@ -22,7 +22,7 @@ import { FACULTY_LIST, PROGRAMMES_LIST } from "@/utils/constant";
 // Step One component
 
 
-export const StepOne = ({ nextProcess, setAuthLogin, setSignUpInfo }: any) => {
+export const StepOne = ({ nextProcess, setAuthLogin, setSignUpInfo }) => {
   const [formErr, setFormErr] = useState("");
   const [faculty, setFaculty] = React.useState('');
   const [programme, setProgramme] = React.useState('');
@@ -41,7 +41,7 @@ export const StepOne = ({ nextProcess, setAuthLogin, setSignUpInfo }: any) => {
   };
 
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const updatedInfo = {
@@ -56,7 +56,7 @@ export const StepOne = ({ nextProcess, setAuthLogin, setSignUpInfo }: any) => {
     if (!validated) return;
 
     // update the signUp details
-    setSignUpInfo((prevInfo: any) => ({
+    setSignUpInfo((prevInfo) => ({
       ...prevInfo,
       ...updatedInfo,
     }));
@@ -155,11 +155,11 @@ export const StepOne = ({ nextProcess, setAuthLogin, setSignUpInfo }: any) => {
 
 
 
-export const StepTwo = ({ nextProcess, prevProcess, setUploadImage }: any) => {
-  const [file, setFile]: any = useState(null);
-  const [noSelected, setNoSelected]: any = useState(false);
+export const StepTwo = ({ nextProcess, prevProcess, setUploadImage }) => {
+  const [file, setFile] = useState(null);
+  const [noSelected, setNoSelected] = useState(false);
 
-  const handleFileChange = (event: any) => {
+  const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
 
@@ -239,7 +239,7 @@ export const StepThree = ({
   signUpInfo,
   setSignUpInfo,
   isRegistering,
-}: any) => {
+}) => {
   const [toggleShow, settoggleShow] = useState(false);
   const [passErr, setPassErr] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -261,7 +261,7 @@ export const StepThree = ({
     setGender(event.target.value);
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const password = passRef?.current.value;

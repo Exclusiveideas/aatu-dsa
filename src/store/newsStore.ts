@@ -11,7 +11,7 @@ const useNewsStore = create<NewsState>()(
         set((state) => ({
             fetchedNews: [...state.fetchedNews, ...fetchedNews ],
         })),
-      updateLastDoc: (lastDoc: any) =>
+      updateLastDoc: (lastDoc) =>
         set(() => ({
           lastDoc: lastDoc,
         })),

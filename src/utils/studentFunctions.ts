@@ -22,7 +22,7 @@ export const handleDownloadFile = async (
 
 
 
-export const validateOyshiaForm = (form: any, setFormErr: any) => {
+export const validateOyshiaForm = (form, setFormErr) => {
   const {
     surname,
     othername,

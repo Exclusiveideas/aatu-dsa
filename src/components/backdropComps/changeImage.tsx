@@ -16,11 +16,11 @@ import CloseIcon from "@mui/icons-material/Close";
 
 
 const ChangeImageComp = () => {
-    const [file, setFile]: any = useState(null);
-    const [noSelected, setNoSelected]: any = useState(false);
-    const [errorMessage, setErrorMessage]: any = useState("");
-    const [uploadSuccess, setUploadSuccess]: any = useState(false);
-    const [isUpdating, setIsUploading]: any = useState(false);
+    const [file, setFile] = useState(null);
+    const [noSelected, setNoSelected] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [uploadSuccess, setUploadSuccess] = useState(false);
+    const [isUpdating, setIsUploading] = useState(false);
   
     const changePicModalOpen = usePortalStore(
       (state) => state.changePicModalOpen
@@ -35,7 +35,7 @@ const ChangeImageComp = () => {
       (state) => state.toggleImageSelected
     );
   
-    const handleFileChange = (event: any) => {
+    const handleFileChange = (event) => {
       setFile(event.target.files[0]);
     };
   
@@ -51,8 +51,8 @@ const ChangeImageComp = () => {
       uploadPic(file, fileUploadSuccess, setErrorMessage, setIsUploading);
     };
   
-    const fileUploadSuccess = async (downloadUrl: any) => {
-      const updateRes: any = await updateStdPassport({
+    const fileUploadSuccess = async (downloadUrl) => {
+      const updateRes = await updateStdPassport({
         matric: studentInfo?.matric,
         downloadUrl,
       });

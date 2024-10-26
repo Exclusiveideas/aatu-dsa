@@ -6,15 +6,15 @@ export interface NewsState {
     fetchNewsError: string;
     isFetching: boolean;
     updateFetchedNews: (fetchedNews: Array<any>) => void;
-    updateLastDoc: (lastDoc: any) => void;
+    updateLastDoc: (lastDoc) => void;
     updateFetchedNewsError: (fetchNewsError: string) => void;
     updateIsFetching: (isFetching: boolean) => void;
   }
 
 export interface FetchNewsProps {
-  lastDoc: any | null; // Firestore document snapshot type
-  updateFetchedNews: (news: any[]) => void;
-  updateLastDoc: (doc: any) => void;
+  lastDoc | null; // Firestore document snapshot type
+  updateFetchedNews: (news[]) => void;
+  updateLastDoc: (doc) => void;
   updateFetchedNewsError: (error: string) => void;
   updateIsFetching: (isFetching: boolean) => void;
 }

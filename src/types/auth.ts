@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 
 export interface loginAltProps {
   changeAltLogin: (dir: string) => void;
-  handleSubmit: (e: any, action: string) => void;
+  handleSubmit: (e, action: string) => void;
   loginError: string;
   setLoginError: Dispatch<SetStateAction<string>>;
   toggleShow: boolean;
@@ -13,7 +13,7 @@ export interface loginAltProps {
 
 export interface forgotPassProps {
   changeAltLogin: (dir: string) => void;
-  handleSubmit: (e: any, action: string) => void;
+  handleSubmit: (e, action: string) => void;
   loginError: string;
   setLoginError: Dispatch<SetStateAction<string>>;
   toggleShow: boolean;
@@ -40,7 +40,7 @@ export interface signUpCompProps {
   signUpStep: number;
   setSignUpStep: Dispatch<SetStateAction<number>>;
   setAuthLogin: Dispatch<SetStateAction<boolean>>,
-  router: any;
+  router;
   setSnackbarOpen: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -78,7 +78,7 @@ export interface Student {
   updatedAt: String,
   OyshiaSubmitted?: boolean,
   OyshiaDetails?: OyshiaDetails,
-  __v: any,
+  __v,
   _id: String | null;
 }
 
@@ -86,7 +86,7 @@ export interface OyshiaDetails {
   surname: String;
   othername: String;
   sex: String;
-  dob: any;
+  dob;
   maritalStatus: String;
   phoneNumber: Number;
   IDMeans: String;
@@ -109,5 +109,5 @@ export interface OyshiaDetails {
 
 export interface switchAltLoginProps {
   dir: string;
-  stepsRef: any;
+  stepsRef;
 }

@@ -55,7 +55,7 @@ const NewsPage = () => {
   }, [fetchedNews]);
 
   const fetchIDNews = (id: string | null) => {
-    const filteredArray = fetchedNews?.filter((item: any) => item?.id == id);
+    const filteredArray = fetchedNews?.filter((item) => item?.id == id);
     setCurrentNews({ ...filteredArray[0] });
   };
 
@@ -130,7 +130,7 @@ const NewsPage = () => {
       {fetchedNews[0] ? (
         <div className="moreNewsSection">
           {getRandomNews(fetchedNews, currentNews?.id)?.map(
-            (news: any, i: any) => (
+            (news, i) => (
               <NewsPreview key={i} news={news} />
             )
           )}
@@ -155,7 +155,7 @@ const NewsPage = () => {
 
 export default NewsPage;
 
-const TextContent = ({ content }: any) => {
+const TextContent = ({ content }) => {
   const sanitizedContent = content
     .replace(/\n/g, "<br/>")
     .replace(/ /g, "&nbsp;");

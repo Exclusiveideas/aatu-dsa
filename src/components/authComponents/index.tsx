@@ -18,7 +18,7 @@ import { ForgotPassword, Login } from "../loginAlternates";
 
 
 
-export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMessage }: any) => {
+export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMessage }) => {
   const [toggleShow, settoggleShow] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [islogging, setIslogging] = useState(false);
@@ -31,7 +31,7 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMe
   const updateStudent = useAuthStore((state) => state.updateStudent);
   const updateToken = useAuthStore((state) => state.updateToken);
 
-  const handleSubmit = (e: any, action: string) => {
+  const handleSubmit = (e, action: string) => {
     setIslogging(true);
 
     if (action == 'login') {
@@ -45,7 +45,7 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMe
   };
 
   const loginUser = async (formData: loginData) => {
-    const response: any  = await signIn(formData);
+    const response  = await signIn(formData);
 
     if (response?.status != 200) {
       setLoginError(response?.error);
@@ -68,8 +68,8 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMe
   };
 
 
-  const resetUserPassword = async(e: any) => {
-    const response: any  = await resetPassword(e);
+  const resetUserPassword = async(e) => {
+    const response  = await resetPassword(e);
 
     if (response?.status != 200) {
       setLoginError(response?.error);
@@ -108,10 +108,10 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMe
       </a>
       <h2>{!switched ? 'Login to your account': 'Reset your password'}</h2>
       <div className="formBox login">
-        <div ref={(el: any) => setRef(el, 0, stepsRef)} className="altCont">
+        <div ref={(el) => setRef(el, 0, stepsRef)} className="altCont">
           <Login changeAltLogin={changeAltLogin} handleSubmit={handleSubmit} setLoginError={setLoginError} toggleShow={toggleShow} settoggleShow={settoggleShow} loginError={loginError} gotoSignUp={gotoSignUp} islogging={islogging} />
         </div>
-        <div ref={(el: any) => setRef(el, 1, stepsRef)} className="altCont">
+        <div ref={(el) => setRef(el, 1, stepsRef)} className="altCont">
           <ForgotPassword changeAltLogin={changeAltLogin} handleSubmit={handleSubmit} setLoginError={setLoginError} toggleShow={toggleShow} settoggleShow={settoggleShow} loginError={loginError} islogging={islogging} />
         </div>      
       </div>
@@ -203,7 +203,7 @@ export const SignUpComp = ({
       ...formData,
       imageLink: userImage,
     };
-    const response: any = await signUp(updatedSignUpInfo);
+    const response = await signUp(updatedSignUpInfo);
 
     if (response?.status != 200) {
       setRegisterError(response?.error);
@@ -246,21 +246,21 @@ export const SignUpComp = ({
         <p className="authStep">
           Step {signUpStep} of 3: {registerStepDesc[signUpStep - 1]}
         </p>
-        <div ref={(el: any) => setRef(el, 0, stepsRef)} className="stepCont">
+        <div ref={(el) => setRef(el, 0, stepsRef)} className="stepCont">
           <StepOne
             nextProcess={() => nextProcess(stepsRef, setSignUpStep, createUser)}
             setAuthLogin={setAuthLogin}
             setSignUpInfo={setSignUpInfo}
           />
         </div>
-        <div ref={(el: any) => setRef(el, 1, stepsRef)} className="stepCont">
+        <div ref={(el) => setRef(el, 1, stepsRef)} className="stepCont">
           <StepTwo
             nextProcess={() => nextProcess(stepsRef, setSignUpStep, createUser)}
             prevProcess={() => prevProcess(stepsRef, setSignUpStep, createUser)}
             setUploadImage={setUploadImage}
           />
         </div>
-        <div ref={(el: any) => setRef(el, 2, stepsRef)} className="stepCont">
+        <div ref={(el) => setRef(el, 2, stepsRef)} className="stepCont">
           <StepThree
             createUser={createUser}
             prevProcess={() => prevProcess(stepsRef, setSignUpStep, createUser)}

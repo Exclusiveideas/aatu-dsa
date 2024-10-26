@@ -45,11 +45,11 @@ const RoomComp = () => {
       return
     }
     if (dir == "next") {
-      setAlertCounter((prevCount: any) =>
+      setAlertCounter((prevCount) =>
         prevCount < 5 ? prevCount + 1 : prevCount
       );
     } else {
-      setAlertCounter((prevCount: any) =>
+      setAlertCounter((prevCount) =>
         prevCount > 1 ? prevCount - 1 : prevCount
       );
     }
@@ -76,7 +76,7 @@ export default RoomComp;
 
 
 
-const InfoCard = ({ cardInfos, alertCounter, changeCounter }: any) => {
+const InfoCard = ({ cardInfos, alertCounter, changeCounter }) => {
   const [checked, setChecked] = useState(false);
 
   const completeAlerts = () => {
@@ -90,7 +90,7 @@ const InfoCard = ({ cardInfos, alertCounter, changeCounter }: any) => {
       <div className="card_body">
         {alertCounter < 4 ? (
           <ul>
-            {cardInfos[alertCounter - 1]?.map((cardInfo: any, i: any) => (
+            {cardInfos[alertCounter - 1]?.map((cardInfo, i) => (
               <li key={i}>{cardInfo}</li>
             ))}
           </ul>
@@ -101,7 +101,7 @@ const InfoCard = ({ cardInfos, alertCounter, changeCounter }: any) => {
               onChange={() => setChecked((prevVal) => !prevVal)}
             />
             <p>
-              {cardInfos[3]?.map((cardInfo: any, i: any) => (
+              {cardInfos[3]?.map((cardInfo, i) => (
                 <span key={i}>{cardInfo}</span>
               ))}
             </p>

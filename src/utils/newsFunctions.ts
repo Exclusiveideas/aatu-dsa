@@ -36,9 +36,9 @@ export const fetchNews = async ({ lastDoc, updateFetchedNews, updateLastDoc, upd
     }
   };
 
-export function getRandomNews(array: any, excludedElement: any) {
+export function getRandomNews(array, excludedElement) {
   // Filter out the excluded element
-  const filteredArray = array.filter((item: any) => item.id !== excludedElement);
+  const filteredArray = array.filter((item) => item.id !== excludedElement);
 
   // Ensure the filtered array has at least 3 items
   if (filteredArray.length < 4) {
