@@ -1,22 +1,28 @@
 import { loginData } from '@/types/auth';
 import axios from 'axios';
 
-const API = axios.create({ baseURL: process.env.NEXT_PUBLIC_SERVER_URI})
-
-// API.interceptors.request.use((req) => {
-//     if(localStorage.getItem('profile')) {
-//         req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
-//     }
-
-//     return req;
-// })
+const API = axios.create({ baseURL: process.env.NEXT_PUBLIC_SERVER_URI});
 
 
-// export const fetchPosts = () => API.get('/posts');
-// export const createPost = (newPost: any) => API.post('/posts', newPost);
-// export const updatePost = (id: any, updatedPost: any) => API.patch(`/posts/${id}`, updatedPost)
-// export const deletePost = (id: any) => API.delete(`/posts/${id}`)
-// export const likePost = (id: any) => API.patch(`/posts/${id}/likePost`)
+
+
+export const fetchStudentData = async (matric: String) => {
+    
+    if(!matric) return
+
+    try {
+        const student = await API.get(`/student/fetchStudent?matric=${matric}`)
+        return { status: 200, student }
+    } catch (err: any) {
+        console.log('err: ', err)
+        return {
+            status: err?.response?.status || 500,
+            error: err?.response?.data?.message || err?.message || 'Problem logging user to the server - Try again.'
+        }
+    }
+}
+
+
 
 export const signIn = async (formData: loginData) => {
     try {

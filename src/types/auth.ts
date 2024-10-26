@@ -59,8 +59,8 @@ export interface PortalState {
   changePicModalOpen: boolean,
   changeImageSelected: boolean,
   toggleMobileNavbar: () => void;
-  toggleChangePicModal: () => void
-  toggleImageSelected: () => void
+  toggleChangePicModal: (e: boolean) => void
+  toggleImageSelected: (e: boolean) => void
 }
 
 export interface Student {

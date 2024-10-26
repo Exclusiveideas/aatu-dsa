@@ -108,7 +108,7 @@
 }
 
 .oyshiaCopy_cardWrapper {
-    width: 100%;
+    width: 45%;
     height: 100%;
     box-sizing: border-box;
     overflow-x: hidden;
@@ -444,6 +444,7 @@ h3.oyshiaTitle {
 h3.oyshiaTitle {
     font-size: 4.5vw;
 }
+
 }
 
 @media (max-width: 979px) {
@@ -466,4 +467,8 @@ h3.oyshiaTitle {
         min-width: 20vw;
         height: 100%;
     }
+    
+.oyshiaCopy_cardWrapper {
+    width: 100%;
+}
 }

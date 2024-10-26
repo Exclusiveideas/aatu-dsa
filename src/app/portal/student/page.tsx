@@ -2,9 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import "./student.css";
-import '../auth/auth.css'
-import '@/components/studentPortalComp/sPortal.css';
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import "../auth/auth.css";
+import "@/components/studentPortalComp/sPortal.css";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HomeComp from "@/components/studentPortalComp/home";
 import RoomComp from "@/components/studentPortalComp/room";
@@ -19,10 +18,21 @@ import { navOpts } from "@/utils/constant";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import usePortalStore from "@/store/portalStore";
-import { Backdrop, CircularProgress } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import { Backdrop } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { uploadPic } from "@/utils/authFunctions";
-import { updateStdPassport } from "@/api";
+import { fetchStudentData } from "@/api";
+import ChangeImageComp from "@/components/backdropComps/changeImage";
+import OyshiaRequired from "@/components/backdropComps/oyshiaRequired";
+
+
+
+
+
+
+
+
+
 
 const StudentPortal = () => {
   const [activeOpt, setActiveOpt] = useState(0);
@@ -47,6 +57,7 @@ const StudentPortal = () => {
     (state) => state.changeImageSelected
   );
 
+  const updateStudent = useAuthStore((state) => state.updateStudent);
 
   const router = useRouter();
 
@@ -54,15 +65,12 @@ const StudentPortal = () => {
     logout();
   }
 
-
-
   useEffect(() => {
     if (!isAuthenticated) {
       const timeoutId = setTimeout(() => {
         router.push("/portal/auth");
       }, 2000);
 
-      
       return () => clearTimeout(timeoutId);
     }
   }, [isAuthenticated, router]);
@@ -72,10 +80,26 @@ const StudentPortal = () => {
   }, [activeOpt]);
 
   const handlePicClicked = () => {
-    toggleChangePicModal()
-    toggleImageSelected()
-  }
+    toggleChangePicModal(true);
+    toggleImageSelected(true);
+  };
 
+  // const studentInfo = useAuthStore((state) => state.student);
+
+  useEffect(() => {
+    if (!studentInfo?.matric) return;
+
+    fetchNewDetails();
+  }, [studentInfo?.matric]); // Runs on every hard reload
+
+  const fetchNewDetails = async () => {
+    const { status, student }: any = await fetchStudentData(
+      studentInfo?.matric
+    );
+    if (status != 200) return;
+
+    student?.data.result && updateStudent(student?.data.result);
+  };
 
   return (
     <div className="stdPortal">
@@ -132,22 +156,31 @@ const StudentPortal = () => {
           <div className="mailAndPicture">
             <Tooltip title={`${studentInfo?.email}`}>
               <IconButton>
-                <img
-                  src="/mail_unread.svg"
-                  alt="mail icon"
-                  className="mail_icon"
-                />
+                <img src="/mail_unread.svg" alt=" icon" className="mail_icon" />
               </IconButton>
             </Tooltip>
+
             <Tooltip title={`${studentInfo?.fullName}`}>
               <IconButton onClick={handlePicClicked}>
-                <div className="profilePicCirc">
-                  <img
-                    src={`${studentInfo?.imageLink || '/me.jpg'}`}
-                    alt="profile picture"
-                    className="profilePic"
-                  />
-                </div>
+                {studentInfo?.imageLink ? (
+                  <div className="profilePicCirc">
+                    <img
+                      src={`${studentInfo?.imageLink || "/me.jpg"}`}
+                      alt="profile picture"
+                      className="profilePic"
+                    />
+                  </div>
+                ) : (
+                  <div className="profilePicCirc icon">
+                    <PersonIcon
+                      sx={{
+                        color: "grey",
+                        cursor: "pointer",
+                        fontSize: "25px",
+                      }}
+                    />
+                  </div>
+                )}
               </IconButton>
             </Tooltip>
           </div>
@@ -164,7 +197,11 @@ const StudentPortal = () => {
         onClick={() => {}}
       >
         <>
-        {changeImageSelected ? <ChangeImageComp /> : <OyshiaRequired setActiveOpt={setActiveOpt} />}
+          {changeImageSelected ? (
+            <ChangeImageComp />
+          ) : (
+            <OyshiaRequired setActiveOpt={setActiveOpt} />
+          )}
         </>
       </Backdrop>
     </div>
@@ -173,196 +210,3 @@ const StudentPortal = () => {
 
 export default StudentPortal;
 
-
-
-
-
-
-
-const OyshiaRequired = ({setActiveOpt}: any) => {
-  const [redirecting, setRedirecting] = useState(false);
-
-  const changePicModalOpen = usePortalStore(
-    (state) => state.changePicModalOpen
-  );
-  const toggleChangePicModal = usePortalStore(
-    (state) => state.toggleChangePicModal
-  );
-
-  useEffect(() => {
-    const timeoutIds: any = [];
-  
-    if (changePicModalOpen) {
-      timeoutIds.push(
-        setTimeout(() => {
-          setRedirecting(true);
-        }, 1500)
-      );
-  
-      timeoutIds.push(
-        setTimeout(() => {
-          setActiveOpt(4);
-          toggleChangePicModal();
-          setRedirecting(false);
-        }, 3000)
-      );
-    }
-  
-    // Cleanup function to clear all timeouts when the component unmounts or changePicModalOpen changes
-    return () => {
-      timeoutIds.forEach((timeoutId: any) => clearTimeout(timeoutId));
-    };
-  }, [changePicModalOpen]);
-
-  return (
-    <div className="oyshia_cardWrapper">
-      <div className="oyshia_InfoWrapper">
-        <p>{redirecting ? "Redirecting you now..." : "You must fill out and submit your OYSHIA form first."}</p>
-      </div>
-    </div>
-  );
-};
-
-
-
-
-
-
-
-const ChangeImageComp = () => {
-  const [file, setFile]: any = useState(null);
-  const [noSelected, setNoSelected]: any = useState(false);
-  const [errorMessage, setErrorMessage]: any = useState('');
-  const [uploadSuccess, setUploadSuccess]: any = useState(false);
-  const [isUpdating, setIsUploading]: any = useState(false);
-
-  const changePicModalOpen = usePortalStore(
-    (state) => state.changePicModalOpen
-  );
-  
-  const logout = useAuthStore((state) => state.logout);
-  
-  const studentInfo = useAuthStore<any>((state) => state.student);
-
-  const toggleChangePicModal = usePortalStore(
-    (state) => state.toggleChangePicModal
-  );
-  const toggleImageSelected = usePortalStore(
-    (state) => state.toggleImageSelected
-  );
-
-  const handleFileChange = (event: any) => {
-    setFile(event.target.files[0]);
-  };
-
-  const handleContinue = () => {
-    if (!file) {
-      setNoSelected(true);
-      return;
-    }
-    
-    setIsUploading(true);
-
-    // update the uploadImage content
-    uploadPic(file, fileUploadSuccess, setErrorMessage, setIsUploading);
-
-  };
-
-  const fileUploadSuccess = async (downloadUrl:any) => {
-    
-    console.log('downloadUrl: ', downloadUrl)
-
-    
-    const updateRes: any = await updateStdPassport({matric: studentInfo?.matric, downloadUrl});
-
-    setIsUploading(false);
-    if(updateRes?.status != 200) {
-      return
-    }
-
-    setUploadSuccess(true);
-    setTimeout(() => logout(), 1500)
-  }
-
-  useEffect(() => {
-    if (file) setNoSelected(false);
-  }, [file]);
-
-
-  useEffect(() => {
-    setIsUploading(false)
-    setNoSelected(false)
-    setFile(null)
-    setErrorMessage('')
-  }, [changePicModalOpen, uploadSuccess]);
-
-  useEffect(() => {
-    setUploadSuccess(false)
-  }, [changePicModalOpen]);
-
-  const closeBackDrop = () => {
-    if(isUpdating) return;
-
-    toggleChangePicModal();
-    toggleImageSelected();
-  }
-
-  
-
-  return (
-    <div className="changeImageComp">
-      <div className="topSect">
-        <h3>Change Your Passport</h3>
-      </div>
-      <CloseIcon
-        sx={{
-          color: "black",
-          cursor: "pointer",
-        }}
-        className="modalCloseBtn"
-        onClick={closeBackDrop}
-      />
-      <div className="bottomSect">
-        <input
-          type="file"
-          id="file"
-          accept="image/*"
-          className="file-input"
-          onChange={handleFileChange}
-        />
-        <label htmlFor="file" className="addImgCirc">
-          <div className="pulsatingBox"></div>
-          <div className="pulsatingBox"></div>
-          <PersonAddAlt1Icon
-            sx={{
-              color: "white",
-              cursor: "pointer",
-              fontSize: "250%",
-            }}
-          />
-        </label>
-        {!file ? (
-          <p className="tapTxt">Click to upload your passport</p>
-        ) : (
-          <p className="tapTxt">Selected file: {file?.name}</p>
-        )}
-        {noSelected && (
-          <p className="selectFile">Please upload your correct passport</p>
-        )}
-        {errorMessage && <p className="selectFile">{errorMessage}</p>}
-        {uploadSuccess && (
-          <p className="selectFile green">Passport Upload successful</p>
-        )}
-        <div className="formBtns">
-          <div className="authBtn" onClick={handleContinue}>
-            {isUpdating ? (
-              <CircularProgress size="13px" className="circularProgress" />
-            ) : (
-              <p>Upload</p>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};

@@ -55,7 +55,7 @@ const OyshiaComp = () => {
                 cardText={
                   "Click the button to download the physical copy of your OYSHIA form."
                 }
-                downloadUrl={downloadUrl}
+                downloadUrl={downloadUrl} 
                 fileName={fileName}
               />
           </div>

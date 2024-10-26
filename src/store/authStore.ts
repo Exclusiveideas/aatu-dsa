@@ -14,7 +14,6 @@ const useAuthStore = create<AuthState>()(
           student: null,
           token: null,
         })),
-
       updateIsAuthenticated: (isAuthenticated: boolean) =>
         set(() => ({
           isAuthenticated: isAuthenticated,

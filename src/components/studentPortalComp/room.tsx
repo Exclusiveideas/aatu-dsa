@@ -35,12 +35,13 @@ const RoomComp = () => {
     (state) => state.toggleChangePicModal
   );
 
-  const assignedRoom = studentInfo?.bedSpace ? `You've been assigned to ${studentInfo?.bedSpace}.`: "You've not been assigned any room yet.";
+
+  const assignedRoom = studentInfo?.level != '100' ? (studentInfo?.bedSpace ? `You've been assigned to ${studentInfo?.bedSpace}.`: "You've not been assigned any room yet, check again in a few minutes.") : "You're in 100 level, check in with the DSA for your allocated room.";
 
 
   const changeCounter = (dir: string) => {
     if(alertCounter == 4 && !studentInfo?.OyshiaSubmitted) {
-      toggleChangePicModal()
+      toggleChangePicModal(true)
       return
     }
     if (dir == "next") {

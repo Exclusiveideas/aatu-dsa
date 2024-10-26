@@ -10,13 +10,13 @@ const usePortalStore = create<PortalState>()(
         set((state) => ({
           mobileNavbarOpen: !state.mobileNavbarOpen,
         })),
-      toggleChangePicModal: () =>
-        set((state) => ({
-          changePicModalOpen: !state.changePicModalOpen,
+      toggleChangePicModal: (val: boolean) =>
+        set(() => ({
+          changePicModalOpen: val,
         })),
-      toggleImageSelected: () =>
-        set((state) => ({
-          changeImageSelected: !state.changeImageSelected,
+      toggleImageSelected: (val: boolean) =>
+        set(() => ({
+          changeImageSelected: val,
         })),
       
     })
