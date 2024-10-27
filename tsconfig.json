@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/utils/constant.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/utils/constant.js", "src/components/studentPortalComp/sRules.jsx", "src/components/studentPortalComp/room.jsx", "src/components/studentPortalComp/oyshia.jsx", "src/components/studentPortalComp/hRules.jsx", "src/components/studentPortalComp/hostelCard.jsx", "src/components/studentPortalComp/home.jsx", "src/components/smoothScrolling/index.jsx", "src/components/signUpSteps/index.jsx", "src/components/newsSection/index.jsx", "src/components/newsPreview/index.jsx", "src/components/navbar/index.jsx", "src/components/loginAlternates/index.jsx", "src/components/imgCarousel/index.jsx", "src/components/heroSection/index.jsx", "src/components/footer/index.jsx", "src/components/backdropComps/oyshiaRequired.jsx", "src/components/backdropComps/changeImage.jsx", "src/components/authComponents/index.jsx", "src/app/layout.jsx", "src/app/portal/page.jsx", "src/app/portal/student/page.jsx", "src/app/portal/auth/page.jsx", "src/app/all-news/page.jsx", "src/app/all-news/news/page.jsx", "src/api/index.jsx", "src/utils/studentFunctions.js", "src/utils/newsFunctions.js", "src/utils/authFunctions.js"],
   "exclude": ["node_modules"]
 }

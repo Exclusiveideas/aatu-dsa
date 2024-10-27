@@ -22,7 +22,7 @@ const DynamicFooter = dynamic(() => import('@/components/footer'), {
 
 const AllNewsPage = () => {
   const [fetchError, setFetchError] = useState("");
-  const [newsItems, setNewsItems] = useState<Array>([]);
+  const [newsItems, setNewsItems] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const fetchedNews = useNewsStore((state) => state.fetchedNews);

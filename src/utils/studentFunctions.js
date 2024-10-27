@@ -2,8 +2,8 @@ import axios from "axios";
 import download from "downloadjs";
 
 export const handleDownloadFile = async (
-  downloadUrl: string,
-  fileName: string
+  downloadUrl,
+  fileName
 ) => {
   if (!downloadUrl) {
     console.log("no file to download");
@@ -14,7 +14,7 @@ export const handleDownloadFile = async (
   const res = await axios.get(downloadUrl, {
     responseType: "blob",
   });
-  const data = res.data as Blob;
+  const data = res.data;
   download(data, filename);
 };
 

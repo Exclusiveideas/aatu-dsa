@@ -4,7 +4,7 @@ import HostelCard from './hostelCard';
 
 const SRulesComp = () => {
 
-  const downloadUrl = "https://firebasestorage.googleapis.com/v0/b/techu-dsa.appspot.com/o/files%2FsRules.pdf?alt=media";
+  const downloadUrl = process.env.NEXT_PUBLIC_SCHOOL_RULES_URL;
   const fileName = 'University Rules and Regulations'
 
   return (

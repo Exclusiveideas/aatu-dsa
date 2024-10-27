@@ -1,12 +1,11 @@
 
 import { firestore } from "@/firebase/firebaseConfig";
-import { FetchNewsProps } from "@/types/new";
 import { collection, query, limit, startAfter, getDocs } from 'firebase/firestore';
 
 
 
 
-export const fetchNews = async ({ lastDoc, updateFetchedNews, updateLastDoc, updateFetchedNewsError, updateIsFetching }: FetchNewsProps) => {
+export const fetchNews = async ({ lastDoc, updateFetchedNews, updateLastDoc, updateFetchedNewsError, updateIsFetching }) => {
     updateIsFetching(true);
 
     try {

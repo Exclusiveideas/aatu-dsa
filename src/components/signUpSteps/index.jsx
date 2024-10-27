@@ -28,15 +28,11 @@ export const StepOne = ({ nextProcess, setAuthLogin, setSignUpInfo }) => {
   const [programme, setProgramme] = React.useState('');
 
 
-  const handleFacultyChange = (event: {
-    target: { value: React.SetStateAction };
-  }) => {
+  const handleFacultyChange = (event) => {
     setFaculty(event.target.value);
   };
 
-  const handleProgrameChange = (event: {
-    target: { value: React.SetStateAction };
-  }) => {
+  const handleProgrameChange = (event) => {
     setProgramme(event.target.value);
   };
 
@@ -249,15 +245,11 @@ export const StepThree = ({
   const passRef = useRef(null);
   const confPassRef = useRef(null);
 
-  const handleLevelChange = (event: {
-    target: { value: React.SetStateAction };
-  }) => { 
+  const handleLevelChange = (event) => { 
     setLevel(event.target.value);
   };
 
-  const handleGenderChange = (event: {
-    target: { value: React.SetStateAction };
-  }) => {
+  const handleGenderChange = (event) => {
     setGender(event.target.value);
   };
 

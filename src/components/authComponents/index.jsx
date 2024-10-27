@@ -5,7 +5,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { StepOne, StepThree, StepTwo } from "@/components/signUpSteps";
 import { switchAltLogin, nextProcess, prevProcess, setRef, validateAllInfo } from "@/utils/authFunctions";
-import { loginData, signUpCompProps, signUpData } from "@/types/auth";
 import { resetPassword, signIn, signUp } from "@/api";
 import { registerStepDesc } from "@/utils/constant";
 import { v4 as uuidv4 } from "uuid";
@@ -31,7 +30,7 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMe
   const updateStudent = useAuthStore((state) => state.updateStudent);
   const updateToken = useAuthStore((state) => state.updateToken);
 
-  const handleSubmit = (e, action: string) => {
+  const handleSubmit = (e, action) => {
     setIslogging(true);
 
     if (action == 'login') {
@@ -44,7 +43,7 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMe
     }
   };
 
-  const loginUser = async (formData: loginData) => {
+  const loginUser = async (formData) => {
     const response  = await signIn(formData);
 
     if (response?.status != 200) {
@@ -88,7 +87,7 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMe
     setAuthLogin(false);
   };
 
-  const changeAltLogin = (dir: string) => {
+  const changeAltLogin = (dir) => {
     setSwitched(() => dir =='next' ? true: false)
     switchAltLogin({ dir, stepsRef});
   }
@@ -133,7 +132,7 @@ export const SignUpComp = ({
   setAuthLogin,
   router,
   setSnackbarOpen
-}: signUpCompProps) => {
+}) => {
   const [signUpInfo, setSignUpInfo] = useState({
     fullName: "",
     matric: "",
@@ -158,7 +157,7 @@ export const SignUpComp = ({
   const stepsRef = useRef([]);
 
 
-  const createUser = async (formData: signUpData) => {
+  const createUser = async (formData) => {
     setIsRegistering(true);
 
     // one last form validation
@@ -168,7 +167,7 @@ export const SignUpComp = ({
     uploadPic(formData);
   };
 
-  const uploadPic = (formData: signUpData) => {
+  const uploadPic = (formData) => {
     if (!uploadImage) {
       setIsRegistering(false);
       return;
@@ -197,7 +196,7 @@ export const SignUpComp = ({
     );
   };
 
-  const uploadNewUser = async (userImage: string, formData: signUpData) => {
+  const uploadNewUser = async (userImage, formData) => {
     const updatedSignUpInfo = {
       ...formData,
       imageLink: userImage,

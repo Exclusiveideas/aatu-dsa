@@ -1,4 +1,3 @@
-import { switchAltLoginProps } from "@/types/auth";
 import { FACULTY_LIST, PROGRAMMES_LIST } from "./constant";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "@/firebase/firebaseConfig";
@@ -8,11 +7,11 @@ import { v4 as uuidv4 } from "uuid";
 
 
 
-export const setRef = (element, index: number , stepsRef) => {
+export const setRef = (element, index , stepsRef) => {
   stepsRef.current[index] = element;
 };
 
-export function handleTransition(prevStep: number , dir: string, stepsRef, createUser: () => void) {
+export function handleTransition(prevStep , dir, stepsRef, createUser) {
   const stepsLen = stepsRef.current?.length;
 
   if (dir == "next") {
@@ -53,7 +52,7 @@ export function handleTransition(prevStep: number , dir: string, stepsRef, creat
 
 export const nextProcess = (stepsRef, setSignUpStep, createUser) => {
   const stepsLen = stepsRef.current?.length;
-  setSignUpStep((prevStep: number ) => {
+  setSignUpStep((prevStep ) => {
     handleTransition(prevStep - 1, "next", stepsRef, createUser);
 
     if (prevStep < stepsLen) return prevStep + 1;
@@ -62,7 +61,7 @@ export const nextProcess = (stepsRef, setSignUpStep, createUser) => {
 };
 
 export const prevProcess = (stepsRef, setSignUpStep, createUser) => {
-  setSignUpStep((prevStep: number ) => {
+  setSignUpStep((prevStep ) => {
     handleTransition(prevStep, "prev", stepsRef, createUser);
 
     if (prevStep > 1) return prevStep - 1;
@@ -76,7 +75,7 @@ export const uploadNewUser = () => {
 
 
 
-export const handleAuthTypeTransition = (authImgRef, moveableWrapRef, authLogin: boolean) => {
+export const handleAuthTypeTransition = (authImgRef, moveableWrapRef, authLogin) => {
   if (!authImgRef.current || !moveableWrapRef.current) return;
 
   if (!authLogin) {
@@ -147,7 +146,7 @@ export function validateStepOne( updatedInfo, setFormErr ) {
   return true
 }
 
-export function validateStepThree(level: string, gender: string, password: string, setPassErr ) {
+export function validateStepThree(level, gender, password, setPassErr ) {
 
   // level validation
   if (!level) {
@@ -209,7 +208,7 @@ export function validateAllInfo( finalFormData, setRegisterError ) {
 
 
 
-export function switchAltLogin({ dir, stepsRef }: switchAltLoginProps ) {
+export function switchAltLogin({ dir, stepsRef } ) {
 
   if (dir == "next") {
 
@@ -242,7 +241,7 @@ export function switchAltLogin({ dir, stepsRef }: switchAltLoginProps ) {
 
 
 
-export const validateResetPasswordVals = (props, password: string, setLoginError) => {
+export const validateResetPasswordVals = (props, password, setLoginError) => {
    // Password validation
    if (password === "") {
      setLoginError("Password is required");

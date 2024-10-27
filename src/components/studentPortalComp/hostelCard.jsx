@@ -6,7 +6,7 @@ import { handleDownloadFile } from '@/utils/studentFunctions';
 
 
 
-const HostelCard = ({ cardTitle, leftArrowClicked, cardText, downloadUrl, fileName }: hostelCardTypeProps) => {
+const HostelCard = ({ cardTitle, leftArrowClicked, cardText, downloadUrl, fileName }) => {
     
     return (
       <div className="sPR_infoCardCont">

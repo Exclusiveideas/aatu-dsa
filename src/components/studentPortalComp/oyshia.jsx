@@ -23,16 +23,15 @@ import './sPortal.css'
 const OyshiaComp = () => {
   const studentInfo = useAuthStore((state) => state.student);
 
-  const downloadUrl =
-    "https://firebasestorage.googleapis.com/v0/b/techu-dsa.appspot.com/o/files%2FOYO%20STATE%20HEALTH%20INSURANCE%20AGENCY%20tech%20U.pdf?alt=media";
+  const downloadUrl = process.env.NEXT_PUBLIC_OYSHIA_FORM
   const fileName = "OYO STATE HEALTH INSURANCE AGENCY - Tech U";
 
   return (
     <>
       <div className="oyshiaComp">
-        <div className="oyshiaCounterWrapper">
+       { studentInfo?.OyshiaSubmitted && <div className="oyshiaCounterWrapper">
           <h4>Your OYSHIA Number: <span className={`${!studentInfo?.OyshiaDetails?.oyshiaNumber && 'notAssigned'}`}>{studentInfo?.OyshiaDetails?.oyshiaNumber ? `${studentInfo?.OyshiaDetails?.oyshiaNumber}` : "[number is only assigned to 100 level students for now]"}</span></h4>
-        </div>
+        </div>}
         {!studentInfo?.OyshiaSubmitted ? (
           <div className="formCard">
             <Tooltip title={"Oyo State Health Insurance Agency"}>
@@ -81,15 +80,11 @@ const FormOne = ({ studentInfo }) => {
 
   const updateStudent = useAuthStore((state) => state.updateStudent);
 
-  const handleIDMeansChange = (event: {
-    target: { value: React.SetStateAction };
-  }) => {
+  const handleIDMeansChange = (event) => {
     setIDMeans(event.target.value);
   };
 
-  const handleMaritalStatusChange = (event: {
-    target: { value: React.SetStateAction };
-  }) => {
+  const handleMaritalStatusChange = (event) => {
     setMaritalStatus(event.target.value);
   };
 

@@ -17,7 +17,7 @@ export const Login = ({
   loginError,
   gotoSignUp,
   islogging,
-}: loginAltProps) => {
+}) => {
 
     const preHandleSubmit = (e) => {
         e.preventDefault();
@@ -99,7 +99,7 @@ export const ForgotPassword = ({
     setLoginError,
     loginError,
     islogging,
-  }: forgotPassProps) => {
+  }) => {
     const [faculty, setFaculty] = React.useState('');
     const [programme, setProgramme] = React.useState('');
     const [toggleShow, settoggleShow] = React.useState(false);
@@ -108,15 +108,11 @@ export const ForgotPassword = ({
     const confPassRef = useRef(null);
     
 
-    const handleFacultyChange = (event: {
-      target: { value: React.SetStateAction };
-    }) => {
+    const handleFacultyChange = (event) => {
       setFaculty(event.target.value);
     };
 
-    const handleProgrameChange = (event: {
-      target: { value: React.SetStateAction };
-    }) => {
+    const handleProgrameChange = (event) => {
       setProgramme(event.target.value);
     };
 

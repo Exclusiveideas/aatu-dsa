@@ -1,4 +1,3 @@
-import { loginData } from '@/types/auth';
 import axios from 'axios';
 
 const API = axios.create({ baseURL: process.env.NEXT_PUBLIC_SERVER_URI});
@@ -6,7 +5,7 @@ const API = axios.create({ baseURL: process.env.NEXT_PUBLIC_SERVER_URI});
 
 
 
-export const fetchStudentData = async (matric: string) => {
+export const fetchStudentData = async (matric) => {
     
     if(!matric) return
 
@@ -23,7 +22,7 @@ export const fetchStudentData = async (matric: string) => {
 
 
 
-export const signIn = async (formData: loginData) => {
+export const signIn = async (formData) => {
     try {
         const user = await API.post('/auth/login', formData)
         return { status: 200, user }
