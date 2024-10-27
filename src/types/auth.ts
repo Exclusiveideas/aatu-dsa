@@ -37,7 +37,7 @@ export interface signUpData {
 }
 
 export interface signUpCompProps {
-  signUpStep: number;
+  signUpStep: Number;
   setSignUpStep: Dispatch<SetStateAction<number>>;
   setAuthLogin: Dispatch<SetStateAction<boolean>>,
   router;

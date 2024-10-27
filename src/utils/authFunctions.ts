@@ -8,11 +8,11 @@ import { v4 as uuidv4 } from "uuid";
 
 
 
-export const setRef = (element, index: number, stepsRef) => {
+export const setRef = (element, index: Number, stepsRef) => {
   stepsRef.current[index] = element;
 };
 
-export function handleTransition(prevStep: number, dir: string, stepsRef, createUser: () => void) {
+export function handleTransition(prevStep: Number, dir: string, stepsRef, createUser: () => void) {
   const stepsLen = stepsRef.current?.length;
 
   if (dir == "next") {
@@ -53,7 +53,7 @@ export function handleTransition(prevStep: number, dir: string, stepsRef, create
 
 export const nextProcess = (stepsRef, setSignUpStep, createUser) => {
   const stepsLen = stepsRef.current?.length;
-  setSignUpStep((prevStep: number) => {
+  setSignUpStep((prevStep: Number) => {
     handleTransition(prevStep - 1, "next", stepsRef, createUser);
 
     if (prevStep < stepsLen) return prevStep + 1;
@@ -62,7 +62,7 @@ export const nextProcess = (stepsRef, setSignUpStep, createUser) => {
 };
 
 export const prevProcess = (stepsRef, setSignUpStep, createUser) => {
-  setSignUpStep((prevStep: number) => {
+  setSignUpStep((prevStep: Number) => {
     handleTransition(prevStep, "prev", stepsRef, createUser);
 
     if (prevStep > 1) return prevStep - 1;
