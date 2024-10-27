@@ -1,13 +1,12 @@
-import { NewsState } from "@/types/new";
 import { create } from "zustand";
 
-const useNewsStore = create<NewsState>()(
+const useNewsStore = create()(
     (set) => ({
       fetchedNews: [],
       lastDoc: null,
       fetchNewsError: "",
       isFetching: false,
-      updateFetchedNews: (fetchedNews: Array) =>
+      updateFetchedNews: (fetchedNews) =>
         set((state) => ({
             fetchedNews: [...state.fetchedNews, ...fetchedNews ],
         })),
@@ -15,11 +14,11 @@ const useNewsStore = create<NewsState>()(
         set(() => ({
           lastDoc: lastDoc,
         })),
-      updateFetchedNewsError: (fetchNewsError: string) =>
+      updateFetchedNewsError: (fetchNewsError) =>
         set(() => ({
           fetchNewsError: fetchNewsError,
         })),
-      updateIsFetching: (isFetching: boolean) =>
+      updateIsFetching: (isFetching) =>
         set(() => ({
           isFetching: isFetching,
         })),

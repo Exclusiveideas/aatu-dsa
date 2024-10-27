@@ -1,5 +1,3 @@
-import { hostelCardTypeProps } from '@/types/student';
-import React from 'react'
 import ArrowLeftOutlinedIcon from "@mui/icons-material/ArrowLeftOutlined";
 import { handleDownloadFile } from '@/utils/studentFunctions';
 

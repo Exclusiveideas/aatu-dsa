@@ -1,4 +1,3 @@
-import React from 'react'
 import './sPortal.css';
 import HostelCard from './hostelCard';
 

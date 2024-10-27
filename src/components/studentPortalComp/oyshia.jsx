@@ -18,7 +18,7 @@ import { validateOyshiaForm } from "@/utils/studentFunctions";
 import { submitOyshiaForm } from "@/api";
 import useAuthStore from "@/store/authStore";
 import HostelCard from "./hostelCard";
-import './sPortal.css'
+import './sPortal.css';
 
 const OyshiaComp = () => {
   const studentInfo = useAuthStore((state) => state.student);

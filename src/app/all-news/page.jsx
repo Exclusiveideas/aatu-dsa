@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./allNews.css";
 import Navbar from "@/components/navbar";
 import { CircularProgress, Skeleton } from "@mui/material";

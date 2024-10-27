@@ -1,8 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { AuthState, Student } from "@/types/auth";
 
-const useAuthStore = create<AuthState>()(
+const useAuthStore = create()(
   persist(
     (set) => ({
       isAuthenticated: false,
@@ -14,15 +13,15 @@ const useAuthStore = create<AuthState>()(
           student: null,
           token: null,
         })),
-      updateIsAuthenticated: (isAuthenticated: boolean) =>
+      updateIsAuthenticated: (isAuthenticated) =>
         set(() => ({
           isAuthenticated: isAuthenticated,
         })),
-      updateStudent: (student: Student) =>
+      updateStudent: (student) =>
         set(() => ({
           student: student,
         })),
-      updateToken: (token: null | string) =>
+      updateToken: (token) =>
         set(() => ({
           token: token,
         })),

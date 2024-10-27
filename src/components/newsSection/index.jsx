@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./newsSection.css";
 import NewsPreview from "../newsPreview";
 import useNewsStore from "@/store/newsStore";

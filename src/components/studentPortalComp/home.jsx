@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import "./sPortal.css";
 import { Skeleton } from "@mui/material";
 import useAuthStore from "@/store/authStore";

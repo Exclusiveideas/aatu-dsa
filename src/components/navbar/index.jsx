@@ -1,6 +1,5 @@
 import Image from "next/image";
-import React from "react";
-import './navbar.css'
+import './navbar.css';
 import Link from "next/link";
 
 

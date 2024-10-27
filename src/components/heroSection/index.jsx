@@ -1,4 +1,3 @@
-import React from "react";
 import "./heroSection.css";
 import ImageCarousel from "../imgCarousel";
 import Navbar from "../navbar";

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./student.css";
 import "../auth/auth.css";
 import "@/components/studentPortalComp/sPortal.css";

@@ -1,7 +1,6 @@
 import { create } from "zustand";
-import { PortalState } from "@/types/auth";
 
-const usePortalStore = create<PortalState>()(
+const usePortalStore = create()(
     (set) => ({
       mobileNavbarOpen: false,
       changePicModalOpen: false,
@@ -10,11 +9,11 @@ const usePortalStore = create<PortalState>()(
         set((state) => ({
           mobileNavbarOpen: !state.mobileNavbarOpen,
         })),
-      toggleChangePicModal: (val: boolean) =>
+      toggleChangePicModal: (val) =>
         set(() => ({
           changePicModalOpen: val,
         })),
-      toggleImageSelected: (val: boolean) =>
+      toggleImageSelected: (val) =>
         set(() => ({
           changeImageSelected: val,
         })),

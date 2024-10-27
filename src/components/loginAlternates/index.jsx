@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { CircularProgress, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { forgotPassProps, loginAltProps } from "@/types/auth";
 import { FACULTY_LIST, PROGRAMMES_LIST } from "@/utils/constant";
 
 import '../../app/portal/auth/auth.css';
