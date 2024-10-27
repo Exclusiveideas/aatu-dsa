@@ -1,23 +1,28 @@
-'use client'
+'use client';
 
 import { useState, useEffect } from 'react';
 
 function useWindowWidth() {
-  const [smallerWindow, setSmallerWindow] = useState(window.innerWidth < 979);
+  const [smallerWindow, setSmallerWindow] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setSmallerWindow(window.innerWidth < 979);
-    };
+    // Check if window is defined (meaning we're on the client)
+    if (typeof window !== 'undefined') {
+      const handleResize = () => {
+        setSmallerWindow(window.innerWidth < 979);
+      };
 
-    // Add event listener to window resize
-    window.addEventListener('resize', handleResize);
+      // Initial check
+      handleResize();
 
-    // Call handleResize initially to check window size on load
-    handleResize();
+      // Add event listener
+      window.addEventListener('resize', handleResize);
 
-    // Cleanup the event listener on component unmount
-    return () => window.removeEventListener('resize', handleResize);
+      // Cleanup event listener on component unmount
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
   }, []);
 
   return smallerWindow;

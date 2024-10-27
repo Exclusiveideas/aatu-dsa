@@ -67,21 +67,25 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMe
   };
 
 
-  const resetUserPassword = async(e) => {
-    const response  = await resetPassword(e);
-
-    if (response?.status != 200) {
+  const resetUserPassword = async (e) => {
+    const response = await resetPassword(e);
+  
+    if (response?.status !== 200) {
       setLoginError(response?.error);
       setIslogging(false);
       return;
     } else {
       setIslogging(false);
-      setSnackbarMessage("Password reset was successful - Don't forget your new password")
+      setSnackbarMessage("Password reset was successful - Don't forget your new password");
       setSnackbarOpen(true);
     }
-    
-    setTimeout(() => window && window?.location.reload(), 1000);
-  }
+  
+    // Check if `window` is available before reloading the page
+    if (typeof window !== 'undefined') {
+      setTimeout(() => window.location.reload(), 1000);
+    }
+  };
+  
 
   const gotoSignUp = () => {
     setAuthLogin(false);
