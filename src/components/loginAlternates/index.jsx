@@ -98,6 +98,7 @@ export const ForgotPassword = ({
     setLoginError,
     loginError,
     islogging,
+    resetFeedback
   }) => {
     const [faculty, setFaculty] = React.useState('');
     const [programme, setProgramme] = React.useState('');
@@ -252,6 +253,7 @@ export const ForgotPassword = ({
         />
           </div>
           {loginError && <p className="selectFile">{loginError}</p>}
+          {resetFeedback && <p className="selectFile green">{resetFeedback}</p>}
           <div className="formBtns">
             <div className="authBtn alternate" onClick={() => changeAltLogin('back')}>
               Sign In
@@ -267,4 +269,4 @@ export const ForgotPassword = ({
         </form>
       </>
     );
-  }
+  } 

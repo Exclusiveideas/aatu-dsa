@@ -26,8 +26,6 @@ export default NewsPageWithSuspense;
 
 
 
-
-
 const demoImage = "/welcome.jpeg";
 
 const NewsPage = () => {

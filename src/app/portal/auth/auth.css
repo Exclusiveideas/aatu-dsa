@@ -296,6 +296,11 @@ form {
     color: red;
 }
 
+.selectFile.green {
+    color: rgb(6, 163, 6);
+}
+
+
 .selectFile.stepThree {
     margin-top: 1rem;
 }

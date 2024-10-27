@@ -63,6 +63,7 @@ const StudentPortal = () => {
 
   function logOutStudent() {
     logout();
+    router.push("/portal/auth");
   }
 
   useEffect(() => {

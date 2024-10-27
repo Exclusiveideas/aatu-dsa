@@ -40,10 +40,11 @@ const RoomComp = () => {
 
 
   const changeCounter = (dir) => {
-    if(alertCounter == 4 && !studentInfo?.OyshiaSubmitted) {
+    if(dir == "next" && alertCounter == 4 && !studentInfo?.OyshiaSubmitted) {
       toggleChangePicModal(true)
       return
     }
+    
     if (dir == "next") {
       setAlertCounter((prevCount) =>
         prevCount < 5 ? prevCount + 1 : prevCount

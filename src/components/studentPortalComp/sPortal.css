@@ -317,6 +317,14 @@ h3.oyshiaTitle {
 
 
 
+.continueBtn:hover .circularProgress {
+    color: black;
+}
+
+.circularProgress {
+    color: white;
+}
+
 
 
 

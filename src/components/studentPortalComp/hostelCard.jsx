@@ -1,10 +1,18 @@
 import ArrowLeftOutlinedIcon from "@mui/icons-material/ArrowLeftOutlined";
 import { handleDownloadFile } from '@/utils/studentFunctions';
+import { useState } from "react";
+import { CircularProgress } from "@mui/material";
 
 
 
 
 const HostelCard = ({ cardTitle, leftArrowClicked, cardText, downloadUrl, fileName }) => {
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const downloadFile = () => {
+    setIsDownloading(true)
+    handleDownloadFile(downloadUrl, fileName, setIsDownloading)
+  }
     
     return (
       <div className="sPR_infoCardCont">
@@ -14,7 +22,10 @@ const HostelCard = ({ cardTitle, leftArrowClicked, cardText, downloadUrl, fileNa
         </div>
         <div className="hostelBottom">
           {leftArrowClicked && (
-            <div className="counterIcon" onClick={() => leftArrowClicked && leftArrowClicked("back")}>
+            <div
+              className="counterIcon"
+              onClick={() => leftArrowClicked && leftArrowClicked("back")}
+            >
               <ArrowLeftOutlinedIcon
                 sx={{
                   color: "black",
@@ -24,8 +35,15 @@ const HostelCard = ({ cardTitle, leftArrowClicked, cardText, downloadUrl, fileNa
               />
             </div>
           )}
-          <div className="continueBtn" onClick={() => handleDownloadFile(downloadUrl, fileName)}>
-            <p>Download</p>
+          <div
+            className="continueBtn"
+            onClick={downloadFile}
+          >
+            {isDownloading ? (
+              <CircularProgress size="13px" className="circularProgress" />
+            ) : (
+              <p>Download</p>
+            )}
           </div>
         </div>
       </div>

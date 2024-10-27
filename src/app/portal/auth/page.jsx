@@ -7,9 +7,10 @@ import { useRouter } from "next/navigation";
 import Snackbar from '@mui/material/Snackbar';
 import Fade from '@mui/material/Fade';
 
-import { LoginComp, SignUpComp } from "@/components/authComponents";
 import useAuthStore from "@/store/authStore";
 import useWindowWidth from "@/utils/hooks/useWindowWidth";
+import SignUpComp from "@/components/authComponents/signUpComp";
+import LoginComp from "@/components/authComponents/loginComp";
 
 const AuthPage = () => {
   const [authLogin, setAuthLogin] = useState(true);
@@ -58,6 +59,7 @@ const AuthPage = () => {
               setAuthLogin={setAuthLogin}
               router={router}
               setSnackbarOpen={setSnackbarOpen}
+              setSnackbarMessage={setSnackbarMessage}
             />
           )}
         </div>
