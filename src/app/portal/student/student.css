@@ -100,7 +100,11 @@
     height: 100px;
 }
 
-.NavbarIcon {
+.topBarWrapper > .NavbarIcon {
+    display: none;
+}
+
+.vnTopSect > .NavbarIcon.close {
     display: none;
 }
 
@@ -247,12 +251,13 @@
     }
 
 
-    .NavbarIcon {
+    .topBarWrapper > .NavbarIcon {
         display: flex;
         font-size: 30px;
     }
 
-    .NavbarIcon.close {
+    .vnTopSect > .NavbarIcon.close {
+        display: flex;
         border: 1px solid black;
         border-radius: 50%;
     }
