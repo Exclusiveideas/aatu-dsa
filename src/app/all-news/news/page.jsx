@@ -11,6 +11,23 @@ import useNewsStore from "@/store/newsStore";
 import { fetchNews, getRandomNews } from "@/utils/newsFunctions";
 import { Skeleton } from "@mui/material";
 
+const NewsPageWithSuspense = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <NewsPage />
+  </Suspense>
+);
+
+export default NewsPageWithSuspense;
+
+
+
+
+
+
+
+
+
+
 const demoImage = "/welcome.jpeg";
 
 const NewsPage = () => {
@@ -60,100 +77,96 @@ const NewsPage = () => {
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="newsPageWrapper">
-        <Navbar newPage />
-        <div className="headerSection">
-          <div className="imgContainer">
-            <div className="blackOverlay"></div>
-            <img
-              src={
-                currentNews?.imageLink ? `${currentNews?.imageLink}` : demoImage
-              }
-              alt="news image"
-            />
-          </div>
+    <div className="newsPageWrapper">
+      <Navbar newPage />
+      <div className="headerSection">
+        <div className="imgContainer">
+          <div className="blackOverlay"></div>
+          <img
+            src={
+              currentNews?.imageLink ? `${currentNews?.imageLink}` : demoImage
+            }
+            alt="news image"
+          />
+        </div>
 
-          <div className="infoWrapper">
+        <div className="infoWrapper">
+          {currentNews?.message ? (
+            <h4 className="headerTxt">
+              {currentNews?.title?.stringValue || "No title to show"}
+            </h4>
+          ) : (
+            <Skeleton
+              variant="text"
+              sx={{ bgcolor: "rgba(255, 255, 255, 0.445)" }}
+              width={"60%"}
+              height={"70px"}
+            />
+          )}
+          <div className="postedTime">
             {currentNews?.message ? (
-              <h4 className="headerTxt">
-                {currentNews?.title?.stringValue || "No title to show"}
-              </h4>
+              <>
+                <HistoryIcon
+                  sx={{
+                    color: "white",
+                    cursor: "pointer",
+                    fontSize: "18px",
+                  }}
+                />
+                <p>{currentNews?.createdOn || "no available date"}</p>
+              </>
             ) : (
               <Skeleton
                 variant="text"
                 sx={{ bgcolor: "rgba(255, 255, 255, 0.445)" }}
-                width={"60%"}
+                width={"20%"}
                 height={"70px"}
               />
             )}
-            <div className="postedTime">
-              {currentNews?.message ? (
-                <>
-                  <HistoryIcon
-                    sx={{
-                      color: "white",
-                      cursor: "pointer",
-                      fontSize: "18px",
-                    }}
-                  />
-                  <p>{currentNews?.createdOn || "no available date"}</p>
-                </>
-              ) : (
-                <Skeleton
-                  variant="text"
-                  sx={{ bgcolor: "rgba(255, 255, 255, 0.445)" }}
-                  width={"20%"}
-                  height={"70px"}
-                />
-              )}
-            </div>
           </div>
         </div>
-        <div className="newsBodySection">
-          {currentNews?.message ? (
-            <div className="newsBody">
-              <TextContent
-                content={
-                  currentNews?.message?.stringValue || "Nothing to show you"
-                }
-              />
-            </div>
-          ) : (
-            <Skeleton
-              variant="rounded"
-              animation="wave"
-              width={"95%"}
-              height={"350px"}
+      </div>
+      <div className="newsBodySection">
+        {currentNews?.message ? (
+          <div className="newsBody">
+            <TextContent
+              content={
+                currentNews?.message?.stringValue || "Nothing to show you"
+              }
             />
-          )}
-        </div>
-        {fetchedNews[0] ? (
-          <div className="moreNewsSection">
-            {getRandomNews(fetchedNews, currentNews?.id)?.map((news, i) => (
-              <NewsPreview key={i} news={news} />
-            ))}
           </div>
         ) : (
-          <div className="moreNewsSection">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <Skeleton
-                key={index}
-                variant="rounded"
-                animation="wave"
-                width={"100%"}
-                height={"400px"}
-              />
-            ))}
-          </div>
+          <Skeleton
+            variant="rounded"
+            animation="wave"
+            width={"95%"}
+            height={"350px"}
+          />
         )}
-        <Footer />
       </div>
-    </Suspense>
+      {fetchedNews[0] ? (
+        <div className="moreNewsSection">
+          {getRandomNews(fetchedNews, currentNews?.id)?.map((news, i) => (
+            <NewsPreview key={i} news={news} />
+          ))}
+        </div>
+      ) : (
+        <div className="moreNewsSection">
+          {Array.from({ length: 4 }).map((_, index) => (
+            <Skeleton
+              key={index}
+              variant="rounded"
+              animation="wave"
+              width={"100%"}
+              height={"400px"}
+            />
+          ))}
+        </div>
+      )}
+      <Footer />
+    </div>
   );
 };
-
-export default NewsPage;
 
 const TextContent = ({ content }) => {
   const sanitizedContent = content
