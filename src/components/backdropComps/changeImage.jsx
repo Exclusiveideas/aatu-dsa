@@ -1,3 +1,6 @@
+'use client'
+
+
 import { updateStdPassport } from "@/api";
 import useAuthStore from "@/store/authStore";
 import usePortalStore from "@/store/portalStore";
