@@ -37,7 +37,7 @@ export interface signUpData {
 }
 
 export interface signUpCompProps {
-  signUpStep: Number;
+  signUpStep: number ;
   setSignUpStep: Dispatch<SetStateAction<number>>;
   setAuthLogin: Dispatch<SetStateAction<boolean>>,
   router;
@@ -88,9 +88,9 @@ export interface OyshiaDetails {
   sex: string;
   dob;
   maritalStatus: string;
-  phoneNumber: Number;
+  phoneNumber: number ;
   IDMeans: string;
-  IDNumber: Number;
+  IDNumber: number ;
   matricNo: string;
   emailAddress: string;
   faculty: string;
@@ -101,9 +101,9 @@ export interface OyshiaDetails {
   bloodGroup: string;
   medicalConditions: string;
   nextOfKinName: string;
-  nextOfKinNumber: Number;
+  nextOfKinNumber: number ;
   nextOfKinAddress: string;
-  oyshiaNumber?: Number;
+  oyshiaNumber?: number ;
 }
 
 
