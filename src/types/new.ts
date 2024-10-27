@@ -3,17 +3,17 @@
 export interface NewsState {
     fetchedNews: Array;
     lastDoc: null;
-    fetchNewsError: String;
+    fetchNewsError: string;
     isFetching: boolean;
     updateFetchedNews: (fetchedNews: Array) => void;
     updateLastDoc: (lastDoc) => void;
-    updateFetchedNewsError: (fetchNewsError: String) => void;
+    updateFetchedNewsError: (fetchNewsError: string) => void;
     updateIsFetching: (isFetching: boolean) => void;
   }
 
 export interface FetchNewsProps {
-  updateFetchedNews: (news[]) => void;
+  updateFetchedNews: () => void;
   updateLastDoc: (doc) => void;
-  updateFetchedNewsError: (error: String) => void;
+  updateFetchedNewsError: (error: string) => void;
   updateIsFetching: (isFetching: boolean) => void;
 }

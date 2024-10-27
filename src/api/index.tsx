@@ -6,7 +6,7 @@ const API = axios.create({ baseURL: process.env.NEXT_PUBLIC_SERVER_URI});
 
 
 
-export const fetchStudentData = async (matric: String) => {
+export const fetchStudentData = async (matric: string) => {
     
     if(!matric) return
 
@@ -14,7 +14,6 @@ export const fetchStudentData = async (matric: String) => {
         const student = await API.get(`/student/fetchStudent?matric=${matric}`)
         return { status: 200, student }
     } catch (err) {
-        console.log('err: ', err)
         return {
             status: err?.response?.status || 500,
             error: err?.response?.data?.message || err?.message || 'Problem logging user to the server - Try again.'

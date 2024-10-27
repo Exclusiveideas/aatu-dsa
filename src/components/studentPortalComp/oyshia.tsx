@@ -82,13 +82,13 @@ const FormOne = ({ studentInfo }) => {
   const updateStudent = useAuthStore((state) => state.updateStudent);
 
   const handleIDMeansChange = (event: {
-    target: { value: React.SetStateAction<string> };
+    target: { value: React.SetStateAction };
   }) => {
     setIDMeans(event.target.value);
   };
 
   const handleMaritalStatusChange = (event: {
-    target: { value: React.SetStateAction<string> };
+    target: { value: React.SetStateAction };
   }) => {
     setMaritalStatus(event.target.value);
   };

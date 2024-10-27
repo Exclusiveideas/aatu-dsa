@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
 
 export interface loginAltProps {
-  changeAltLogin: (dir: String) => void;
-  handleSubmit: (e, action: String) => void;
-  loginError: String;
-  setLoginError: Dispatch<SetStateAction<string>>;
+  changeAltLogin: (dir: string) => void;
+  handleSubmit: (e, action: string) => void;
+  loginError: string;
+  setLoginError: Dispatch<SetStateAction>;
   toggleShow: boolean;
   settoggleShow: Dispatch<SetStateAction<boolean>>;
   gotoSignUp: () => void;
@@ -12,10 +12,10 @@ export interface loginAltProps {
 }
 
 export interface forgotPassProps {
-  changeAltLogin: (dir: String) => void;
-  handleSubmit: (e, action: String) => void;
-  loginError: String;
-  setLoginError: Dispatch<SetStateAction<string>>;
+  changeAltLogin: (dir: string) => void;
+  handleSubmit: (e, action: string) => void;
+  loginError: string;
+  setLoginError: Dispatch<SetStateAction>;
   toggleShow: boolean;
   settoggleShow: Dispatch<SetStateAction<boolean>>;
   islogging: boolean;
@@ -23,17 +23,17 @@ export interface forgotPassProps {
 
 
 export interface loginData {
-  matric: String;
-  password: String;
+  matric: string;
+  password: string;
 }
 
 export interface signUpData {
-  fullName: String;
-  matric: String;
-  email: String;
-  programme: String;
-  imgLink: String;
-  password: String;
+  fullName: string;
+  matric: string;
+  email: string;
+  programme: string;
+  imgLink: string;
+  password: string;
 }
 
 export interface signUpCompProps {
@@ -51,7 +51,7 @@ export interface AuthState {
   logout: () => void;
   updateIsAuthenticated: (isAuthenticated: boolean) => void;
   updateStudent: (student: Student) => void;
-  updateToken: (token: String) => void;
+  updateToken: (token: string) => void;
 }
 
 export interface PortalState {
@@ -64,50 +64,50 @@ export interface PortalState {
 }
 
 export interface Student {
-  fullName: String;
-  matric: String;
-  email: String;
-  faculty: String;
-  programme: String;
-  imageLink: String;
-  level: String;
-  gender: String;
-  password: String;
-  bedSpace: String | null;
-  createdAt: String,
-  updatedAt: String,
+  fullName: string;
+  matric: string;
+  email: string;
+  faculty: string;
+  programme: string;
+  imageLink: string;
+  level: string;
+  gender: string;
+  password: string;
+  bedSpace: string | null;
+  createdAt: string,
+  updatedAt: string,
   OyshiaSubmitted?: boolean,
   OyshiaDetails?: OyshiaDetails,
   __v,
-  _id: String | null;
+  _id: string | null;
 }
 
 export interface OyshiaDetails {
-  surname: String;
-  othername: String;
-  sex: String;
+  surname: string;
+  othername: string;
+  sex: string;
   dob;
-  maritalStatus: String;
+  maritalStatus: string;
   phoneNumber: Number;
-  IDMeans: String;
+  IDMeans: string;
   IDNumber: Number;
-  matricNo: String;
-  emailAddress: String;
-  faculty: String;
-  department: String;
-  stateOfOrigin: String;
-  lga: String;
-  genotype: String;
-  bloodGroup: String;
-  medicalConditions: String;
-  nextOfKinName: String;
+  matricNo: string;
+  emailAddress: string;
+  faculty: string;
+  department: string;
+  stateOfOrigin: string;
+  lga: string;
+  genotype: string;
+  bloodGroup: string;
+  medicalConditions: string;
+  nextOfKinName: string;
   nextOfKinNumber: Number;
-  nextOfKinAddress: String;
+  nextOfKinAddress: string;
   oyshiaNumber?: Number;
 }
 
 
 export interface switchAltLoginProps {
-  dir: String;
+  dir: string;
   stepsRef;
 }

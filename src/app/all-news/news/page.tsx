@@ -54,7 +54,7 @@ const NewsPage = () => {
     }
   }, [fetchedNews]);
 
-  const fetchIDNews = (id: String | null) => {
+  const fetchIDNews = (id: string | null) => {
     const filteredArray = fetchedNews?.filter((item) => item?.id == id);
     setCurrentNews({ ...filteredArray[0] });
   };

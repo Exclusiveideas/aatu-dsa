@@ -12,7 +12,7 @@ export const setRef = (element, index: number, stepsRef) => {
   stepsRef.current[index] = element;
 };
 
-export function handleTransition(prevStep: number, dir: String, stepsRef, createUser: () => void) {
+export function handleTransition(prevStep: number, dir: string, stepsRef, createUser: () => void) {
   const stepsLen = stepsRef.current?.length;
 
   if (dir == "next") {
@@ -147,7 +147,7 @@ export function validateStepOne( updatedInfo, setFormErr ) {
   return true
 }
 
-export function validateStepThree(level: String, gender: String, password: String, setPassErr ) {
+export function validateStepThree(level: string, gender: string, password: string, setPassErr ) {
 
   // level validation
   if (!level) {
@@ -242,7 +242,7 @@ export function switchAltLogin({ dir, stepsRef }: switchAltLoginProps ) {
 
 
 
-export const validateResetPasswordVals = (props, password: String, setLoginError) => {
+export const validateResetPasswordVals = (props, password: string, setLoginError) => {
    // Password validation
    if (password === "") {
      setLoginError("Password is required");

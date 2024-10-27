@@ -98,7 +98,7 @@ const StudentPortal = () => {
     );
     if (status != 200) return;
 
-    student?.data.result && updateStudent(student?.data.result);
+    if(student?.data.result) updateStudent(student?.data.result);
   };
 
   return (

@@ -31,7 +31,7 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMe
   const updateStudent = useAuthStore((state) => state.updateStudent);
   const updateToken = useAuthStore((state) => state.updateToken);
 
-  const handleSubmit = (e, action: String) => {
+  const handleSubmit = (e, action: string) => {
     setIslogging(true);
 
     if (action == 'login') {
@@ -88,7 +88,7 @@ export const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMe
     setAuthLogin(false);
   };
 
-  const changeAltLogin = (dir: String) => {
+  const changeAltLogin = (dir: string) => {
     setSwitched(() => dir =='next' ? true: false)
     switchAltLogin({ dir, stepsRef});
   }
@@ -197,7 +197,7 @@ export const SignUpComp = ({
     );
   };
 
-  const uploadNewUser = async (userImage: String, formData: signUpData) => {
+  const uploadNewUser = async (userImage: string, formData: signUpData) => {
     const updatedSignUpInfo = {
       ...formData,
       imageLink: userImage,

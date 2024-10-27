@@ -29,13 +29,13 @@ export const StepOne = ({ nextProcess, setAuthLogin, setSignUpInfo }) => {
 
 
   const handleFacultyChange = (event: {
-    target: { value: React.SetStateAction<string> };
+    target: { value: React.SetStateAction };
   }) => {
     setFaculty(event.target.value);
   };
 
   const handleProgrameChange = (event: {
-    target: { value: React.SetStateAction<string> };
+    target: { value: React.SetStateAction };
   }) => {
     setProgramme(event.target.value);
   };
@@ -250,13 +250,13 @@ export const StepThree = ({
   const confPassRef = useRef(null);
 
   const handleLevelChange = (event: {
-    target: { value: React.SetStateAction<string> };
+    target: { value: React.SetStateAction };
   }) => { 
     setLevel(event.target.value);
   };
 
   const handleGenderChange = (event: {
-    target: { value: React.SetStateAction<string> };
+    target: { value: React.SetStateAction };
   }) => {
     setGender(event.target.value);
   };

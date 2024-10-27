@@ -2,9 +2,9 @@
 
 
 export interface hostelCardTypeProps {
-    cardTitle: String; 
-    leftArrowClicked?: (dir: String) => void ; 
-    cardText: String;
-    downloadUrl: String; 
-    fileName: String; 
+    cardTitle: string; 
+    leftArrowClicked?: (dir: string) => void ; 
+    cardText: string;
+    downloadUrl: string; 
+    fileName: string; 
 }

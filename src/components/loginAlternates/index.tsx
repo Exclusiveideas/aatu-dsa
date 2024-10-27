@@ -109,13 +109,13 @@ export const ForgotPassword = ({
     
 
     const handleFacultyChange = (event: {
-      target: { value: React.SetStateAction<string> };
+      target: { value: React.SetStateAction };
     }) => {
       setFaculty(event.target.value);
     };
 
     const handleProgrameChange = (event: {
-      target: { value: React.SetStateAction<string> };
+      target: { value: React.SetStateAction };
     }) => {
       setProgramme(event.target.value);
     };
