@@ -9,6 +9,7 @@ import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 
 const StepTwo = ({ nextProcess, prevProcess, setUploadImage }) => {
     const [file, setFile] = useState(null);
+    const [fileUrl, setFileUrl] = useState('');
     const [noSelected, setNoSelected] = useState(false);
   
     const handleFileChange = (event) => {
@@ -22,14 +23,17 @@ const StepTwo = ({ nextProcess, prevProcess, setUploadImage }) => {
         return;
       }
   
-      // update the uploadImage content
       setUploadImage(file);
   
       nextProcess();
     };
   
     useEffect(() => {
-      if (file) setNoSelected(false);
+      if (!file) return;
+
+      setNoSelected(false);
+      const imageUrl = URL.createObjectURL(file);
+      setFileUrl(imageUrl);
     }, [file]);
   
     const goBack = () => {
@@ -48,13 +52,17 @@ const StepTwo = ({ nextProcess, prevProcess, setUploadImage }) => {
         <label htmlFor="file" className="addImgCirc">
           <div className="pulsatingBox"></div>
           <div className="pulsatingBox"></div>
-          <PersonAddAlt1Icon
+          {!fileUrl ? (
+            <PersonAddAlt1Icon
             sx={{
               color: "white",
               cursor: "pointer",
               fontSize: "250%",
             }}
           />
+        ) : (
+          <img src={fileUrl} alt="Selected image" className="imagePreview" />
+        )}
         </label>
         {!file ? (
           <p className="tapTxt">Click to upload your passport</p>
