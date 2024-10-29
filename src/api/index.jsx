@@ -79,6 +79,7 @@ export const updateStdPassport = async (updatePassportDet) => {
 }
 
 export const submitOyshiaForm = async (OyshiaForm) => {
+    if(!OyshiaForm) return
 
     try {
         const result = await API.patch('/student/submitOyshia', OyshiaForm);

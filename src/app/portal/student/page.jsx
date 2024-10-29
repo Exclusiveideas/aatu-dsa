@@ -24,15 +24,8 @@ import { useRouter } from "next/navigation";
 import { fetchStudentData } from "@/api";
 import ChangeImageComp from "@/components/backdropComps/changeImage";
 import OyshiaRequired from "@/components/backdropComps/oyshiaRequired";
-
-
-
-
-
-
-
-
-
+import SnackbarMessage from "@/components/snackbarMessage";
+import useSnackbarStore from "@/store/snackbarStore";
 
 const StudentPortal = () => {
   const [activeOpt, setActiveOpt] = useState(0);
@@ -55,6 +48,16 @@ const StudentPortal = () => {
   );
   const changeImageSelected = usePortalStore(
     (state) => state.changeImageSelected
+  );
+
+  const updateSnackbarMessage = useSnackbarStore(
+    (state) => state.updateSnackbarMessage
+  );
+  const updateSnackbarVariant = useSnackbarStore(
+    (state) => state.updateSnackbarVariant
+  );
+  const updateSnackbarInitiated = useSnackbarStore(
+    (state) => state.updateSnackbarInitiated
   );
 
   const updateStudent = useAuthStore((state) => state.updateStudent);
@@ -94,13 +97,24 @@ const StudentPortal = () => {
   }, [studentInfo?.matric]); // Runs on every hard reload
 
   const fetchNewDetails = async () => {
-    const { status, student } = await fetchStudentData(
-      studentInfo?.matric
-    );
+    const { status, student } = await fetchStudentData(studentInfo?.matric);
     if (status != 200) return;
 
-    if(student?.data.result) updateStudent(student?.data.result);
+    if (student?.data.result) updateStudent(student?.data.result);
   };
+
+  const openSnackBar = (message, variant) => {
+    updateSnackbarMessage(message);
+    updateSnackbarVariant(variant);
+    updateSnackbarInitiated();
+  };
+
+  useEffect(() => {
+    // clears the message when unmounting
+    return () => {
+      openSnackBar("", "success");
+    };
+  }, []);
 
   return (
     <div className="stdPortal">
@@ -199,15 +213,15 @@ const StudentPortal = () => {
       >
         <>
           {changeImageSelected ? (
-            <ChangeImageComp />
+            <ChangeImageComp openSnackBar={openSnackBar} />
           ) : (
             <OyshiaRequired setActiveOpt={setActiveOpt} />
           )}
         </>
       </Backdrop>
+      <SnackbarMessage />
     </div>
   );
 };
 
 export default StudentPortal;
-

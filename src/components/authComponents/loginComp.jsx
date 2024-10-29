@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 import { switchAltLogin, setRef } from "@/utils/authFunctions";
@@ -12,9 +12,8 @@ import { ForgotPassword, Login } from "../loginAlternates";
 
 
 
-const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMessage }) => {
+const LoginComp = ({ setAuthLogin, router, openSnackBar }) => {
   const [toggleShow, settoggleShow] = useState(false);
-  const [loginError, setLoginError] = useState("");
   const [islogging, setIslogging] = useState(false);
   const [switched, setSwitched] = useState(false);
   const [resetFeedback, setResetFeedback] = useState('');
@@ -26,8 +25,11 @@ const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMessage }
   const updateStudent = useAuthStore((state) => state.updateStudent);
   const updateToken = useAuthStore((state) => state.updateToken);
 
+
   const handleSubmit = (e, action) => {
     setIslogging(true);
+    setResetFeedback('')
+    
 
     if (action == 'login') {
       loginUser({
@@ -39,15 +41,20 @@ const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMessage }
     }
   };
 
+
+
   const loginUser = async (formData) => {
     const response  = await signIn(formData);
 
     if (response?.status != 200) {
-      setLoginError(response?.error);
+      openSnackBar(response?.error, 'error')
       setIslogging(false);
       return;
     }
+
     const fetchedStudent = response?.user.data
+    
+    openSnackBar('Login sucessful', 'success')
 
 
     // save user details
@@ -57,7 +64,6 @@ const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMessage }
     
 
     setIslogging(false);
-    setSnackbarOpen(true);
 
     router.push("/portal/student");
   };
@@ -66,16 +72,15 @@ const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMessage }
   const resetUserPassword = async (e) => {
     const response = await resetPassword(e);
   
+    setIslogging(false);
+
     if (response?.status !== 200) {
-      setLoginError(response?.error);
-      setIslogging(false);
+      openSnackBar(response?.error, 'error')
       return;
-    } else {
-      setResetFeedback("Password reset was successful - Don't forget your new password")
-      setIslogging(false);
-      setSnackbarMessage("Password reset was successful - Don't forget your new password");
-      setSnackbarOpen(true);
-    }
+    } 
+    
+    openSnackBar("Password reset was successful - Don't forget your new password", 'success')
+    
   
     // Check if `window` is available before reloading the page
     if (typeof window !== 'undefined') {
@@ -93,6 +98,14 @@ const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMessage }
     switchAltLogin({ dir, stepsRef});
   }
 
+  useEffect(() => {
+  // clears the message when unmounting
+    return () => {
+      openSnackBar('', 'success')
+    }
+  }, [])
+  
+
 
   return (
     <div className="loginComp">
@@ -109,10 +122,10 @@ const LoginComp = ({ setAuthLogin, router, setSnackbarOpen, setSnackbarMessage }
       <h2>{!switched ? 'Login to your account': 'Reset your password'}</h2>
       <div className="formBox login">
         <div ref={(el) => setRef(el, 0, stepsRef)} className="altCont">
-          <Login changeAltLogin={changeAltLogin} handleSubmit={handleSubmit} setLoginError={setLoginError} toggleShow={toggleShow} settoggleShow={settoggleShow} loginError={loginError} gotoSignUp={gotoSignUp} islogging={islogging} />
+          <Login changeAltLogin={changeAltLogin} handleSubmit={handleSubmit} toggleShow={toggleShow} settoggleShow={settoggleShow} gotoSignUp={gotoSignUp} islogging={islogging} />
         </div>
         <div ref={(el) => setRef(el, 1, stepsRef)} className="altCont">
-          <ForgotPassword changeAltLogin={changeAltLogin} handleSubmit={handleSubmit} setLoginError={setLoginError} toggleShow={toggleShow} settoggleShow={settoggleShow} loginError={loginError} islogging={islogging} resetFeedback={resetFeedback} />
+          <ForgotPassword changeAltLogin={changeAltLogin} handleSubmit={handleSubmit} toggleShow={toggleShow} settoggleShow={settoggleShow} islogging={islogging} resetFeedback={resetFeedback} />
         </div>      
       </div>
     </div>

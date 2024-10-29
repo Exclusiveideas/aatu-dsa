@@ -18,11 +18,9 @@ import CloseIcon from "@mui/icons-material/Close";
 
 
 
-const ChangeImageComp = () => {
+const ChangeImageComp = ({ openSnackBar }) => {
     const [file, setFile] = useState(null);
-    const [noSelected, setNoSelected] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
-    const [uploadSuccess, setUploadSuccess] = useState(false);
+    const [fileUrl, setFileUrl] = useState('');
     const [isUpdating, setIsUploading] = useState(false);
   
     const changePicModalOpen = usePortalStore(
@@ -44,15 +42,19 @@ const ChangeImageComp = () => {
   
     const handleContinue = () => {
       if (!file) {
-        setNoSelected(true);
+        openSnackBar('Please upload your picture', 'error')
         return;
       }
   
       setIsUploading(true);
   
       // update the uploadImage content
-      uploadPic(file, fileUploadSuccess, setErrorMessage, setIsUploading);
+      uploadPic(file, fileUploadSuccess, uploadFailFunction, setIsUploading);
     };
+
+    const uploadFailFunction = (failMssg) => {
+      openSnackBar(failMssg, 'error')
+    }
   
     const fileUploadSuccess = async (downloadUrl) => {
       const updateRes = await updateStdPassport({
@@ -62,31 +64,31 @@ const ChangeImageComp = () => {
   
       setIsUploading(false);
       if (updateRes?.status != 200) {
+        openSnackBar(updateRes?.error, 'error')
         return;
       }
   
-      setUploadSuccess(true);
+      openSnackBar('Passport Upload successful', 'success')
   
       setTimeout(() => {
         toggleChangePicModal(false);
         window?.location.reload();
-      }, 1500);
+      }, 1000);
     };
   
-    useEffect(() => {
-      if (file) setNoSelected(false);
+    useEffect(() => {      
+      if (!file) return;
+
+      const imageUrl = URL.createObjectURL(file);
+      setFileUrl(imageUrl);
     }, [file]);
   
     useEffect(() => {
       setIsUploading(false);
-      setNoSelected(false);
       setFile(null);
-      setErrorMessage("");
-    }, [changePicModalOpen, uploadSuccess]);
-  
-    useEffect(() => {
-      setUploadSuccess(false);
+      setFileUrl('');
     }, [changePicModalOpen]);
+
   
     const closeBackDrop = () => {
       if (isUpdating) return;
@@ -119,25 +121,26 @@ const ChangeImageComp = () => {
           <label htmlFor="file" className="addImgCirc">
             <div className="pulsatingBox"></div>
             <div className="pulsatingBox"></div>
-            <PersonAddAlt1Icon
-              sx={{
-                color: "white",
-                cursor: "pointer",
-                fontSize: "250%",
-              }}
-            />
+            {!fileUrl ? (
+              <PersonAddAlt1Icon
+                sx={{
+                  color: "white",
+                  cursor: "pointer",
+                  fontSize: "250%",
+                }}
+              />
+            ) : (
+              <img
+                src={fileUrl}
+                alt="Selected image"
+                className="imagePreview"
+              />
+            )}
           </label>
           {!file ? (
             <p className="tapTxt">Click to upload your passport</p>
           ) : (
             <p className="tapTxt">Selected file: {file?.name}</p>
-          )}
-          {noSelected && (
-            <p className="selectFile">Please upload your correct passport</p>
-          )}
-          {errorMessage && <p className="selectFile">{errorMessage}</p>}
-          {uploadSuccess && (
-            <p className="selectFile green">Passport Upload successful</p>
           )}
           <div className="formBtns">
             <div className="authBtn" onClick={handleContinue}>

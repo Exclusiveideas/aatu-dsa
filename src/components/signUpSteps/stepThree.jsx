@@ -17,7 +17,6 @@ const StepThree = ({
   signUpInfo,
   setSignUpInfo,
   isRegistering,
-  signupFeedback
 }) => {
   const [toggleShow, settoggleShow] = useState(false);
   const [passErr, setPassErr] = useState("");
@@ -157,7 +156,6 @@ const StepThree = ({
         />
       </div>
       {passErr && <p className="selectFile">{passErr}</p>}
-      {signupFeedback && <p className="selectFile green">{signupFeedback}</p>}
       <div className="formBtns">
         <div className="authBtn alternate" onClick={prevProcess}>
           Go Back

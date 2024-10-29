@@ -18,20 +18,34 @@ import { validateOyshiaForm } from "@/utils/studentFunctions";
 import { submitOyshiaForm } from "@/api";
 import useAuthStore from "@/store/authStore";
 import HostelCard from "./hostelCard";
-import './sPortal.css';
+import "./sPortal.css";
+import useSnackbarStore from "@/store/snackbarStore";
 
 const OyshiaComp = () => {
   const studentInfo = useAuthStore((state) => state.student);
 
-  const downloadUrl = process.env.NEXT_PUBLIC_OYSHIA_FORM
+  const downloadUrl = process.env.NEXT_PUBLIC_OYSHIA_FORM;
   const fileName = "OYO STATE HEALTH INSURANCE AGENCY - Tech U";
 
   return (
     <>
       <div className="oyshiaComp">
-       { studentInfo?.OyshiaSubmitted && <div className="oyshiaCounterWrapper">
-          <h4>Your OYSHIA Number: <span className={`${!studentInfo?.OyshiaDetails?.oyshiaNumber && 'notAssigned'}`}>{studentInfo?.OyshiaDetails?.oyshiaNumber ? `${studentInfo?.OyshiaDetails?.oyshiaNumber}` : "[number is only assigned to 100 level students for now]"}</span></h4>
-        </div>}
+        {studentInfo?.OyshiaSubmitted && (
+          <div className="oyshiaCounterWrapper">
+            <h4>
+              Your OYSHIA Number:{" "}
+              <span
+                className={`${
+                  !studentInfo?.OyshiaDetails?.oyshiaNumber && "notAssigned"
+                }`}
+              >
+                {studentInfo?.OyshiaDetails?.oyshiaNumber
+                  ? `${studentInfo?.OyshiaDetails?.oyshiaNumber}`
+                  : "[number is only assigned to 100 level students for now]"}
+              </span>
+            </h4>
+          </div>
+        )}
         {!studentInfo?.OyshiaSubmitted ? (
           <div className="formCard">
             <Tooltip title={"Oyo State Health Insurance Agency"}>
@@ -49,14 +63,14 @@ const OyshiaComp = () => {
           </div>
         ) : (
           <div className="oyshiaCopy_cardWrapper">
-              <HostelCard
-                cardTitle={"Download The Physical Copy"}
-                cardText={
-                  "Click the button to download the physical copy of your OYSHIA form."
-                }
-                downloadUrl={downloadUrl} 
-                fileName={fileName}
-              />
+            <HostelCard
+              cardTitle={"Download The Physical Copy"}
+              cardText={
+                "Click the button to download the physical copy of your OYSHIA form."
+              }
+              downloadUrl={downloadUrl}
+              fileName={fileName}
+            />
           </div>
         )}
       </div>
@@ -66,17 +80,23 @@ const OyshiaComp = () => {
 
 export default OyshiaComp;
 
-
-
-
 const FormOne = ({ studentInfo }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErr, setFormErr] = useState("");
-  const [formSuccess, setFormSuccess] = useState("");
   const [maritalStatus, setMaritalStatus] = useState("");
   const [IDMeans, setIDMeans] = useState("");
   const selectOneRef = useRef(null);
   const selectTwoRef = useRef(null);
+
+  const updateSnackbarMessage = useSnackbarStore(
+    (state) => state.updateSnackbarMessage
+  );
+  const updateSnackbarVariant = useSnackbarStore(
+    (state) => state.updateSnackbarVariant
+  );
+  const updateSnackbarInitiated = useSnackbarStore(
+    (state) => state.updateSnackbarInitiated
+  );
 
   const updateStudent = useAuthStore((state) => state.updateStudent);
 
@@ -92,8 +112,15 @@ const FormOne = ({ studentInfo }) => {
     setFormErr("");
   };
 
+  const openSnackBar = (message, variant) => {
+    updateSnackbarMessage(message);
+    updateSnackbarVariant(variant);
+    updateSnackbarInitiated();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setFormErr("");
 
     const OyshiaForm = {
       maritalStatus: selectOneRef?.current?.value,
@@ -115,7 +142,7 @@ const FormOne = ({ studentInfo }) => {
     setIsSubmitting(true);
 
     const submissionDetails = {
-      studentId: studentInfo?._id,
+      studentMatric: studentInfo?.matric,
       sex: studentInfo?.gender,
       matricNo: studentInfo?.matric,
       emailAddress: studentInfo?.email,
@@ -125,15 +152,14 @@ const FormOne = ({ studentInfo }) => {
     };
 
     const submittedResult = await submitOyshiaForm(submissionDetails);
-    
+
     if (submittedResult.status == 200) {
+      openSnackBar("OYSHIA Form submitted successfully", "success");
       updateStudent(submittedResult?.data.updatedStudent);
-      setFormSuccess(submittedResult?.data.message)
-      setIsSubmitting(false);
     } else {
-      setFormErr(submittedResult?.error);
-      setIsSubmitting(false);
+      openSnackBar(submittedResult?.error, "error");
     }
+    setIsSubmitting(false);
   };
 
   return (
@@ -302,7 +328,6 @@ const FormOne = ({ studentInfo }) => {
         />
       </div>
       {formErr && <p className="selectFile">{formErr}</p>}
-      {formSuccess && <p className="selectFile green">{formSuccess}</p>}
       <div className="formBtns">
         <button className="authBtn" type="submit">
           {isSubmitting ? (

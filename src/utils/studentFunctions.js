@@ -7,7 +7,6 @@ export const handleDownloadFile = async (
   setIsDownloading
 ) => {
   if (!downloadUrl) {
-    console.log("no file to download");
     return;
   }
 

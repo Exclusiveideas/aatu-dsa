@@ -69,9 +69,6 @@ export const prevProcess = (stepsRef, setSignUpStep, createUser) => {
   });
 };
 
-export const uploadNewUser = () => {
-  // console.log("user created");
-};
 
 
 
@@ -280,12 +277,10 @@ export const uploadPic = (uploadImage, sucessFunc, failFunc, setIsUploading) => 
       getDownloadURL(uploadTask.snapshot.ref)
         .then((downloadURL) => {
           sucessFunc(downloadURL);
-          // uploadNewUser(downloadURL, formData);
         })
         .catch(() => {
           failFunc("Failed to get download URL - try again.")
           setIsUploading(false)
-          // setIsRegistering(false);
         });
     }
   );
