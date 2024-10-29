@@ -10,8 +10,10 @@ const HostelCard = ({ cardTitle, leftArrowClicked, cardText, downloadUrl, fileNa
   const [isDownloading, setIsDownloading] = useState(false);
 
   const downloadFile = () => {
+    if(!downloadUrl) return;
+
     setIsDownloading(true)
-    handleDownloadFile(downloadUrl, fileName, setIsDownloading)
+    handleDownloadFile(downloadUrl, fileName=fileName || 'rules', setIsDownloading)
   }
     
     return (
