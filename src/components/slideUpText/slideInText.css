@@ -1,0 +1,7 @@
+.text-wrapper {
+    overflow: hidden;
+  }
+  
+  .animated-text {
+    transform: translateY(100%); /* Start off-screen (below) */
+  }

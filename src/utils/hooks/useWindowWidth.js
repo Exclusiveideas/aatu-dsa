@@ -4,12 +4,20 @@ import { useState, useEffect } from 'react';
 
 function useWindowWidth() {
   const [smallerWindow, setSmallerWindow] = useState(false);
+  // const [windowDimensions, setWindowDimensions] = useState({
+  //   width: undefined,
+  //   height: undefined,
+  // });
 
   useEffect(() => {
     // Check if window is defined (meaning we're on the client)
     if (typeof window !== 'undefined') {
       const handleResize = () => {
-        setSmallerWindow(window.innerWidth < 979);
+        setSmallerWindow(window.innerWidth < 979); 
+          // setWindowDimensions({
+          //   width: window.innerWidth,
+          //   height: window.innerHeight,
+          // });
       };
 
       // Initial check
@@ -25,7 +33,7 @@ function useWindowWidth() {
     }
   }, []);
 
-  return smallerWindow;
+  return { smallerWindow };
 }
 
 export default useWindowWidth;

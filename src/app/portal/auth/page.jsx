@@ -18,7 +18,7 @@ const AuthPage = () => {
   const authImgRef = useRef(null);
   const moveableWrapRef = useRef(null);
 
-  const smallerWindow = useWindowWidth();
+  const {smallerWindow} = useWindowWidth();
   const router = useRouter();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   

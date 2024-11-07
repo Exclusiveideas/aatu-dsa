@@ -1,5 +1,14 @@
 
 .heroSectWrapper {
+  --bg-color-dark: #16191B;
+  --dark: #22262A;
+  --black-1: #0b0d0e;
+  --black-2: #16191b;
+
+
+
+
+    background-color: var(--black-2); 
     width: 100vw;
     height: 100vh;
     position: relative;
@@ -11,33 +20,37 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.6);
     color: white;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    padding-left: 3rem;
+    padding-left: 5rem;
     z-index: 3;
+
+  background-color:#16191b65;
+  backdrop-filter: blur(20px) ;
+  isolation: isolate;
 }
 
 .infoBox {
     min-height: 100px;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    width: fit-content;
+    gap: 1.5rem;
 }
 
-.infoBox h1 {
-    font-size: 4rem;
-    margin-top: 6rem;
+.headerTxt {
+    font-size: 7vw;
+    line-height: 8vw;
+    color: #fff;
+    font-weight: 400;
 }
 
-.infoBox p {
-    font-size: 16px;
-    max-width: 80%;
-    line-height: 30px;
+.headerCaption {
+  font-size: 1.2em;
+  line-height: 1.4em;
+  font-weight: 400;
 }
 
 
@@ -55,53 +68,7 @@
 
 
 
-@keyframes fade {
-    0% {
-      opacity: 0;
-    }
-    33% {
-      opacity: 1;
-    }
-    66% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
   
-  .arrowContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
-  }
-  
-  .arrow {
-    font-size: 24px;
-    opacity: 0;
-    animation: fade 2s infinite;
-    width: 35px;
-  }
-  
-  .arrow:nth-child(1) {
-    animation-delay: 0.05s;
-  }
-  
-  .arrow:nth-child(2) {
-    animation-delay: .2s;
-    margin-top: -25px;
-  }
-  
-  .arrow:nth-child(3) {
-    animation-delay: .5s;
-    margin-top: -25px;
-  }
-
-
 
   
   
@@ -150,15 +117,12 @@
   .arrowContainer {
     gap: 1.3vw;
   }
-  .arrow {
-    width: 8vw;
-  }
   
 
 }
 
 
-@media (min-width: 1400px) {
+/* @media (min-width: 1400px) {
   .infoBox h1 {
     font-size: 5vw;
     margin-top: 0;
@@ -170,4 +134,4 @@
     line-height: 1.3vw;
     max-width: 60%;
   }
-}
+} */

@@ -1,0 +1,22 @@
+.blob {
+    width: 800px;
+    aspect-ratio: 1;
+    background-color: #3e958f;
+    border-radius: 60% 40% 70% 30% / 50% 70% 30% 50%;
+    position: absolute;
+    z-index: 2;
+    filter: blur(20px);
+
+
+    position: fixed;
+    top: 80%;
+    /* Adjust this value to set how far from the bottom you want */
+    left: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-origin: 50% 50%;
+    transform: translate(-50%, 0) rotate(45deg);
+    will-change: width, height, transform, opacity, border;
+    pointer-events: none;
+}

@@ -1,36 +1,50 @@
 import "./heroSection.css";
-import ImageCarousel from "../imgCarousel";
 import Navbar from "../navbar";
-import Link from "next/link";
+import { Poppins } from "next/font/google";
+import { CTAButtonAlt } from "../ctaButton";
+import Blob from "../blob";
+import useHomeStore from "@/store/homeStore";
+import SlideInText from "../slideUpText";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+});
 
 const HeroSection = () => {
-  return ( 
-    <div className="heroSectWrapper">
+  const isNavbarOpen = useHomeStore((state) => state.isNavbarOpen);
+
+  return (
+    <div className={`heroSectWrapper ${isNavbarOpen && "disappear"}`}>
       <Navbar />
-      <ImageCarousel />
+      <Blob />
+      {/* <ImageCarousel /> */}
       <div className="heroInfo">
         <div className="infoBox">
-          <h1>Welcome to the Student Hostel Portal!</h1>
-          <p>
-            This website has been designed for the Dean of Student Affairs
-            to keep you informed and updated with all essential
-            information regarding your hostel experience.
-          </p>
-          <div className="heroBtn">
-          <Link href="/portal/auth" className="portalBtn">
-            <div className="pulsatingBox"></div>
-            Portal
-        </Link>
-          </div>
+          <SlideInText style={{ width: "max-content" }}>
+            <h1 className="headerTxt">Your Digital Portal</h1>
+          </SlideInText>
+          <SlideInText>
+            <h1 className="headerTxt">to Excellence</h1>
+          </SlideInText>
+          <SlideInText>
+            <p
+              className={`headerCaption  ${poppins.className}`}
+              style={{ width: "78%" }}
+            >
+              This site is here to keep you connected and informed with
+              everything you need for your hostel experience, brought to you by
+              the Dean of Student Affairs.
+            </p>
+          </SlideInText>
+          <SlideInText>
+            <CTAButtonAlt linkTo={"/all-news"}>What's going on?</CTAButtonAlt>
+          </SlideInText>
         </div>
-        <div className="arrowContainer">
-            <img src="/down.svg" alt="scroll down arrow" className="arrow" />
-            <img src="/down.svg" alt="scroll down arrow" className="arrow" />
-            <img src="/down.svg" alt="scroll down arrow" className="arrow" />
-          </div>
       </div>
     </div>
   );
-}; 
+};
 
 export default HeroSection;

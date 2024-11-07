@@ -10,8 +10,19 @@
   max-width: 100vw;
   overflow-x: hidden;
   min-height: 100vh;
+  position: relative;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
+.page.fixedHeight {
+  overflow-y: hidden;
+  max-height: 100vh;
+}
+
+.page.autoHeight {
+  overflow-y: auto;
+}
 
 .firstSection {
   width: 100%;

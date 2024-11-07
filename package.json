@@ -24,6 +24,7 @@
     "dotenv-safe": "^9.1.0",
     "downloadjs": "^1.4.7",
     "firebase": "^10.14.1",
+    "gsap": "^3.12.5",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.7.1",
     "next": "14.2.15",
