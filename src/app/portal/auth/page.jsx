@@ -49,7 +49,7 @@ const AuthPage = () => {
       <div className="leftAuthWrapper">
         <img
           ref={authImgRef}
-          src="/auth_img.jpeg"
+          src="/imgs/auth_img.jpeg"
           alt="login image"
           className="authImage"
         />

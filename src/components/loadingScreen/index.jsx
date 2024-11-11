@@ -1,0 +1,92 @@
+import { useEffect, useRef, useState } from "react";
+import "./loadingScreen.css";
+import useHomeStore from "@/store/homeStore";
+import gsap from "gsap";
+import Image from "next/image";
+
+const LoadingScreen = () => {
+  const [counter, setCounter] = useState(0);
+  const [hasRun, setHasRun] = useState(false);
+  const intervalIdRef = useRef(null);
+  const loaderRef = useRef(null);
+  const logoRef = useRef(null);
+
+  const isSceneReady = useHomeStore((state) => state.isSceneReady);
+  const setLoadingScreen = useHomeStore((state) => state.setLoadingScreen);
+
+  useEffect(() => {
+    if (counter >= 100) return;
+
+    intervalIdRef.current = setInterval(() => {
+      setCounter((prev) => {
+        if (prev >= 100) {
+          clearInterval(intervalIdRef.current);
+          setHasRun(true);
+          return 100;
+        }
+
+        // Pause the interval if counter exceeds 50 and the scene is not ready
+        if (prev > 50 && !isSceneReady) {
+          clearInterval(intervalIdRef.current);
+          return prev;
+        }
+
+        // Logic to make the counter start fast, slow down, and speed up again
+        const remaining = 100 - prev;
+        const increment = Math.max(1, Math.floor(remaining / 10));
+
+        return prev + increment;
+      });
+    }, 100);
+
+    return () => clearInterval(intervalIdRef.current);
+  }, [isSceneReady]);
+
+  useEffect(() => {
+    if (!hasRun) return;
+
+    let loaderAnimContext;
+
+    const timeoutId = setTimeout(() => {
+      setLoadingScreen(false);
+
+      loaderAnimContext = gsap.context(() => {
+        gsap.set(loaderRef.current, { y: "0%", opacity: 1 });
+        gsap.to(loaderRef.current, {
+          y: "-110%",
+          opacity: 0.6,
+          duration: 2.5,
+          ease: "expo.out",
+        });
+      }, loaderRef);
+    }, 1300); // Timeout before triggering animation
+
+    return () => {
+      if (loaderAnimContext && hasRun) {
+        loaderAnimContext.revert();
+      }
+      clearTimeout(timeoutId);
+    };
+  }, [hasRun, loaderRef]);
+
+  return (
+    <div ref={loaderRef} className="loadingScreen">
+      <div className="imgWrapper">
+        <Image
+          src="/imgs/logo.png"
+          width={300}
+          height={140}
+          alt="tech-u logo"
+          className="loader_logo"
+          ref={logoRef}
+        />
+        <div class="loader"></div>
+      </div>
+      <div className="counterWrapper">
+        <p>{counter}%</p>
+      </div>
+    </div>
+  );
+};
+
+export default LoadingScreen;

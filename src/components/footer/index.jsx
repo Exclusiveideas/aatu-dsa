@@ -9,12 +9,11 @@ const Footer = () => {
       <div className="topFooter">
         <a href="/" className="logoWrapper">
           <Image
-            src={"/logo.png"}
+            src={"/imgs/logo.png"}
             width={190}
             height={80}
             alt="tech-u logo"
             className="logo"
-            priority={true}
           />
         </a>
         <div className="credits">

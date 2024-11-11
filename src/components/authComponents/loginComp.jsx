@@ -111,12 +111,11 @@ const LoginComp = ({ setAuthLogin, router, openSnackBar }) => {
     <div className="loginComp">
       <a href="/">
         <Image
-          src={"/logo.png"}
+          src={"/imgs/logo.png"}
           width={340}
           height={150}
           alt="tech-u logo"
           className="logo"
-          priority={true}
         />
       </a>
       <h2>{!switched ? 'Login to your account': 'Reset your password'}</h2>

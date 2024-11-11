@@ -1,13 +1,14 @@
 "use client";
-import MenuNav from "@/components/menuNav";
 import styles from "./page.module.css";
-import HeroSection from "@/components/heroSection/index";
-import NewsSection from "@/components/newsSection/index";
-import SmoothScrolling from "@/components/smoothScrolling";
 import { Skeleton } from "@mui/material";
 import dynamic from "next/dynamic";
-import CursorCircle from "@/components/cursorCircle";
 import useHomeStore from "@/store/homeStore";
+import SmoothScrolling from "@/components/smoothScrolling";
+import HeroSection from "@/components/heroSection";
+import NewsSection from "@/components/newsSection";
+import MenuNav from "@/components/menuNav";
+import JellyBlob from "@/components/cursorCircle";
+import LoadingScreen from "@/components/loadingScreen";
 
 const DynamicFooter = dynamic(() => import("@/components/footer"), {
   loading: () => (
@@ -17,27 +18,37 @@ const DynamicFooter = dynamic(() => import("@/components/footer"), {
   ),
 });
 
+
+
 const HomePage = () => {
   const isNavbarOpen = useHomeStore((state) => state.isNavbarOpen);
+  const loadingScreen = useHomeStore((state) => state.loadingScreen);
 
+  const homeClass = `${styles.page} ${isNavbarOpen || loadingScreen ? styles.fixedHeight : styles.autoHeight}`
 
   return (
-    <SmoothScrolling>
-      <div className={`${styles.page} ${isNavbarOpen ? styles.fixedHeight : styles.autoHeight}`}>
-        <main className={styles.main}>
-          <div className={styles.firstSection}>
-            <HeroSection />
-          </div>
-          <NewsSection />
-        </main>
-        <footer className={styles.footer}>
-          <DynamicFooter />
-        </footer>
-        <MenuNav />
-        {isNavbarOpen && <CursorCircle />}
-      </div>
-    </SmoothScrolling>
+      <SmoothScrolling>
+        <div
+          className={homeClass}
+        >
+          <main className={styles.main}>
+            <div className={styles.firstSection}>
+              <HeroSection />
+            </div>
+            <NewsSection />
+          </main>
+          <footer className={styles.footer}>
+            <DynamicFooter />
+          </footer>
+          <MenuNav />
+          {isNavbarOpen && <JellyBlob />}
+          <LoadingScreen />
+        </div>
+      </SmoothScrolling>
   );
 };
 
 export default HomePage;
+
+
+

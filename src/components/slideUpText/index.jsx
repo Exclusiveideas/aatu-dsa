@@ -6,16 +6,25 @@ const SlideInText = ({ children, style }) => {
   const textRef = useRef(null);
 
   useEffect(() => {
-    gsap.fromTo(
-      textRef.current,
-      { y: "100%" }, // Start below the view
-      { y: "0%", duration: 1, ease: "power4.out" } // Slide up into place
-    );
+    const context = gsap.context(() => {
+      // Set initial position
+      gsap.set(textRef.current, { y: "100%" });
+
+      // Animate text sliding in
+      gsap.to(textRef.current, {
+        y: "0%",
+        duration: .7,
+        ease: "power4.out",
+      });
+    }, textRef);
+
+    // Cleanup on unmount
+    return () => context.revert();
   }, []);
 
   return (
     <div className="text-wrapper" style={style}>
-      <div ref={textRef} style={style} className="animated-text">
+      <div ref={textRef} className="animated-text">
         {children}
       </div>
     </div>

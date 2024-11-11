@@ -121,7 +121,7 @@ const StudentPortal = () => {
       <div className={`vertNavbar ${mobileNavbarOpen && "mobileNavbarOpen"}`}>
         <div className="vnTopSect">
           <a href="/">
-            <img src={"/logo.png"} alt="tech-u logo" className="logo" />
+            <img src={"/imgs/logo.png"} alt="tech-u logo" className="logo" />
           </a>
           <CloseIcon
             sx={{
@@ -171,7 +171,7 @@ const StudentPortal = () => {
           <div className="mailAndPicture">
             <Tooltip title={`${studentInfo?.email}`}>
               <IconButton>
-                <img src="/mail_unread.svg" alt=" icon" className="mail_icon" />
+                <img src="/imgs/mail_unread.svg" alt=" icon" className="mail_icon" />
               </IconButton>
             </Tooltip>
 
@@ -180,7 +180,7 @@ const StudentPortal = () => {
                 {studentInfo?.imageLink ? (
                   <div className="profilePicCirc">
                     <img
-                      src={`${studentInfo?.imageLink || "/me.jpg"}`}
+                      src={`${studentInfo?.imageLink || "/imgs/me.jpg"}`}
                       alt="profile picture"
                       className="profilePic"
                     />

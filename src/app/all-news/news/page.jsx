@@ -26,7 +26,7 @@ export default NewsPageWithSuspense;
 
 
 
-const demoImage = "/welcome.jpeg";
+const demoImage = "/img/imgs/welcome.jpeg";
 
 const NewsPage = () => {
   const searchParams = useSearchParams();

@@ -1,7 +1,7 @@
 import { Poppins } from 'next/font/google';
 import './menuNav.css';
 import useHomeStore from '@/store/homeStore';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 
 const poppins = Poppins({
@@ -12,37 +12,35 @@ const poppins = Poppins({
 
 
 const MenuNav = () => {
-    const [justLoaded, setJustLoaded] = useState(true)
-    const isNavbarOpen = useHomeStore((state) => state.isNavbarOpen);
-    const setMenuNavRef = useHomeStore((state) => state.setMenuNavRef);
-    const setMenuNavWrapperRef = useHomeStore((state) => state.setMenuNavWrapperRef);
+  const isNavbarOpen = useHomeStore((state) => state.isNavbarOpen);
+  const menuItemClicked = useHomeStore((state) => state.menuItemClicked);
+  const setMenuNavRef = useHomeStore((state) => state.setMenuNavRef);
+  const setMenuNavWrapperRef = useHomeStore((state) => state.setMenuNavWrapperRef);
 
-    const menuNavRef = useRef(null)
-    const menuNavWrapperRef = useRef(null)
-
-  useEffect(() => {
-    if(isNavbarOpen) setJustLoaded(false)
-  }, [isNavbarOpen])
+  const menuNavRef = useRef(null);
+  const menuNavWrapperRef = useRef(null);
 
   useEffect(() => {
-    if(menuNavRef.current && menuNavWrapperRef.current) {
-      setMenuNavWrapperRef(menuNavWrapperRef.current)
-      setMenuNavRef(menuNavRef.current)
+    if (menuNavRef.current && menuNavWrapperRef.current) {
+      setMenuNavWrapperRef(menuNavWrapperRef.current);
+      setMenuNavRef(menuNavRef.current);
     }
-  }, [menuNavRef, isNavbarOpen])
+  }, [setMenuNavRef, setMenuNavWrapperRef]);
   
+  const wrapperClass = `menuNavWrapper ${menuItemClicked == false ? 'justLoaded' : (isNavbarOpen ? 'isOpen' : 'isClose')}`;
+  const containerClass = `menuContainer ${poppins.className} ${isNavbarOpen ? 'isOpen' : 'isClose'}`; 
 
   return (
-    <div ref={menuNavWrapperRef} className={`menuNavWrapper ${justLoaded ? 'justLoaded' : (isNavbarOpen ? 'isOpen' : 'isClose')}`}>
-        <div ref={menuNavRef} className={`menuContainer ${poppins.className}  ${isNavbarOpen ? 'isOpen' : 'isClose'}`}>
-            <div className="menuItems"><a href="https://tech-u.edu.ng/">Home</a></div>
-            <div className="menuItems"><a href="https://tech-u.edu.ng/">Academics</a></div>
-            <div className="menuItems"><a href="https://tech-u.edu.ng/">Library</a></div>
-            <div className="menuItems"><a href="https://tech-u.edu.ng/">Staff Portal</a></div>
-            <div className="menuItems"><a href="https://tech-u.edu.ng/">Contact Us</a></div>
-        </div>
+    <div ref={menuNavWrapperRef} className={wrapperClass}>
+      <div ref={menuNavRef} className={containerClass}>
+        {['Home', 'Academics', 'Library', 'Staff Portal', 'Contact Us'].map((item, i) => (
+          <div key={i} className={`menuItems ${i < 3 ? 'large' : 'small'} ${i == 3 && 'marginTop '}`}>
+            <a href="https://tech-u.edu.ng/">{item}</a>
+          </div>
+        ))}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default MenuNav
+export default MenuNav;

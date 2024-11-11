@@ -2,9 +2,12 @@ import { create } from "zustand";
 
 const useHomeStore = create()((set) => ({
   isNavbarOpen: false,
+  menuItemClicked: false,
   menuNavRef: null,
   menuNavWrapperRef: null,
   navbarRef: null,
+  isSceneReady: false,
+  loadingScreen: true,
   toggleNavbar: () =>
     set((state) => ({
       isNavbarOpen: !state.isNavbarOpen,
@@ -20,6 +23,18 @@ const useHomeStore = create()((set) => ({
   setNavbarRef: (ref) =>
     set(() => ({
       navbarRef: ref,
+    })),
+  setIsSceneReady: (val) =>
+    set(() => ({
+      isSceneReady: val,
+    })),
+  setLoadingScreen: (val) =>
+    set(() => ({
+      loadingScreen: val,
+    })),
+  setMenuIconClicked: (val) =>
+    set(() => ({
+      menuItemClicked: val,
     })),
 }));
 

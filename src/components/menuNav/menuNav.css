@@ -5,10 +5,6 @@
     height: 100vh;
     left: 0;
     top: 8rem;
-    cursor: pointer;
-
-
-    background-color: rgba(24, 24, 24, 0.4);
     backdrop-filter: blur(0);
     color: white;
 }
@@ -19,40 +15,39 @@
 }
 
 .menuNavWrapper.isClose {
-    animation: noDisplay .5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-}
-
-.menuNavWrapper.isOpen {
+    animation: hideMenu 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  }
+  
+  .menuNavWrapper.isOpen {
     display: block;
-    animation: backDrop .2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-}
-
-
-@keyframes noDisplay {
+    animation: showMenu 0.2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  }
+  
+  @keyframes hideMenu {
     0% {
-        background-color: rgba(24, 24, 24, 0.4);
-        backdrop-filter: blur(8px) brightness(1);
-        display: block;
+      background-color: rgba(24, 24, 24, 0.4);
+      backdrop-filter: blur(8px) brightness(1);
+      display: block;
     }
-
     100% {
-        background-color: rgba(24, 24, 24, 0);
-        backdrop-filter: blur(0);
-        display: none;
+      background-color: rgba(24, 24, 24, 0);
+      backdrop-filter: blur(0);
+      display: none;
     }
-}
-
-@keyframes backDrop {
+  }
+  
+  @keyframes showMenu {
     0% {
-        background-color: rgba(24, 24, 24, 0);
-        backdrop-filter: blur(0);
+      background-color: rgba(24, 24, 24, 0);
+      backdrop-filter: blur(0);
     }
-
     100% {
-        background-color: rgba(24, 24, 24, 0.4);
-        backdrop-filter: blur(8px) brightness(1);
+      background-color: rgba(24, 24, 24, 0.4);
+      backdrop-filter: blur(8px) brightness(1);
     }
-}
+  }
+
+
 
 .menuContainer {
     width: 300px;
@@ -69,7 +64,6 @@
     gap: .5rem;
     opacity: 0;
     animation-direction: reverse;
-    cursor: auto;
 
     background: linear-gradient(270deg, #21212199 14.44%, #46454399 93.61%), #000000bb;
     border-radius: 8px;
@@ -77,36 +71,33 @@
 }
 
 .menuContainer.isClose {
-    animation: fadeOutUp .4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation: fadeOut 0.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
 
 .menuContainer.isOpen {
-    animation: fadeInDown .4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation: fadeIn 0.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
 
-
-@keyframes fadeOutUp {
-    0% {
-        opacity: 1;
-        top: 0px
-    }
-
-    100% {
-        opacity: 0;
-        top: -15px
-    }
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    top: 0px;
+  }
+  100% {
+    opacity: 0;
+    top: -15px;
+  }
 }
 
-@keyframes fadeInDown {
-    0% {
-        opacity: 0;
-        top: -15px
-    }
-
-    100% {
-        opacity: 1;
-        top: 0px
-    }
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    top: -15px;
+  }
+  100% {
+    opacity: 1;
+    top: 0px;
+  }
 }
 
 
@@ -115,20 +106,19 @@
     position: relative;
     transform: translateY(-10px);
     transition: all 0.4s ease;
-    transition-delay: .2s;
     opacity: 0;
 }
 
-.menuContainer.isClose>.menuItems {
-    animation: slideUp .5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-}
+.menuContainer.isOpen .menuItems {
+    animation: slideDown 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  }
+  
+  .menuContainer.isClose .menuItems {
+    animation: slideUp 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  }
+  
 
-.menuContainer.isOpen>.menuItems {
-    animation: slideDown .5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-}
-
-
-@keyframes slideUp {
+  @keyframes slideUp {
     0% {
         opacity: 1;
         transform: translateY(0px);
@@ -152,25 +142,24 @@
     }
 }
 
-.menuContainer.isOpen>.menuItems:nth-child(1) {
+
+.menuContainer.isOpen .menuItems.large {
     animation-delay: 0.07s;
 }
 
-.menuContainer.isOpen>.menuItems:nth-child(2) {
-    animation-delay: 0.1s;
+
+.menuContainer.isOpen .menuItems:nth-child(3) {
+    animation-delay: 0.09;
 }
 
-.menuContainer.isOpen>.menuItems:nth-child(3) {
-    animation-delay: 0.13s;
+.menuContainer.isOpen .menuItems:nth-child(4) {
+    animation-delay: 0.1;
 }
 
-.menuContainer.isOpen>.menuItems:nth-child(4) {
-    animation-delay: 0.2;
+.menuContainer.isOpen .menuItems:nth-child(5) {
+    animation-delay: 0.12s;
 }
 
-.menuContainer.isOpen>.menuItems:nth-child(5) {
-    animation-delay: 0.22s;
-}
 
 .menuItems::before {
     content: "";
@@ -190,22 +179,14 @@
     opacity: 1;
 }
 
-.menuItems:nth-of-type(1) {
+.menuItems.large {
     font-size: 38px;
-}
-
-.menuItems:nth-of-type(2) {
-    font-size: 38px;
-}
-
-.menuItems:nth-of-type(3) {
-    font-size: 38px;
-}
-
-.menuItems:nth-of-type(4) {
+  }
+  
+  .menuItems.marginTop {
     margin-top: 3rem;
-}
-
-.menuItems:nth-of-type(4) {
+  }
+  
+  .menuItems.small {
     font-size: 20px;
-}
+  }

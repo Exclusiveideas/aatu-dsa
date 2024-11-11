@@ -138,12 +138,11 @@ const SignUpComp = ({
     <div className="signUpcomp">
       <a href="/">
         <Image
-          src={"/logo.png"}
+          src={"/imgs/logo.png"}
           width={340}
           height={150}
           alt="tech-u logo"
           className="logo"
-          priority={true}
         />
       </a>
       <h2>Create your account</h2>

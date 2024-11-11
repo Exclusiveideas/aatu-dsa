@@ -36,16 +36,26 @@ const JellyBlob = () => {
   const pos = useRef({ x: 0, y: 0 });
   const vel = useRef({ x: 0, y: 0 });
 
-  // Set GSAP quick setter Values on useLayoutEffect Update
+
+  const setJellyX = useRef(null);
+  const setJellyY = useRef(null);
+  const setJellyRotate = useRef(null);
+  const setJellyScaleX = useRef(null);
+  const setJellyScaleY = useRef(null);
+  const setJellyWidth = useRef(null);
+  const setJellyOpacity = useRef(null);
+  const setTextRotate = useRef(null);
+
+ 
   useLayoutEffect(() => {
-    gsap.quickSetter(jellyRef.current, "x", "px");
-    gsap.quickSetter(jellyRef.current, "y", "px");
-    gsap.quickSetter(jellyRef.current, "rotate", "deg");
-    gsap.quickSetter(jellyRef.current, "scaleX");
-    gsap.quickSetter(jellyRef.current, "scaleY");
-    gsap.quickSetter(jellyRef.current, "width", "px");
-    gsap.quickSetter(jellyRef.current, "opacity", "");
-    gsap.quickSetter(textRef.current, "rotate", "deg");
+    setJellyX.current = gsap.quickSetter(jellyRef.current, "x", "px");
+    setJellyY.current = gsap.quickSetter(jellyRef.current, "y", "px");
+    setJellyRotate.current = gsap.quickSetter(jellyRef.current, "rotate", "deg");
+    setJellyScaleX.current = gsap.quickSetter(jellyRef.current, "scaleX");
+    setJellyScaleY.current = gsap.quickSetter(jellyRef.current, "scaleY");
+    setJellyWidth.current = gsap.quickSetter(jellyRef.current, "width", "px");
+    setJellyOpacity.current = gsap.quickSetter(jellyRef.current, "opacity");
+    setTextRotate.current = gsap.quickSetter(textRef.current, "rotate", "deg");
   }, []);
 
   // Start Animation loop
@@ -55,54 +65,48 @@ const JellyBlob = () => {
     const scale = getScale(vel.current.x, vel.current.y); // Blob Squeeze Amount
 
     if (cursorOnNavbar.current.value) {
-      loopTwo();
-    } else {
       gsap.set(jellyRef.current, {
-        opacity: 1,
+        opacity: 0,
+        ease: Expo.easeOut,
+        duration: 0.8,
       });
+    } else {
+      setJellyOpacity.current(1);
     }
 
-    // Set GSAP quick setter Values on Loop Function
-    gsap.set(jellyRef.current, { x: pos.current.x, y: pos.current.y });
-    gsap.set(jellyRef.current, { width: 45 + scale * 10 });
-    gsap.set(jellyRef.current, { rotate: rotation });
-    gsap.set(jellyRef.current, { scaleX: 1 + scale * 0.3 });
-    gsap.set(jellyRef.current, { scaleY: 1 - scale * 0.3 });
-    gsap.set(textRef.current, { rotate: -rotation });
+    setJellyX.current(pos.current.x);
+    setJellyY.current(pos.current.y);
+    setJellyWidth.current(45 + scale * 10);
+    setJellyRotate.current(rotation);
+    setJellyScaleX.current(1 + scale * 0.3);
+    setJellyScaleY.current(1 - scale * 0.3);
+    setTextRotate.current(-rotation);
   }, []);
-
-  const loopTwo = useCallback(() => {
-    // Set GSAP quick setter Values on Loop Function
-    gsap.set(jellyRef.current, {
-      opacity:  0,
-      ease: Expo.easeOut,
-      duration: .8
-    });
-  }, []);
-
 
   // Run on Mouse Move
   useLayoutEffect(() => {
-      
+    let animationFrameId;
+
     // Caluclate Everything Function
     const setFromEvent = (e) => {
       // Mouse X and Y
       const x = e.clientX;
       const y = e.clientY;
 
-      // Animate Position and calculate Velocity with GSAP
-      gsap.to(pos.current, {
-        x: x,
-        y: y,
-        duration: 1.5,
-        ease: Expo.easeOut,
-        onUpdate: () => {
-          vel.current.x = x - pos.current.x;
-          vel.current.y = y - pos.current.y;
-        },
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = requestAnimationFrame(() => {
+        gsap.to(pos.current, {
+          x: x,
+          y: y,
+          duration: 1.5,
+          ease: Expo.easeOut,
+          onUpdate: () => {
+            vel.current.x = x - pos.current.x;
+            vel.current.y = y - pos.current.y;
+          },
+        });
+        loop();
       });
-
-      loop();
     };
 
     window.addEventListener("mousemove", setFromEvent);
@@ -110,6 +114,7 @@ const JellyBlob = () => {
     // Cleanup on unmount
     return () => {
       window.removeEventListener("mousemove", setFromEvent);
+      cancelAnimationFrame(animationFrameId);
     };
   }, [loop]);
 
@@ -118,37 +123,51 @@ const JellyBlob = () => {
   useLayoutEffect(() => {
     if (typeof window == "undefined") return;
 
+    
     const handleMouseLeave = () => {
-      loopTwo();
+      gsap.set(jellyRef.current, {
+        opacity: 0,
+        ease: Expo.easeOut,
+        duration: 0.8,
+      });
     };
 
     const handleCursorOnNavbar = () => {
       cursorOnNavbar.current.value = true;
-      loopTwo();
-    }
-    
+    };
+
     const handleCursorLeftNavbar = () => {
       cursorOnNavbar.current.value = false;
-    }
+    };
 
     // Add event listeners for mouseenter and mouseleave on window
     window.addEventListener("mouseout", handleMouseLeave);
 
-    if(menuNavRef) menuNavRef.addEventListener("mouseenter", handleCursorOnNavbar);
-    if(menuNavRef) menuNavRef.addEventListener("mouseleave", handleCursorLeftNavbar);
+    if (menuNavRef) {
+      menuNavRef.addEventListener("mouseenter", handleCursorOnNavbar);
+      menuNavRef.addEventListener("mouseleave", handleCursorLeftNavbar);
+    }
 
-    if(navbarRef) navbarRef.addEventListener("mousemove", handleCursorOnNavbar);
-    if(navbarRef) navbarRef.addEventListener("mouseleave", handleCursorLeftNavbar);
+    if (navbarRef) {
+      navbarRef.addEventListener("mousemove", handleCursorOnNavbar);
+      navbarRef.addEventListener("mouseleave", handleCursorLeftNavbar);
+    }
+
+    
 
     // Cleanup event listeners
     return () => {
       window.removeEventListener("mouseout", handleMouseLeave);
-      if(menuNavRef) menuNavRef.removeEventListener("mouseenter", handleMouseLeave);
-      if(menuNavRef) menuNavRef.removeEventListener("mouseleave", handleCursorLeftNavbar);
-      if(navbarRef) navbarRef.removeEventListener("mousemove", handleMouseLeave);
-      if(navbarRef) navbarRef.removeEventListener("mouseleave", handleCursorLeftNavbar);
+      if (menuNavRef) {
+        menuNavRef.removeEventListener("mouseenter", handleCursorOnNavbar);
+        menuNavRef.removeEventListener("mouseleave", handleCursorLeftNavbar);
+      }
+      if (navbarRef) {
+        navbarRef.removeEventListener("mousemove", handleCursorOnNavbar);
+        navbarRef.removeEventListener("mouseleave", handleCursorLeftNavbar);
+      }
     };
-  }, [loopTwo, menuNavRef, isNavbarOpen]);
+  }, [menuNavRef, isNavbarOpen]);
 
 
   useLayoutEffect(() => {
@@ -160,13 +179,16 @@ const JellyBlob = () => {
       toggleNavbar();
     } 
 
-    menuNavWrapperRef.addEventListener("click", closeMenuNavbar);
+    if (menuNavWrapperRef) {
+      menuNavWrapperRef.addEventListener("click", closeMenuNavbar);
+    }
 
-    // Cleanup event listeners
     return () => {
-      menuNavWrapperRef.removeEventListener("click", closeMenuNavbar);
+      if (menuNavWrapperRef) {
+        menuNavWrapperRef.removeEventListener("click", closeMenuNavbar);
+      }
     };
-  }, []);
+  }, [menuNavWrapperRef, isNavbarOpen, toggleNavbar]);
 
   // Return UI
   return (
@@ -176,7 +198,6 @@ const JellyBlob = () => {
           <CloseIcon
             sx={{
               color: "black",
-              cursor: "pointer",
               fontSize: "25px",
             }}
           />

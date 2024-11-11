@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import '@/styles/mabry_pro_styles.css';
+import "@/styles/mabry_pro_styles.css";
+import "@/styles/nohemi_font_styles.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -18,7 +19,6 @@ export const metadata: Metadata = {
   title: "AATU - Department of Student Affairs",
   description: "For the best student experience",
 };
-
 
 export default function RootLayout({
   children,

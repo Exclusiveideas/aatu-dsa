@@ -23,14 +23,10 @@
   position: static;
 }
 
-.logoWrapper {
-  cursor: pointer;
-}
 
 .navbar_logo {
   width: 150px;
   height: 70px;
-  /* transform: scale(.8); */
 }
 
 
@@ -42,13 +38,11 @@
 }
 
 
-
-
 .portalBtn {
     padding: .8rem 2.5rem;
     background-color: #ffa2a2;
     font-size: 17px;
-    cursor: pointer;
+    /* cursor: pointer; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -66,6 +60,24 @@
     animation: pulsate 1.3s infinite; /* pulsating animation */
 }
 
+.svgWrapper {
+  cursor: pointer;
+}
+
+.menu-bar {
+  transition: 0.3s;
+  transform-origin: center;
+}
+
+.menu-bar.open-top {
+  transform: rotate(45deg) translateY(10px);
+}
+
+.menu-bar.open-bottom {
+  transform: rotate(-45deg) translateY(-10px);
+}
+
+
 
 @keyframes pulsate {
     0% {
@@ -80,22 +92,6 @@
       opacity: 0;
     }
   }
-
-
-
-
-  /* Media Queries */
-
-
-/* @media (max-width: 480px) {
-  .portalBtnWrapper {
-    display: none;
-  }
-
-  .logoWrapper {
-    transform: scale(.8);
-  }
-} */
 
 
 

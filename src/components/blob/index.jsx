@@ -1,59 +1,66 @@
-import './blob.css';
-import { useLayoutEffect, useRef, useCallback } from "react";
+import "./blob.css";
+import { useLayoutEffect, useRef, useCallback, useEffect } from "react";
 import gsap, { Expo } from "gsap";
 
 const Blob = () => {
   // React Refs for Jelly Blob and Text
   const jellyRef = useRef(null);
-
-  // Save pos object
   const pos = useRef({ x: 0 });
+  const setJellyX = useRef(null);
 
-  // Mapping function
-  const mapRange = (value, inMin, inMax, outMin, outMax) => {
-    return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
+  // Throttle function to limit the frequency of mousemove events
+  const throttle = (callback, limit) => {
+    let waiting = false;
+    return (...args) => {
+      if (!waiting) {
+        callback(...args);
+        waiting = true;
+        setTimeout(() => (waiting = false), limit);
+      }
+    };
   };
+  
 
-  // Set GSAP quick setter Values on useLayoutEffect Update
   useLayoutEffect(() => {
-    gsap.quickSetter(jellyRef.current, "x", "px");
+    setJellyX.current = gsap.quickSetter(jellyRef.current, "x", "px");
   }, []);
 
-  // Start Animation loop
-  const loop = useCallback(() => {
-    // Set GSAP quick setter Values on Loop Function
-    gsap.set(jellyRef.current, { x: pos.current.x });
-  }, []);
+  const setFromEvent = useCallback(
+    throttle((e) => {
+      const mappedX = (e.clientX / window.innerWidth) * window.innerWidth;
 
-  // Run on Mouse Move
-  useLayoutEffect(() => {
-    const setFromEvent = (e) => {
-      // Map x position of mouse to the range of 0 to 100vw
-      const mappedX = mapRange(e.clientX, 0, window.innerWidth, 0, window.innerWidth);
-
-      // Animate Position with GSAP
       gsap.to(pos.current, {
         x: mappedX,
-        duration: 15,
+        duration: 10,
         ease: Expo.easeOut,
+        onUpdate: () => {
+          setJellyX.current(pos.current.x);
+        },
       });
+    }, 16), // 16ms throttle for ~60fps
+    []
+  );
 
-      loop();
-    };
-
+  useLayoutEffect(() => {
     window.addEventListener("mousemove", setFromEvent);
 
-    // Cleanup on unmount
     return () => {
       window.removeEventListener("mousemove", setFromEvent);
     };
-  }, [loop]);
+  }, [setFromEvent]);
 
-  return (
-    <div ref={jellyRef} className="blob">
-      Blob
-    </div>
-  );
+  
+  useEffect(() => {
+    if (jellyRef.current) {
+      gsap.to(jellyRef.current, {
+        opacity: .5,
+        duration: 0.4,
+        ease: Expo.easeIn,
+      });
+    }
+  }, []);
+
+  return <div ref={jellyRef} className="blob"></div>;
 };
 
 export default Blob;

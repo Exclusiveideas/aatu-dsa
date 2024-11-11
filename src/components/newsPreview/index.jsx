@@ -6,7 +6,7 @@ const NewsPreview = ({ topP, firstTopP, allNewsPage, news }) => {
   const router = useRouter();
 
   const maxLen = topP ? 120 : 60;
-  const newsBgImg = "/welcome.jpeg";
+  const newsBgImg = "/imgs/welcome.jpeg";
 
   const gotoSingleNewsPage = () => {
     if(news?.id) router.push(`/all-news/news?newsID=${news?.id}`);

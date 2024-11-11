@@ -24,7 +24,7 @@ const ImageCarousel = () => {
           className={`imgDiv ${i === index ? "active" : ""}`}
         >
           <img
-            src={`/${image}`}
+            src={`/imgs/${image}`}
             alt={`carousel image ${i}`}
             className="carouselImage"
           />
