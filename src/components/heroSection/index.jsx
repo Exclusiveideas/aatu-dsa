@@ -1,7 +1,5 @@
 import "./heroSection.css";
 import { Poppins } from "next/font/google";
-import Navbar from "../navbar";
-import SlideInText from "../slideUpText";
 import { CTAButtonAlt } from "../ctaButton";
 import { Leva } from "leva";
 import dynamic from "next/dynamic";
@@ -18,29 +16,26 @@ const poppins = Poppins({
 });
 
 const HeroSection = () => {
-
   return (
-    <div className='heroSectWrapper'>
+    <div className="heroSectWrapper">
       <div className="heroSectBody">
-        <Navbar />
         <Blob />
         <div className="heroInfo">
           <div className="infoBox">
             <div className="threeDTxtWrapper">
               <ThreeDText />
             </div>
-            <SlideInText>
-              <p
-                className={`headerCaption  ${poppins.className} marginLeft`}
-              >
-                This site is here to keep you connected and informed with
-                everything you need for your hostel experience, brought to you
-                by the Dean of Student Affairs.
-              </p>
-            </SlideInText>
-            <SlideInText>
-              <CTAButtonAlt customStyles={{marginLeft: '5rem' }} linkTo={"/all-news"}>What's going on?</CTAButtonAlt>
-            </SlideInText>
+            <p className={`headerCaption  ${poppins.className} marginLeft`}>
+              This site is here to keep you connected and informed with
+              everything you need for your hostel experience, brought to you by
+              the Dean of Student Affairs.
+            </p>
+            <CTAButtonAlt
+              customStyles={{ marginLeft: "5rem" }}
+              linkTo={"/all-news"}
+            >
+              What's going on?
+            </CTAButtonAlt>
           </div>
         </div>
       </div>

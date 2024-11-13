@@ -1,8 +1,5 @@
 
 .heroSectWrapper {
-  --bg-color-dark: #16191B;
-  --dark: #22262A;
-  --black-1: #0b0d0e;
   --black-2: #16191b;
 
 
@@ -50,10 +47,11 @@
 }
 
 .headerCaption {
-  font-size: 1.2em;
+  font-size: 1.1em;
   line-height: 1.4em;
   font-weight: 400;
   width: 78%;
+  color: #ffffffc6;
 }
 
 
@@ -81,7 +79,6 @@
   position: relative;
   min-height: 10rem;
   background-color: transparent;
-  /* border: 1px solid white; */
 }
   
 .marginLeft {
@@ -135,7 +132,6 @@
   .arrowContainer {
     gap: 1.3vw;
   }
-  
 
 }
 

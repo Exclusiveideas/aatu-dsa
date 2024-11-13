@@ -7,7 +7,7 @@ const useHomeStore = create()((set) => ({
   menuNavWrapperRef: null,
   navbarRef: null,
   isSceneReady: false,
-  loadingScreen: true,
+  loadingScreen: false,
   toggleNavbar: () =>
     set((state) => ({
       isNavbarOpen: !state.isNavbarOpen,

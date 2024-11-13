@@ -1,16 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./newsSection.css";
-import NewsPreview from "../newsPreview";
 import useNewsStore from "@/store/newsStore";
-import { Skeleton } from "@mui/material";
 import { fetchNews } from "@/utils/newsFunctions";
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import Link from "next/link";
-
-const NewsSection = () => {
-  const [availableNews, setAvailableNews] = useState([])
+import NewsGrid from "../newsGrid";
+import FadeLoader from "react-spinners/FadeLoader";
+ 
+const NewsSection = ({ setNewsMaskingRef, setChildAnimationComplete, childHeight }) => {
+  const [availableNews, setAvailableNews] = useState([]);
+  
+  const containerRef = useRef();
 
   const fetchedNews = useNewsStore((state) => state.fetchedNews);
   const lastDoc = useNewsStore((state) => state.lastDoc);
@@ -29,8 +29,12 @@ const NewsSection = () => {
   
 
   return (
-    <div className="newsSection">
-      <div className="newsSectHeader">
+    <div ref={containerRef} className="newsSection">
+      <NewsGrid setNewsMaskingRef={setNewsMaskingRef} setChildAnimationComplete={setChildAnimationComplete} childHeight={childHeight} />
+      <div className="loadingIndicator">
+        <FadeLoader />
+      </div>
+      {/* <div className="newsSectHeader">
         <div className="headerText">
           <h2>News & Updates</h2>
         </div>
@@ -80,7 +84,7 @@ const NewsSection = () => {
             
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -15,7 +15,7 @@ const Navbar = ({ newPage }) => {
     }
   }, [navbarRef, setNavbarRef]);
 
-  useEffect(() => {
+  useEffect(() => { 
     if (navbarRef.current) {
       gsap.to(navbarRef.current, {
         opacity: 1,

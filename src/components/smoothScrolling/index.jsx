@@ -1,16 +1,35 @@
 import { ReactLenis } from "@studio-freight/react-lenis";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function SmoothScrolling({ children }) {
-  // lenis options for configuration
+  const lenisRef = useRef()
+
   const lenisOptions = {
     lerp: 0.1,
     duration: 1.5,
-    smoothTouch: false, //smooth scroll for touch devices
+    smoothTouch: true, //smooth scroll for touch devices
     smooth: true,
   };
 
+  
+  useEffect(() => {
+    function update(time) {
+      lenisRef.current?.lenis?.raf(time * 1000)
+    }
+  
+    gsap.ticker.add(update)
+  
+    return () => {
+      gsap.ticker.remove(update)
+    }
+  })
+
   return (
-    <ReactLenis root options={lenisOptions}>
+    <ReactLenis ref={lenisRef} root options={lenisOptions}>
       {children}
     </ReactLenis>
   );

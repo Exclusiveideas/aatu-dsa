@@ -15,7 +15,10 @@ const LoadingScreen = () => {
   const setLoadingScreen = useHomeStore((state) => state.setLoadingScreen);
 
   useEffect(() => {
-    if (counter >= 100) return;
+    if (counter >= 100) {
+      clearInterval(intervalIdRef.current)
+      return
+    };
 
     intervalIdRef.current = setInterval(() => {
       setCounter((prev) => {
@@ -59,7 +62,7 @@ const LoadingScreen = () => {
           ease: "expo.out",
         });
       }, loaderRef);
-    }, 1300); // Timeout before triggering animation
+    }, 1300);
 
     return () => {
       if (loaderAnimContext && hasRun) {
