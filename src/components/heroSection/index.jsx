@@ -4,6 +4,11 @@ import { CTAButtonAlt } from "../ctaButton";
 import { Leva } from "leva";
 import dynamic from "next/dynamic";
 import Blob from "../blob";
+import gsap from "gsap";
+import CustomEase from "gsap/CustomEase";
+import ScrollToPlugin from "gsap/ScrollToPlugin";
+
+gsap.registerPlugin(CustomEase, ScrollToPlugin);
 
 const ThreeDTextBulge = dynamic(() => import("@/components/3DTextBulge"), {
   ssr: false,
@@ -15,7 +20,17 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const HeroSection = () => {
+const HeroSection = ({ targetRef }) => {
+  const handleScrollToElement = () => {
+    if (!targetRef.current && !window) return;
+
+    gsap.to(window, {
+      scrollTo: targetRef.current,
+      duration: 1,
+      ease: CustomEase.create("custom", "M0,0 C0.709,0 1,0.307 1,1 "),
+    });
+  };
+
   return (
     <div className="heroSectWrapper">
       <div className="heroSectBody">
@@ -32,7 +47,7 @@ const HeroSection = () => {
             </p>
             <CTAButtonAlt
               customStyles={{ marginLeft: "5rem" }}
-              linkTo={"/all-news"}
+              onClick={handleScrollToElement}
             >
               What's going on?
             </CTAButtonAlt>

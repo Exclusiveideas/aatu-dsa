@@ -31,7 +31,7 @@
     "firebase": "^10.14.1",
     "g": "^2.0.1",
     "gltfjsx": "^6.5.3",
-    "gsap": "^3.12.5",
+    "gsap": "file:gsap-bonus.tgz",
     "html2canvas": "^1.4.1",
     "imagesloaded": "^5.0.0",
     "jsonwebtoken": "^9.0.2",

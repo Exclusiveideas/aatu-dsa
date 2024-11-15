@@ -4,17 +4,32 @@
   --button-secondary: #CA0202;
   --bg-black-2: #16191b;
 
-  
+
   background: var(--bg-black-2);
   color: var(--foreground);
   width: 100vw;
   overflow-x: hidden;
-  min-height: 100vh; 
+  min-height: 100vh;
   overflow-y: auto;
   position: relative;
   scroll-behavior: smooth;
   box-sizing: border-box;
 }
+
+
+.page::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.page {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+
 
 .page.fixedHeight {
   max-height: 100vh;
@@ -38,18 +53,30 @@
 .newsSection {
   width: 100%;
   min-height: 30vh;
-  padding: 1rem;
-  padding-bottom: 0;
   box-sizing: border-box;
-  padding-top: 8rem;
-  margin-bottom: 4rem;
-  /* background-color: #fff; */
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.newsSectDiv {
-  height: 5rem;
+.newSectionTitle {
+  font-size: 4rem;
+  color: white;
+  opacity: .7;
+}
+
+
+
+.loadingIndicator {
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F4AA4C;
+  padding: .5rem;
+  height: 5rem;
 }
 
 .footer {
@@ -72,7 +99,24 @@
 .main {
   height: max-content;
 }
- 
+
+.uptoDateCont {
+  padding: .5rem 2rem;
+  background-color: #3E958F;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: -1px 4px 19px 4px rgba(0, 0, 0, 0.43);
+  -webkit-box-shadow: -1px 4px 19px 4px rgba(0, 0, 0, 0.43);
+  -moz-box-shadow: -1px 4px 19px 4px rgba(0, 0, 0, 0.43);
+}
+
+.uptoDateCont.error {
+  background-color: #CA0202;
+}
+
 
 
 /* Media Queries */
@@ -83,12 +127,12 @@
     min-height: 70px;
     margin-top: 1rem;
   }
-  
-  
+
+
   .footerSkeleton {
     height: 70px;
     padding: 0 .7rem;
     padding-bottom: .3rem;
   }
-  
+
 }

@@ -5,30 +5,41 @@ import { collection, query, limit, startAfter, getDocs } from 'firebase/firestor
 
 
 
-export const fetchNews = async ({ lastDoc, updateFetchedNews, updateLastDoc, updateFetchedNewsError, updateIsFetching }) => {
+export const fetchNews = async ({ lastDoc, updateFetchedNews, updateLastDoc, updateFetchedNewsError, updateIsFetching, updateNoMoreNews }) => {
     updateIsFetching(true);
 
     try {
       const newsQuery = query(
         collection(firestore, 'news'),
-        // orderBy('date', 'desc'),
         limit(6),
         ...(lastDoc ? [startAfter(lastDoc)] : [])
       );
 
   
       const snapshot = await getDocs(newsQuery);
+
+      if (snapshot?.empty) {
+        console.log('empty')
+        console.log('typeof: ', typeof updateNoMoreNews)
+        updateNoMoreNews(true);
+        return;
+      }
+
   
       const news = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc?._document.data.value.mapValue.fields,
       }));
 
+      
       if(!news[0]) return;
+
       updateFetchedNews(news);
       updateLastDoc(snapshot.docs[snapshot.docs.length - 1]);
+      updateNoMoreNews(false);
     } catch {
       updateFetchedNewsError('Error fetching news - Try reloading the page.');
+      console.log('Error fetching news - Try reloading the page.');
     } finally {
       updateIsFetching(false);
     }

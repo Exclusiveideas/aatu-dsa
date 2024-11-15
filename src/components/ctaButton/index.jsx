@@ -25,9 +25,11 @@ export default CTAButton;
 
 
 
-export const CTAButtonAlt = ({ children, linkTo, customStyles }) => {
+export const CTAButtonAlt = ({ children, customStyles, onClick }) => {
+  const nullClick = () => {}
+  
   return (
-    <Link href={linkTo || ''} style={customStyles ? customStyles : {}} className={`ctaBtnAltWrapper  ${poppins.className}`}>
+    <div onClick={onClick || nullClick} style={customStyles ? customStyles : {}} className={`ctaBtnAltWrapper  ${poppins.className}`}>
       <p>{children}</p>
       <div className="btnRightIcon">
         <ChevronRightIcon
@@ -37,6 +39,6 @@ export const CTAButtonAlt = ({ children, linkTo, customStyles }) => {
           }}
         />
       </div>
-    </Link>
+    </div>
   );
 };

@@ -1,94 +1,58 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
-import './newsGrid.css';
-import gsap from 'gsap';
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import "./newsGrid.css";
+import { createSkewAnimation } from "@/utils/hooks/newsGridFunctions";
+import { Skeleton } from "@mui/material";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const gridItems = [
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-  {image: '/imgs/welcome.jpeg' },
-];
-
-const NewsGrid = ({ setNewsMaskingRef, setChildAnimationComplete, childHeight }) => {
-    const contentRef = useRef();
-    const newsMaskingContRef = useRef();
+const NewsGrid = ({ availableNews, contentRefDistance }) => {
+  const contentRef = useRef();
+  const newsMaskingContRef = useRef();
+  const gridBoxRef = useRef();
 
   useEffect(() => {
-    if (!contentRef.current || !newsMaskingContRef.current) return;
-    setNewsMaskingRef(newsMaskingContRef);
+    if (!gridBoxRef.current) return;
 
-    // Sync child animation with ScrollTrigger
+    createSkewAnimation(gridBoxRef.current);
+  }, [gridBoxRef.current, availableNews]);
+
+  useEffect(() => {
+    if (!contentRef.current) return;
+
     const content = contentRef.current;
+    const dist = content?.clientHeight;
 
-    const originalHeight = content.clientHeight;
-
-    gsap.to(content, {
-        y: -originalHeight, 
-        ease: "none",
-        scrollTrigger: {
-          trigger: content,
-          start: "top 50%",
-          scrub: true,
-          end: () => `+=${}`,
-          markers: true,
-          pinSpacing: false,
-          onUpdate: (self) => {
-            // Calculate the remaining visible height of the child container
-            const remainingHeight = originalHeight * (1 - self.progress);
-      
-            // Set the height of the parent container to match the remaining height
-            // if (content.parentElement) {
-            console.log('remH: ', remainingHeight)
-            childHeight = remainingHeight
-            // }
-          },
-        },
-      });
-    // onUpdate: (self) => {
-        //   // Check if the child animation has reached the end
-        //   if (self.progress >= 1) {
-        //     setChildAnimationComplete(true); // Mark child animation as complete
-        //   }
-        // },
-  }, []);
+    contentRefDistance.current = dist;
+  }, [contentRef.current]);
 
   return (
     <div ref={newsMaskingContRef} className="masking-container">
-    <div ref={contentRef} className="grid">
-      {gridItems.map((item, i) => (
-        <figure key={i} className="grid__item">
-          <div className="grid__item-imgwrap">
-            <div
-              className="grid__item-img"
-              style={{ backgroundImage: `url(${item.image})` }}
-            ></div>
+      <div ref={contentRef}>
+        {availableNews[0] ? (
+          <div ref={gridBoxRef} className="grid">
+            {availableNews?.map((_, i) => (
+              <figure key={i} className="grid__item">
+                <div className="grid__item-imgwrap">
+                  <div
+                    className="grid__item-img"
+                    style={{ backgroundImage: `url(${"/imgs/welcome.jpeg"})` }}
+                  ></div>
+                </div>
+              </figure>
+            ))}
           </div>
-        </figure>
-      ))}
-    </div>
+        ) : (
+          <div ref={gridBoxRef} className="grid">
+            {Array.from({ length: 8 }).map((_, index) => (
+              <Skeleton
+                key={index}
+                variant="rounded"
+                animation="wave"
+                className="grid__item"
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
