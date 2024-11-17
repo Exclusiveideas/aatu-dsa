@@ -1,11 +1,9 @@
 "use client";
 
 import styles from "./page.module.css";
-import { Skeleton } from "@mui/material";
-import dynamic from "next/dynamic";
 import useHomeStore from "@/store/homeStore";
 import gsap from "gsap";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "@/components/navbar";
 import HeroSection from "@/components/heroSection";
@@ -18,24 +16,13 @@ import { CustomEase } from "gsap/CustomEase";
 import useInView from "@/utils/hooks/useInView";
 import { fetchNews } from "@/utils/newsFunctions";
 import useNewsStore from "@/store/newsStore";
+import { scaleNewsContainer } from "@/utils/homeFunctions";
+import LoadingScreen from "@/components/loadingScreen";
 
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
-const DynamicFooter = dynamic(() => import("@/components/footer"), {
-  loading: () => (
-    <div className={styles.footerSkeleton}>
-      <Skeleton variant="rounded" width={"100%"} height={"100%"} />
-    </div>
-  ),
-});
-
 const HomePage = () => {
-  const isNavbarOpen = useHomeStore((state) => state.isNavbarOpen);
-  const loadingScreen = useHomeStore((state) => state.loadingScreen);
 
-  const [newsSectionRef, setNewsSectionRef] = useState(null);
-  const [animationCompleted, setAnimationCompleted] = useState(false);
-  const [animationReversing, setAnimationReversing] = useState(false);
   const [noMoreNews, setNoMoreNews] = useState(false);
   const [availableNews, setAvailableNews] = useState([]);
 
@@ -46,6 +33,11 @@ const HomePage = () => {
 
   const contentRefDistance = useRef(null);
 
+  const isNavbarOpen = useHomeStore((state) => state.isNavbarOpen);
+  const unMountLoadingScreen = useHomeStore((state) => state.unMountLoadingScreen);
+
+  
+  const newsSectionRef = useRef(null);
   const heroesRef = useRef(null);
   const newsRef = useRef(null);
   const newsTitleRef = useRef(null);
@@ -90,19 +82,17 @@ const HomePage = () => {
           scrub: 1,
           pin: true,
           onLeave: () => {
-            setAnimationCompleted(true);
-            setAnimationReversing(false);
+            scaleNewsContainer(newsSectionRef, true, false)
           },
           onEnterBack: () => {
-            setAnimationCompleted(false);
-            setAnimationReversing(true);
+            scaleNewsContainer(newsSectionRef, false, true)
           },
         },
       },
       "<"
     );
 
-    ScrollTrigger.create({
+    const stInstance = ScrollTrigger.create({
       trigger: newsRef.current,
       start: "top 25%",
       scrub: true,
@@ -141,44 +131,25 @@ const HomePage = () => {
         });
       },
     });
-  }, [newsSectionRef?.current, newsRef?.current, newsTitleRef?.current]);
+
+    return () => {
+      tlAnimation.kill();
+      stInstance.kill();
+    };
+  }, []);
 
   useEffect(() => {
     // refresh scrolltrigger when new newsitems are fetched
     ScrollTrigger.refresh();
   }, [availableNews]);
 
-  useEffect(() => {
-    const tl1 = gsap.timeline();
-    const tl2 = gsap.timeline();
-
-    if (animationCompleted & !animationReversing) {
-      tl2.kill();
-      tl1.to(newsSectionRef?.current, {
-        scale: 1,
-        ease: CustomEase.create("custom", "M0,0 C0.709,0 1,0.307 1,1 "),
-        duration: 0.4,
-      });
-    } else if (animationReversing && !animationCompleted) {
-      tl1.kill();
-      tl2.to(newsSectionRef?.current, {
-        scale: 0.9,
-        ease: CustomEase.create("custom", "M0,0 C0.709,0 1,0.307 1,1 "),
-        duration: 0.4,
-      });
-    }
-
-    return () => {
-      if (tl1) tl1.kill();
-      if (tl2) tl2.kill();
-    };
-  }, [animationCompleted, animationReversing]);
 
   useEffect(() => {
     if (!isLoadInView) return;
 
     fetchNews({
       lastDoc,
+      fetchedNews,
       updateFetchedNews,
       updateLastDoc,
       updateFetchedNewsError,
@@ -187,12 +158,17 @@ const HomePage = () => {
     });
   }, [isLoadInView]);
 
-  useLayoutEffect(() => {
+  const memoizedAvailableNews = useMemo(() => {
+    return fetchedNews.length ? [...fetchedNews] : [];
+  }, [fetchedNews]);
+
+  useEffect(() => {
     if (fetchedNews[0]) {
-      setAvailableNews([...fetchedNews]);
+      setAvailableNews(memoizedAvailableNews);
     } else {
       fetchNews({
         lastDoc,
+        fetchedNews,
         updateFetchedNews,
         updateLastDoc,
         updateFetchedNewsError,
@@ -200,15 +176,11 @@ const HomePage = () => {
         updateNoMoreNews: setNoMoreNews,
       });
     }
-  }, [fetchedNews]);
+  }, [memoizedAvailableNews]);
 
   const homeClass = `${styles.page} ${
-    loadingScreen ? styles.fixedHeight : styles.autoHeight
+    !unMountLoadingScreen ? styles.fixedHeight : styles.autoHeight
   }`;
-
-  useEffect(() => {
-    console.log("noMoreNews: ", noMoreNews);
-  }, []);
 
   return (
     <SmoothScrolling>
@@ -219,10 +191,10 @@ const HomePage = () => {
         </div>
         <div ref={newsRef} className={`${styles.newsSection} section`}>
           <h1 ref={newsTitleRef} className={styles.newSectionTitle}>
-            What's Going On!
+            Here's What's Going On!
           </h1>
           <NewsSection
-            setNewsSectionRef={setNewsSectionRef}
+            newsSectionRef={newsSectionRef}
             contentRefDistance={contentRefDistance}
             availableNews={availableNews}
           />
@@ -245,7 +217,7 @@ const HomePage = () => {
         </div>
         <MenuNav />
         {isNavbarOpen && <JellyBlob />}
-        {/* <LoadingScreen /> */}
+        {!unMountLoadingScreen && <LoadingScreen />}
       </div>
     </SmoothScrolling>
   );

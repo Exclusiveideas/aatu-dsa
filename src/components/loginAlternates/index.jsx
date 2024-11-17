@@ -87,7 +87,7 @@ export const Login = ({
           </button>
         </div>
         <p className="forgotPassText" onClick={() => changeAltLogin("next")}>
-          Forgot your password? click here.
+          Forgot your password? <span>click here.</span>
         </p>
       </form>
     </>
@@ -183,6 +183,7 @@ export const ForgotPassword = ({
               label="faculty"
               onChange={handleFacultyChange}
               onFocus={() => setLoginError("")}
+              sx={{backgroundColor: '#fff'}}
             >
               {FACULTY_LIST?.map((faculty, index) => (
                 <MenuItem key={index} value={faculty}>
@@ -202,6 +203,7 @@ export const ForgotPassword = ({
               label="programme"
               onChange={handleProgrameChange}
               onFocus={() => setLoginError("")}
+              sx={{backgroundColor: '#fff'}}
             >
               {PROGRAMMES_LIST?.map((programme, index) => (
                 <MenuItem key={index} value={programme}>

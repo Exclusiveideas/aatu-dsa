@@ -1,71 +1,85 @@
-
 import { firestore } from "@/firebase/firebaseConfig";
-import { collection, query, limit, startAfter, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  limit,
+  startAfter,
+  getDocs,
+} from "firebase/firestore";
 
+export const fetchNews = async ({
+  lastDoc,
+  fetchedNews,
+  updateFetchedNews,
+  updateLastDoc,
+  updateFetchedNewsError,
+  updateIsFetching,
+  updateNoMoreNews,
+}) => {
+  if (updateIsFetching) updateIsFetching(true);
 
+  try {
+    const newsQuery = query(
+      collection(firestore, "news"),
+      limit(6),
+      ...(lastDoc ? [startAfter(lastDoc)] : [])
+    );
 
+    const snapshot = await getDocs(newsQuery);
 
-export const fetchNews = async ({ lastDoc, updateFetchedNews, updateLastDoc, updateFetchedNewsError, updateIsFetching, updateNoMoreNews }) => {
-    updateIsFetching(true);
-
-    try {
-      const newsQuery = query(
-        collection(firestore, 'news'),
-        limit(6),
-        ...(lastDoc ? [startAfter(lastDoc)] : [])
-      );
-
-  
-      const snapshot = await getDocs(newsQuery);
-
-      if (snapshot?.empty) {
-        console.log('empty')
-        console.log('typeof: ', typeof updateNoMoreNews)
-        updateNoMoreNews(true);
-        return;
-      }
-
-  
-      const news = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc?._document.data.value.mapValue.fields,
-      }));
-
-      
-      if(!news[0]) return;
-
-      updateFetchedNews(news);
-      updateLastDoc(snapshot.docs[snapshot.docs.length - 1]);
-      updateNoMoreNews(false);
-    } catch {
-      updateFetchedNewsError('Error fetching news - Try reloading the page.');
-      console.log('Error fetching news - Try reloading the page.');
-    } finally {
-      updateIsFetching(false);
+    if (snapshot?.empty) {
+      if (updateNoMoreNews) updateNoMoreNews(true);
+      return;
     }
-  };
+
+    const newFetchedNews = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc?._document.data.value.mapValue.fields,
+    }));
+
+    if (!newFetchedNews[0]) return;
+
+    const existingNewsIds = new Set(fetchedNews.map((item) => item.id)); 
+    const filteredNews = newFetchedNews.filter(
+      (item) => !existingNewsIds.has(item.id)
+    );
+
+    if (filteredNews.length > 0) {
+      updateFetchedNews([...fetchedNews, ...filteredNews]);
+    }
+
+    if (updateLastDoc) updateLastDoc(snapshot.docs[snapshot.docs.length - 1]);
+    if (updateNoMoreNews) updateNoMoreNews(false);
+  } catch {
+    updateFetchedNewsError("Error fetching news - Try reloading the page.");
+  } finally {
+    if (updateIsFetching) updateIsFetching(false);
+  }
+};
 
 export function getRandomNews(array, excludedElement) {
-  // Filter out the excluded element
   const filteredArray = array.filter((item) => item.id !== excludedElement);
 
-  // Ensure the filtered array has at least 3 items
   if (filteredArray.length < 4) {
     return filteredArray;
   }
 
   const result = [];
-  const indices = new Set(); // To store unique indices
+  const indices = new Set();
 
   while (result.length < 4) {
     const randomIndex = Math.floor(Math.random() * filteredArray.length);
 
-    // Check if this index has already been chosen
     if (!indices.has(randomIndex)) {
-      indices.add(randomIndex); // Add to the set of indices
-      result.push(filteredArray[randomIndex]); // Add the item to the result
+      indices.add(randomIndex);
+      result.push(filteredArray[randomIndex]);
     }
   }
 
   return result;
+}
+
+
+export function truncateString(str) {
+  return str.length > 45 ? str.slice(0, 45) + '...' : str;
 }

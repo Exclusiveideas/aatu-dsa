@@ -3,7 +3,7 @@ import "./loadingScreen.css";
 import useHomeStore from "@/store/homeStore";
 import gsap from "gsap";
 import Image from "next/image";
-
+ 
 const LoadingScreen = () => {
   const [counter, setCounter] = useState(0);
   const [hasRun, setHasRun] = useState(false);
@@ -12,13 +12,13 @@ const LoadingScreen = () => {
   const logoRef = useRef(null);
 
   const isSceneReady = useHomeStore((state) => state.isSceneReady);
-  const setLoadingScreen = useHomeStore((state) => state.setLoadingScreen);
+  const setUnMountLoadingScreen = useHomeStore((state) => state.setUnMountLoadingScreen);
 
   useEffect(() => {
     if (counter >= 100) {
       clearInterval(intervalIdRef.current)
       return
-    };
+    }; 
 
     intervalIdRef.current = setInterval(() => {
       setCounter((prev) => {
@@ -51,8 +51,6 @@ const LoadingScreen = () => {
     let loaderAnimContext;
 
     const timeoutId = setTimeout(() => {
-      setLoadingScreen(false);
-
       loaderAnimContext = gsap.context(() => {
         gsap.set(loaderRef.current, { y: "0%", opacity: 1 });
         gsap.to(loaderRef.current, {
@@ -60,6 +58,9 @@ const LoadingScreen = () => {
           opacity: 0.6,
           duration: 2.5,
           ease: "expo.out",
+          onComplete: () => {
+            unMountLoadingScreen()
+          }
         });
       }, loaderRef);
     }, 1300);
@@ -71,6 +72,13 @@ const LoadingScreen = () => {
       clearTimeout(timeoutId);
     };
   }, [hasRun, loaderRef]);
+
+  
+  const unMountLoadingScreen = () => {
+    setUnMountLoadingScreen(true)
+  }
+
+
 
   return (
     <div ref={loaderRef} className="loadingScreen">

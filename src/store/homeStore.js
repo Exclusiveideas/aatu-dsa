@@ -7,7 +7,7 @@ const useHomeStore = create()((set) => ({
   menuNavWrapperRef: null,
   navbarRef: null,
   isSceneReady: false,
-  loadingScreen: false,
+  unMountLoadingScreen: false,
   toggleNavbar: () =>
     set((state) => ({
       isNavbarOpen: !state.isNavbarOpen,
@@ -28,13 +28,13 @@ const useHomeStore = create()((set) => ({
     set(() => ({
       isSceneReady: val,
     })),
-  setLoadingScreen: (val) =>
-    set(() => ({
-      loadingScreen: val,
-    })),
   setMenuIconClicked: (val) =>
     set(() => ({
       menuItemClicked: val,
+    })),
+  setUnMountLoadingScreen: (val) =>
+    set(() => ({
+      unMountLoadingScreen: val,
     })),
 }));
 

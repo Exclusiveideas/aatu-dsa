@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import Image from "next/image";
 import {
   nextProcess,
   prevProcess,
@@ -12,6 +11,7 @@ import {
 import { signUp } from "@/api";
 import { registerStepDesc } from "@/utils/constant";
 import { v4 as uuidv4 } from "uuid";
+import './authComponent.css';
 
 import { storage } from "../../firebase/firebaseConfig";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
@@ -136,16 +136,7 @@ const SignUpComp = ({
 
   return (
     <div className="signUpcomp">
-      <a href="/">
-        <Image
-          src={"/imgs/logo.png"}
-          width={340}
-          height={150}
-          alt="tech-u logo"
-          className="logo"
-        />
-      </a>
-      <h2>Create your account</h2>
+      <h2 className="authTitle">Create your account</h2>
       <div className="formBox">
         <p className="authStep">
           Step {signUpStep} of 3: {registerStepDesc[signUpStep - 1]}

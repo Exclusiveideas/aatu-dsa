@@ -5,7 +5,7 @@ import useHomeStore from "@/store/homeStore";
 import { useEffect, useRef, memo } from "react";
 import gsap, { Expo } from "gsap";
 
-const Navbar = ({ newPage }) => {
+const Navbar = () => {
   const navbarRef = useRef(null);
   const setNavbarRef = useHomeStore((state) => state.setNavbarRef);
 
@@ -19,7 +19,7 @@ const Navbar = ({ newPage }) => {
     if (navbarRef.current) {
       gsap.to(navbarRef.current, {
         opacity: 1,
-        duration: 0.4,
+        duration: 0.4,  
         ease: Expo.easeIn,
       });
     }
@@ -28,7 +28,7 @@ const Navbar = ({ newPage }) => {
   return (
     <div
       ref={navbarRef}
-      className={`navbarWrapper ${newPage ? "solid" : ""}`}
+      className="navbarWrapper"
     >
       <a href="/" className="logoWrapper">
         <Image

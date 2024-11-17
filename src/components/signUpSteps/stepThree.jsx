@@ -87,6 +87,7 @@ const StepThree = ({
             label="Level"
             onChange={handleLevelChange}
             onFocus={() => setPassErr("")}
+            sx={{backgroundColor: '#fff'}}
           >
             <MenuItem value={'100'}>100</MenuItem>
             <MenuItem value={'200'}>200</MenuItem>
@@ -107,6 +108,7 @@ const StepThree = ({
             label="Gender"
             onChange={handleGenderChange}
             onFocus={() => setPassErr("")}
+            sx={{backgroundColor: '#fff'}}
           >
             <MenuItem value={"male"}>Male</MenuItem>
             <MenuItem value={"female"}>Female</MenuItem>

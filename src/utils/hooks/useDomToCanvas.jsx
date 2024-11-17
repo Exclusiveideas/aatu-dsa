@@ -1,30 +1,37 @@
-import { useEffect, useState } from "react";
-import html2canvas from 'html2canvas';
 
+import html2canvas from "html2canvas";
+import { debounce } from "lodash";
+import { useCallback, useEffect, useState } from "react";
+import * as THREE from "three";
 
-const useDomToCanvas = (domEl) => {
-    const [texture, setTexture] = useState();
+export const useDomToCanvas = (domEl, onReady) => {
+  const [texture, setTexture] = useState();
   
-    useEffect(() => {
-      if (!domEl) return;
-      const convertDomToCanvas = async () => {
-        const canvas = await html2canvas(domEl, { backgroundColor: null });
-        setTexture(new THREE.CanvasTexture(canvas));
-      };
+  const convertDomToCanvas = useCallback(async () => {
+    if (!domEl) return; 
+    const canvas = await html2canvas(domEl, { backgroundColor: null });
+    setTexture(new THREE.CanvasTexture(canvas));
+    if (onReady) onReady();
+  }, [domEl, onReady]);
+
+  
+  const debouncedResize = useCallback(
+    debounce(() => {
       convertDomToCanvas();
+    }, 100),
+    [convertDomToCanvas]
+  );
 
-      const debouncedResize = debounce(() => {
-        convertDomToCanvas();
-      }, 100);
-      
-      window.addEventListener("resize", debouncedResize);
+  useEffect(() => {
+    if (!domEl || !window) return;
 
-      return () => {
-        window.removeEventListener('resize', debouncedResize)
-      }
-    }, [domEl]);
-  
-    return texture;
-  };
+    convertDomToCanvas(); // Initial conversion
 
-  export default useDomToCanvas;
+    window.addEventListener("resize", debouncedResize);
+    return () => {
+      window.removeEventListener("resize", debouncedResize);
+    };
+  }, [domEl]);
+
+  return texture;
+};

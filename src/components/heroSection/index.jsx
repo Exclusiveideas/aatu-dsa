@@ -3,10 +3,10 @@ import { Poppins } from "next/font/google";
 import { CTAButtonAlt } from "../ctaButton";
 import { Leva } from "leva";
 import dynamic from "next/dynamic";
-import Blob from "../blob";
 import gsap from "gsap";
 import CustomEase from "gsap/CustomEase";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
+import Blob from "../blob";
 
 gsap.registerPlugin(CustomEase, ScrollToPlugin);
 

@@ -2,7 +2,6 @@
 
 import { useRef, useMemo, useEffect, useState } from "react";
 import { useControls } from "leva";
-import { debounce } from "lodash";
 
 // 3D
 import * as THREE from "three";
@@ -11,38 +10,10 @@ import { Html } from "@react-three/drei";
 import CustomShaderMaterial from "three-custom-shader-material";
 import vertexShader from "./shaders/vertex.glsl";
 import fragmentShader from "./shaders/fragment.glsl";
-import html2canvas from "html2canvas";
 
 import './bulgeTxt.css';
 import useHomeStore from "@/store/homeStore";
-
-const useDomToCanvas = (domEl, onReady) => {
-  const [texture, setTexture] = useState();
-
-  useEffect(() => {
-    if (!domEl || !window) return;
-    const convertDomToCanvas = async () => {
-      const canvas = await html2canvas(domEl, { backgroundColor: null });
-      setTexture(new THREE.CanvasTexture(canvas));
-      if (onReady) {
-        onReady();
-      }
-    };
-
-    convertDomToCanvas();
-
-    const debouncedResize = debounce(() => {
-      convertDomToCanvas();
-    }, 100);
-
-    window.addEventListener("resize", debouncedResize);
-    return () => {
-      window.removeEventListener("resize", debouncedResize);
-    };
-  }, [domEl, onReady]);
-
-  return texture;
-};
+import { useDomToCanvas } from "@/utils/hooks/useDomToCanvas";
 
 
 function Lights() {
@@ -61,11 +32,10 @@ function SceneComp() {
   const { width, height } = state.viewport;
   const [domEl, setDomEl] = useState(null);
   const [sceneReady, setSceneReady] = useState(false)
-  const isSceneReady = useHomeStore((state) => state.isSceneReady);
   const setIsSceneReady = useHomeStore((state) => state.setIsSceneReady);
 
   const materialRef = useRef();
-  const textureDOM = useDomToCanvas(domEl, () => setIsSceneReady(true)); // Pass callback to signal readiness
+  const textureDOM = useDomToCanvas(domEl, () => setSceneReady(true)); // Pass callback to signal readiness
 
   const uniforms = useMemo(
     () => ({
@@ -80,7 +50,7 @@ function SceneComp() {
   const mouseLerped = useRef({ x: 0, y: 0 });
 
   useFrame((state, delta) => {
-    if (materialRef.current && isSceneReady) {
+    if (materialRef.current && sceneReady) {
       const mouse = state.mouse;
       mouseLerped.current.x = THREE.MathUtils.lerp(mouseLerped.current.x, mouse.x, 0.1);
       mouseLerped.current.y = THREE.MathUtils.lerp(mouseLerped.current.y, mouse.y, 0.1);
@@ -90,8 +60,8 @@ function SceneComp() {
   });
 
   useEffect(() => {
-  setSceneReady(isSceneReady)
-  }, [isSceneReady])
+    setIsSceneReady(sceneReady)
+  }, [sceneReady])
   
   
   

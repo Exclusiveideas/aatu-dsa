@@ -94,6 +94,7 @@ const StepOne = ({ nextProcess, setAuthLogin, setSignUpInfo }) => {
               label="faculty"
               onChange={handleFacultyChange}
               onFocus={clearErr}
+              sx={{backgroundColor: '#fff'}}
             >
               {FACULTY_LIST?.map((faculty, index) => (
                 <MenuItem key={index} value={faculty}>{faculty}</MenuItem>
@@ -111,6 +112,7 @@ const StepOne = ({ nextProcess, setAuthLogin, setSignUpInfo }) => {
               label="programme"
               onChange={handleProgrameChange}
               onFocus={clearErr}
+              sx={{backgroundColor: '#fff'}}
             >
               {PROGRAMMES_LIST?.map((programme, index) => (
                 <MenuItem key={index} value={programme}>{programme}</MenuItem>

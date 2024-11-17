@@ -1,0 +1,16 @@
+.onlineStatus_wrapper {
+    position: fixed;
+    left: -100%;
+    top: 50%;
+    border-radius: 0 5px 5px 0;
+    background-color: rgb(249, 225, 193);
+    padding: 1rem;
+}
+
+.onlineStatus_wrapper.isOnline {
+    background-color: #3E958F;
+}
+
+.onlineStatus_wrapper.isOffline {
+    background-color: #CA0202;
+}

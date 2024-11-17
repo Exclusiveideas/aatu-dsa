@@ -1,18 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import "./newsSection.css";
 import NewsGrid from "../newsGrid";
  
-const NewsSection = ({ setNewsSectionRef, contentRefDistance, availableNews }) => {  
-  const newsSectionRef = useRef();
-
-  useEffect(() => {
-    setNewsSectionRef(newsSectionRef)
-  }, [newsSectionRef])
-  
-  
-
+const NewsSection = ({ newsSectionRef, contentRefDistance, availableNews }) => {  
   return (
     <div ref={newsSectionRef} className="newsSection">
       <NewsGrid contentRefDistance={contentRefDistance} availableNews={availableNews} />

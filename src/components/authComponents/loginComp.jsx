@@ -2,14 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import Image from "next/image";
 import { switchAltLogin, setRef } from "@/utils/authFunctions";
 import { resetPassword, signIn } from "@/api";
 
 import useAuthStore from "@/store/authStore";
 import { ForgotPassword, Login } from "../loginAlternates";
 
-
+import './authComponent.css';
 
 
 const LoginComp = ({ setAuthLogin, router, openSnackBar }) => {
@@ -18,7 +17,7 @@ const LoginComp = ({ setAuthLogin, router, openSnackBar }) => {
   const [switched, setSwitched] = useState(false);
   const [resetFeedback, setResetFeedback] = useState('');
   const stepsRef = useRef([]);
-
+ 
 
   // global state
   const updateIsAuthenticated = useAuthStore((state) => state.updateIsAuthenticated);
@@ -109,16 +108,7 @@ const LoginComp = ({ setAuthLogin, router, openSnackBar }) => {
 
   return (
     <div className="loginComp">
-      <a href="/">
-        <Image
-          src={"/imgs/logo.png"}
-          width={340}
-          height={150}
-          alt="tech-u logo"
-          className="logo"
-        />
-      </a>
-      <h2>{!switched ? 'Login to your account': 'Reset your password'}</h2>
+      <h2 className="authTitle">{!switched ? 'Login to your account': 'Reset your password'}</h2>
       <div className="formBox login">
         <div ref={(el) => setRef(el, 0, stepsRef)} className="altCont">
           <Login changeAltLogin={changeAltLogin} handleSubmit={handleSubmit} toggleShow={toggleShow} settoggleShow={settoggleShow} gotoSignUp={gotoSignUp} islogging={islogging} />

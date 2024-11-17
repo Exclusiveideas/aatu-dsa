@@ -6,19 +6,9 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import "./jellyBlob.css";
 import useHomeStore from "@/store/homeStore";
+import { getAngle, getScale } from "@/utils/jellyBlob";
 
-// Function for Mouse Move Scale Change
-function getScale(diffX, diffY) {
-  const distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
-  return Math.min(distance / 735, 0.35);
-}
 
-// Function For Mouse Movement Angle in Degrees
-function getAngle(diffX, diffY) {
-  return (Math.atan2(diffY, diffX) * 180) / Math.PI;
-}
-
-// Jelly Blob Function
 const JellyBlob = () => {
   const menuNavRef = useHomeStore((state) => state.menuNavRef);
   const menuNavWrapperRef = useHomeStore((state) => state.menuNavWrapperRef);
@@ -28,9 +18,7 @@ const JellyBlob = () => {
 
   const cursorOnNavbar = useRef({ value: false})
 
-  // React Refs for Jelly Blob and Text
   const jellyRef = useRef(null);
-  const textRef = useRef(null);
 
   // Save pos and velocity Objects
   const pos = useRef({ x: 0, y: 0 });
@@ -44,7 +32,6 @@ const JellyBlob = () => {
   const setJellyScaleY = useRef(null);
   const setJellyWidth = useRef(null);
   const setJellyOpacity = useRef(null);
-  const setTextRotate = useRef(null);
 
  
   useLayoutEffect(() => {
@@ -55,7 +42,6 @@ const JellyBlob = () => {
     setJellyScaleY.current = gsap.quickSetter(jellyRef.current, "scaleY");
     setJellyWidth.current = gsap.quickSetter(jellyRef.current, "width", "px");
     setJellyOpacity.current = gsap.quickSetter(jellyRef.current, "opacity");
-    setTextRotate.current = gsap.quickSetter(textRef.current, "rotate", "deg");
   }, []);
 
   // Start Animation loop
@@ -80,14 +66,13 @@ const JellyBlob = () => {
     setJellyRotate.current(rotation);
     setJellyScaleX.current(1 + scale * 0.3);
     setJellyScaleY.current(1 - scale * 0.3);
-    setTextRotate.current(-rotation);
   }, []);
 
   // Run on Mouse Move
   useLayoutEffect(() => {
     let animationFrameId;
 
-    // Caluclate Everything Function
+    
     const setFromEvent = (e) => {
       // Mouse X and Y
       const x = e.clientX;
@@ -190,11 +175,12 @@ const JellyBlob = () => {
     };
   }, [menuNavWrapperRef, isNavbarOpen, toggleNavbar]);
 
-  // Return UI
+  
+
   return (
     <div className="container-div">
       <div ref={jellyRef} id="jelly-id" className="jelly-blob">
-        <div ref={textRef} id="text-id" className="inside-text">
+        <div id="text-id" className="inside-text">
           <CloseIcon
             sx={{
               color: "black",
