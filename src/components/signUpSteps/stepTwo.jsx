@@ -13,11 +13,10 @@ const StepTwo = ({ nextProcess, prevProcess, setUploadImage }) => {
     const [noSelected, setNoSelected] = useState(false);
   
     const handleFileChange = (event) => {
-      setFile(event.target.files[0]);
+        setFile(event.target.files[0]);
     };
-  
+    
     const handleContinue = () => {
-      
       if (!file) {
         setNoSelected(true);
         return;
@@ -52,7 +51,7 @@ const StepTwo = ({ nextProcess, prevProcess, setUploadImage }) => {
         <label htmlFor="file" className="addImgCirc">
           <div className="pulsatingBox"></div>
           <div className="pulsatingBox"></div>
-          {!fileUrl ? (
+          {!file ? (
             <PersonAddAlt1Icon
             sx={{
               color: "white",

@@ -52,9 +52,10 @@ const LoadingScreen = () => {
 
     const timeoutId = setTimeout(() => {
       loaderAnimContext = gsap.context(() => {
-        gsap.set(loaderRef.current, { y: "0%", opacity: 1 });
+        gsap.set(loaderRef.current, { y: "0%", filter: 'blur(0px)', opacity: 1 });
         gsap.to(loaderRef.current, {
           y: "-110%",
+          filter: 'blur(20px)',
           opacity: 0.6,
           duration: 2.5,
           ease: "expo.out",
@@ -91,7 +92,7 @@ const LoadingScreen = () => {
           className="loader_logo"
           ref={logoRef}
         />
-        <div class="loader"></div>
+        <div className="loader"></div>
       </div>
       <div className="counterWrapper">
         <p>{counter}%</p>

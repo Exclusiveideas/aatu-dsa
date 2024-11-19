@@ -1,7 +1,6 @@
 'use client'
 
 import { useRef, useMemo, useEffect, useState } from "react";
-import { useControls } from "leva";
 
 // 3D
 import * as THREE from "three";
@@ -14,25 +13,24 @@ import fragmentShader from "./shaders/fragment.glsl";
 import './bulgeTxt.css';
 import useHomeStore from "@/store/homeStore";
 import { useDomToCanvas } from "@/utils/hooks/useDomToCanvas";
+import useAuthStore from "@/store/authStore";
 
 
-function Lights() {
-  
-  const config = useControls("Lights", {
-    color: "#ffffff",
-    intensity: { value: 5, min: 0, max: 5 },
-  });
+function Lights({ lightMode }) {
+  const lightColor = lightMode ? '#fff' : '#000'
 
-  return <ambientLight {...config} />;
+  return <ambientLight color={lightColor} intensity={5}/>;
 }
 
 
-function SceneComp() {
+function SceneComp({ lightMode }) {
   const state = useThree();
   const { width, height } = state.viewport;
   const [domEl, setDomEl] = useState(null);
   const [sceneReady, setSceneReady] = useState(false)
   const setIsSceneReady = useHomeStore((state) => state.setIsSceneReady);
+  
+  const websiteDarkTheme = useAuthStore((state) => state.websiteDarkTheme);
 
   const materialRef = useRef();
   const textureDOM = useDomToCanvas(domEl, () => setSceneReady(true)); // Pass callback to signal readiness
@@ -88,7 +86,7 @@ function SceneComp() {
             flatShading
             transparent
           />
-          <Lights />
+          <Lights lightMode={lightMode} />
         </mesh>
       )}
     </>
@@ -97,7 +95,7 @@ function SceneComp() {
 
 
 
-const Scene = () => {
+const Scene = ({ lightMode }) => {
   return (
     <div className="parent-container">
       <Canvas
@@ -112,7 +110,7 @@ const Scene = () => {
           far: 200,
         }}
       >
-        <SceneComp />
+        <SceneComp lightMode={lightMode} />
       </Canvas>
     </div>
   )

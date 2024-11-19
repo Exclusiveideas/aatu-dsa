@@ -1,5 +1,4 @@
 import "./heroSection.css";
-import { Poppins } from "next/font/google";
 import { CTAButtonAlt } from "../ctaButton";
 import { Leva } from "leva";
 import dynamic from "next/dynamic";
@@ -7,18 +6,15 @@ import gsap from "gsap";
 import CustomEase from "gsap/CustomEase";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
 import Blob from "../blob";
+import { useEffect, useState } from "react";
+import useAuthStore from "@/store/authStore";
 
 gsap.registerPlugin(CustomEase, ScrollToPlugin);
 
 const ThreeDTextBulge = dynamic(() => import("@/components/3DTextBulge"), {
   ssr: false,
 });
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "swap",
-});
+ 
 
 const HeroSection = ({ targetRef }) => {
   const handleScrollToElement = () => {
@@ -31,6 +27,7 @@ const HeroSection = ({ targetRef }) => {
     });
   };
 
+
   return (
     <div className="heroSectWrapper">
       <div className="heroSectBody">
@@ -38,9 +35,10 @@ const HeroSection = ({ targetRef }) => {
         <div className="heroInfo">
           <div className="infoBox">
             <div className="threeDTxtWrapper">
-              <ThreeDText />
+              <ThreeDText lightMode={false} />
+              <ThreeDText lightMode={true} />
             </div>
-            <p className={`headerCaption  ${poppins.className} marginLeft`}>
+            <p className={`headerCaption marginLeft`}>
               This site is here to keep you connected and informed with
               everything you need for your hostel experience, brought to you by
               the Dean of Student Affairs.
@@ -60,9 +58,23 @@ const HeroSection = ({ targetRef }) => {
 
 export default HeroSection;
 
-const ThreeDText = () => {
+const ThreeDText = ({ lightMode }) => {
+  const websiteDarkTheme = useAuthStore((state) => state.websiteDarkTheme);
+  const [invinsible, setInvinsible] = useState(false)
+
+  useEffect(() => {
+    if (lightMode) {
+      const ivisible = websiteDarkTheme === 'dark' ? false : true;
+      setInvinsible(ivisible)
+    } else {
+      const ivisible = websiteDarkTheme === 'dark' ? true : false;
+      setInvinsible(ivisible)
+    }
+  }, [websiteDarkTheme])
+  
+
   return (
-    <>
+    <div className={`threeDTxt_container ${invinsible && 'invinsible'}`}>
       <Leva
         collapsed={false}
         flat={true}
@@ -76,7 +88,7 @@ const ThreeDText = () => {
           },
         }}
       />
-      <ThreeDTextBulge />
-    </>
+      <ThreeDTextBulge lightMode={lightMode} />
+    </div>
   );
 };

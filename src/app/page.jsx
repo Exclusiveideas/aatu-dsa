@@ -18,7 +18,7 @@ import { fetchNews } from "@/utils/newsFunctions";
 import useNewsStore from "@/store/newsStore";
 import { scaleNewsContainer } from "@/utils/homeFunctions";
 import LoadingScreen from "@/components/loadingScreen";
-
+ 
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
 const HomePage = () => {

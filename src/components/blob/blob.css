@@ -1,12 +1,11 @@
 .blob {
     width: 800px;
     aspect-ratio: 1;
-    background-color: #3e958f;
+    background-color: var(--blob-bg-color);
     border-radius: 60% 40% 70% 30% / 50% 70% 30% 50%;
     position: absolute;
     z-index: 3;
     filter: blur(20px);
-    opacity: 0;
 
 
     position: fixed;

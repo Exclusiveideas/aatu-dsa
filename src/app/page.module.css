@@ -1,7 +1,5 @@
 .page {
   --foreground: #171717;
-  --button-primary: #FFA2A2;
-  --button-secondary: #CA0202;
   --bg-black-2: #16191b;
 
 
@@ -15,7 +13,7 @@
   scroll-behavior: smooth;
   box-sizing: border-box;
 }
-
+ 
 
 .page::-webkit-scrollbar {
   display: none;

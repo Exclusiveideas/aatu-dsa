@@ -1,18 +1,17 @@
 
 .heroSectWrapper {
-  --black-2: #16191b;
-
-    background-color: var(--black-2); 
+    background-color: var(--heroSection-bg); 
     width: 100vw;
     height: 100vh;
     position: relative;
+    transition: all 0.3s ease-in;
 }
 
 .heroSectBody {
   width: 100%;
   height: 100%;
 }
-
+ 
 
 .heroInfo {
     position: absolute;
@@ -20,15 +19,14 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    color: white;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
     z-index: 3;
 
-  background-color:#16191b65;
-  backdrop-filter: blur(20px) ;
+  background-color: var(--heroInfo-bg);
+  transition: all 0.3s ease-in;
   isolation: isolate;
 }
 
@@ -55,7 +53,9 @@
   line-height: 1.4em;
   font-weight: 400;
   width: 78%;
-  color: #ffffffc6;
+  color: var(--heroCaption-color);
+  transition: all 0.3s ease-in;
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
 }
 
 .marginLeft {
@@ -63,8 +63,18 @@
 }
 
 
+.threeDTxt_container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
   
   
+.threeDTxt_container.invinsible {
+  left: -140%;
+}
 
 /* Media Queries */
 

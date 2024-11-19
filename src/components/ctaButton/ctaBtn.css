@@ -8,12 +8,12 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    /* background-image: linear-gradient(to right, #1D976C 0%, #93F9B9  51%, #1D976C  100%); */
-    background: #3E958F;
+    background: var(--ctaBtn-bgColor);
     cursor: pointer;
     font-size: 19px;
     padding: 1px;
     overflow: hidden;
+    transition: all 0.3s ease-in;
 }
 
 .ctaBtn_innerCont {
@@ -47,7 +47,7 @@
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-    background: #307f7a;
+    background: var(--ctaBtn-alt-bgColor);
     cursor: pointer;
     font-size: 17px;
     padding: 1rem 1.5rem;
@@ -56,10 +56,6 @@
     transition: all 0.3s ease-in;
 }
 
-.ctaBtnAltWrapper:hover{
-    background-color: #287570;
-}
- 
 
 .btnRightIcon {
     width: 28px;

@@ -4,6 +4,9 @@ import CTAButton from "../ctaButton";
 import useHomeStore from "@/store/homeStore";
 import { useEffect, useRef, memo } from "react";
 import gsap, { Expo } from "gsap";
+import useAuthStore from "@/store/authStore";
+import ThemeToggleBtn from "../themeToggleBtn";
+
 
 const Navbar = () => {
   const navbarRef = useRef(null);
@@ -15,21 +18,21 @@ const Navbar = () => {
     }
   }, [navbarRef, setNavbarRef]);
 
-  useEffect(() => { 
+  useEffect(() => {
     if (navbarRef.current) {
       gsap.to(navbarRef.current, {
         opacity: 1,
-        duration: 0.4,  
+        duration: 0.4,
         ease: Expo.easeIn,
       });
     }
   }, []);
 
+
+  
+
   return (
-    <div
-      ref={navbarRef}
-      className="navbarWrapper"
-    >
+    <div ref={navbarRef} className={`navbarWrapper`}>
       <a href="/" className="logoWrapper">
         <Image
           src="/imgs/logo.png"
@@ -39,9 +42,10 @@ const Navbar = () => {
           className="navbar_logo"
         />
       </a>
-      <div className="rightEnd">
+      <div className="rightEnd"> 
         <CTAButton linkTo="/portal/auth">Portal</CTAButton>
         <OpenMenuIcon />
+        <ThemeToggleBtn />
       </div>
     </div>
   );
@@ -52,10 +56,14 @@ const OpenMenuIcon = memo(() => {
   const toggleNavbar = useHomeStore((state) => state.toggleNavbar);
   const setMenuIconClicked = useHomeStore((state) => state.setMenuIconClicked);
 
+  const websiteDarkTheme = useAuthStore((state) => state.websiteDarkTheme);
+
+  const fillColor = websiteDarkTheme == 'dark' ? 'white' : 'black'
+
   const handleClick = () => {
     toggleNavbar();
-    setMenuIconClicked(true)
-  }
+    setMenuIconClicked(true);
+  };
 
   return (
     <div onClick={handleClick} className="svgWrapper">
@@ -70,7 +78,7 @@ const OpenMenuIcon = memo(() => {
           y="4"
           width="40"
           height="2"
-          fill="white"
+          fill={fillColor}
           className={`menu-bar ${isNavbarOpen ? "open-top" : ""}`}
         />
         <rect
@@ -78,7 +86,7 @@ const OpenMenuIcon = memo(() => {
           y="16"
           width="40"
           height="2"
-          fill="white"
+          fill={fillColor}
           className={`menu-bar ${isNavbarOpen ? "open-bottom" : ""}`}
         />
       </svg>

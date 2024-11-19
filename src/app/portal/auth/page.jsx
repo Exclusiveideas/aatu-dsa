@@ -13,6 +13,7 @@ import useSnackbarStore from "@/store/snackbarStore";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Chip } from "@mui/material";
+import ThemeToggleBtn from "@/components/themeToggleBtn";
 
 const ThreeSphere = dynamic(() => import("@/components/ThreeSphere"), {
   ssr: false,
@@ -21,7 +22,6 @@ const ThreeSphere = dynamic(() => import("@/components/ThreeSphere"), {
 const AuthPage = () => {
   const [authLogin, setAuthLogin] = useState(true);
   const [signUpStep, setSignUpStep] = useState(1);
-  const authImgRef = useRef(null);
   const moveableWrapRef = useRef(null);
 
   const { smallerWindow } = useWindowWidth();
@@ -53,7 +53,8 @@ const AuthPage = () => {
     updateSnackbarInitiated();
   };
 
-  console.log('smallwindow: ', smallerWindow)
+  
+  const websiteDarkTheme = useAuthStore((state) => state.websiteDarkTheme);
 
   return (
     <div className="authPage">
@@ -64,7 +65,7 @@ const AuthPage = () => {
           width={600}
           height={600}
           alt="tech-u library"
-          className="library_img"
+          className={`library_img ${websiteDarkTheme == 'dark' && 'darkTheme'}`}
         />
       </div>
       <div className="leftAuthWrapper">
@@ -77,16 +78,16 @@ const AuthPage = () => {
               color: "white",
               fontSize: "10px",
               padding: "1rem 0.5rem",
-              backgroundColor: '#287570',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
+              backgroundColor: "#287570",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
             label="Drag Me"
           />
         </div>
         <div className="loaderContainer">
-        <div class="loader"></div>
+          <div class="loader"></div>
         </div>
         <div className="leftAuth_content_box">
           <div className="leftAuth_contentBox_logoCont">
@@ -100,17 +101,22 @@ const AuthPage = () => {
               />
             </a>
           </div>
-            <div className="leftAuth_contentBox_threeDCont">
-          {!smallerWindow ? (
-            <Suspense fallback={<div>Loading 3D Scene...</div>}>
-              <ThreeSphere />
-            </Suspense>
-          ) : ( <p>Use a larger screen size to view the scene</p>)}
+          <div className="leftAuth_contentBox_threeDCont">
+            {!smallerWindow ? (
+              <Suspense fallback={<div>Loading 3D Scene...</div>}>
+                <ThreeSphere />
+              </Suspense>
+            ) : (
+              <p>Use a larger screen size to view the scene</p>
+            )}
           </div>
         </div>
       </div>
       <div className="rightAuthWrapper">
         <div ref={moveableWrapRef} className="moveableWrapper">
+        <div className="authTheme_toggleWrapper">
+          <ThemeToggleBtn />
+        </div>
           {authLogin ? (
             <LoginComp
               setAuthLogin={setAuthLogin}

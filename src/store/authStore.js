@@ -7,6 +7,7 @@ const useAuthStore = create()(
       isAuthenticated: false,
       student: null,
       token: null,
+      websiteDarkTheme: 'dark',
       logout: () =>
         set(() => ({
           isAuthenticated: false,
@@ -24,6 +25,10 @@ const useAuthStore = create()(
       updateToken: (token) =>
         set(() => ({
           token: token,
+        })),
+      setWebsiteDarkTheme: (val) =>
+        set(() => ({
+          websiteDarkTheme: val,
         })),
     }),
     {

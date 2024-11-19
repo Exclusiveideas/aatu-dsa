@@ -1,13 +1,12 @@
 
-
-
-
 .authTitle {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 500;
     margin-top: .5rem;
     align-self: center;
     text-transform: capitalize;
+    color: var(--authTitle-text-color);
+    transition: all 0.3s ease-in;
 }
 
 .formBox {
@@ -33,6 +32,8 @@
 
 .formBox .authStep {
     font-size: 12px;
+    color: var(--authTitle-text-color);
+    transition: all 0.3s ease-in;
 }
 
 form {
@@ -64,19 +65,28 @@ form {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #16191b85;
+    background-color: var(--auth-btn-bgColor);
     font-size: 13px;
-    border: none;
     cursor: pointer;
     color: white;
-    border: 1px solid transparent;
+    border: 1px solid var(--auth-btn-bgColor);
     transition: all 0.3s ease-in;
     flex: 1;
     min-width: 210px;
 }
+.authBtn.alternate {
+    background-color: var(--auth-btn-alt-bgColor);
+    border: 1px solid var(--auth-btn-alt-border);
+}
 
 .authBtn:hover {
-    background-color: #16191b;
+    transition: all 0.3s ease-in;
+    background-color: var(--auth-btn-hover-bgColor);
+}
+
+.authBtn.alternate:hover {
+    transition: all 0.3s ease-in;
+    background-color: var(--auth-btn-alt-hover-bgColor);
 }
 
 .circularProgress {
@@ -136,11 +146,12 @@ form {
     align-items: center;
     justify-content: center;
 
-    background-color: #16191b;
+    background-color: var(--signup-addImg-circle);
     cursor: pointer;
     position: relative;
     z-index: 8;
     box-sizing: border-box;
+    transition: all 0.3s ease-in;
 }
 
 .tapTxt {
@@ -154,10 +165,11 @@ form {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: #16191b35;
+    background-color: var(--signup-addImg-circle-pulse);
     z-index: -1;
     border-radius: 50%;
     animation: pulsate 1.3s infinite;
+    transition: all 0.3s ease-in;
 }
 
 .imagePreview {
@@ -232,7 +244,10 @@ form {
 
 .selectFile {
     font-size: 12px;
-    color: red;
+    color: white;
+    width: max-content;
+    padding: .2rem .5rem;
+    background-color: rgba(255, 0, 0, 0.452);
 }
 
 .selectFile.green {
@@ -294,6 +309,8 @@ form {
     cursor: pointer;
     text-transform: capitalize;
     font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    color: var(--authTitle-text-color);
+    transition: all 0.3s ease-in;
 }
 
 .forgotPassText > span {

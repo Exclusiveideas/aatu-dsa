@@ -20,7 +20,6 @@ const Experiment = () => {
   const materialRef = useRef(null);
   const depthMaterialRef = useRef(null);
 
-  // const setAuthPageSceneReady = useHomeStore((state) => state.setAuthPageSceneReady);
 
   useFrame(({ clock }) => {
     const elapsedTime = clock.getElapsedTime();
@@ -74,10 +73,6 @@ const Experiment = () => {
     uFractAmount: { value: fractAmount },
   };
 
-  // useEffect(() => {
-  //   if (!materialRef.current) return;
-  //   setAuthPageSceneReady(true);
-  // }, [materialRef]);
 
   return (
     <>

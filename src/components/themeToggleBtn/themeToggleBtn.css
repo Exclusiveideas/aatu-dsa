@@ -1,0 +1,39 @@
+
+
+.theme_toggle_btn {
+    border: 2px solid var(--toggle-theme-border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    cursor: pointer;
+    flex-direction: column;
+    height: 2.5rem;
+    width: 3.6rem;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .theme_toggle_innerWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 200%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+  }
+  
+  
+  .toggle_theme_icon {
+    width: 20px;
+    aspect-ratio: 1;
+  }
+  
+  
+  .toggle_theme_icon.moon {
+    transform: rotate(-180deg);
+  }
+  
