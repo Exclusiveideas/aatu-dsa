@@ -9,6 +9,8 @@
   --heroSection-bg: #FFEBE0;
   --heroInfo-bg: #ffffff65;
   --heroCaption-color: #000000c6;
+  --heroTitle-color: #000000;
+  --heroTitle-bg-color: #ececec;
 
   --blob-bg-color: #16191b;
   
@@ -55,6 +57,8 @@
   --heroSection-bg: #16191b;
   --heroInfo-bg: #16191b65;
   --heroCaption-color: #ffffffc6;
+  --heroTitle-color: #ffffff;
+  --heroTitle-bg-color: #000000b5;
   
   --blob-bg-color: #3e958f;
   

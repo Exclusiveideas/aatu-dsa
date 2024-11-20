@@ -33,7 +33,6 @@ const HeroSection = ({ targetRef }) => {
     <div className="heroSectWrapper">
       <div className="heroSectBody">
         <Blob />
-        <div className="hero_dark_bg"></div>
         <div className="heroInfo">
           <div className="infoBox">
             {windowWidth > 550 ? (

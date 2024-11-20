@@ -67,7 +67,8 @@
 
 .heroTitle {
   font-size: 10vw;
-  color: #fff;
+  color: var(--heroTitle-color);
+  transition: all 0.3s ease-in;
   font-weight: 400;
 }
 

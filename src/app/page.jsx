@@ -44,6 +44,7 @@ const HomePage = () => {
   const heroesRef = useRef(null);
   const newsRef = useRef(null);
   const newsTitleRef = useRef(null);
+  const heroDarkBgRef = useRef(null);
 
   const fetchedNews = useNewsStore((state) => state.fetchedNews);
   const lastDoc = useNewsStore((state) => state.lastDoc);
@@ -118,7 +119,7 @@ const HomePage = () => {
       onLeave: () => {
         gsap.to(newsTitle, {
           scale: 1,
-          opacity: 0.7,
+          opacity: 0,
           duration: 0.2,
           ease: CustomEase.create("custom", "M0,0 C0.709,0 1,0.307 1,1"),
         });
@@ -126,7 +127,7 @@ const HomePage = () => {
       onLeaveBack: () => {
         gsap.to(newsTitle, {
           scale: 1,
-          opacity: 0.7,
+          opacity: 0,
           duration: 0.2,
           ease: CustomEase.create("custom", "M0,0 C0.709,0 1,0.307 1,1"),
         });
@@ -193,6 +194,7 @@ const HomePage = () => {
       <div className={homeClass}>
         <Navbar />
         <div ref={heroesRef} className={`${styles.heroSection} section`}>
+          <div ref={heroDarkBgRef} className={styles.hero_dark_bg}></div>
           <HeroSection targetRef={newsTitleRef} />
         </div>
         <div ref={newsRef} className={`${styles.newsSection} section`}>
