@@ -12,7 +12,7 @@ import SnackbarMessage from "@/components/snackbarMessage";
 import useSnackbarStore from "@/store/snackbarStore";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { Chip } from "@mui/material";
+import { Chip, Tooltip } from "@mui/material";
 import ThemeToggleBtn from "@/components/themeToggleBtn";
 
 const ThreeSphere = dynamic(() => import("@/components/ThreeSphere"), {
@@ -87,7 +87,7 @@ const AuthPage = () => {
           />
         </div>
         <div className="loaderContainer">
-          <div class="loader"></div>
+          <div className="loader"></div>
         </div>
         <div className="leftAuth_content_box">
           <div className="leftAuth_contentBox_logoCont">
@@ -114,9 +114,11 @@ const AuthPage = () => {
       </div>
       <div className="rightAuthWrapper">
         <div ref={moveableWrapRef} className="moveableWrapper">
+        <Tooltip title="Toggle dark mode">
         <div className="authTheme_toggleWrapper">
           <ThemeToggleBtn />
         </div>
+        </Tooltip>
         <div className="rightAuth_logoCont">
             <a href="/">
               <Image

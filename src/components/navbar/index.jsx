@@ -6,6 +6,7 @@ import { useEffect, useRef, memo } from "react";
 import gsap, { Expo } from "gsap";
 import useAuthStore from "@/store/authStore";
 import ThemeToggleBtn from "../themeToggleBtn";
+import { Tooltip } from "@mui/material";
 
 
 const Navbar = () => {
@@ -42,13 +43,15 @@ const Navbar = () => {
           className="navbar_logo"
         />
       </a>
-      <div className="rightEnd"> 
+      <div className="rightEnd">
         <div className="portalBtn_wrap">
           <CTAButton linkTo="/portal/auth">Portal</CTAButton>
         </div>
         <OpenMenuIcon />
         <div className="themeToggle_wrap">
-          <ThemeToggleBtn />
+          <Tooltip title="Toggle dark mode">
+            <ThemeToggleBtn />
+          </Tooltip>
         </div>
       </div>
     </div>

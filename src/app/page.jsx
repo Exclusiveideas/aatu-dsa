@@ -17,6 +17,7 @@ import useInView from "@/utils/hooks/useInView";
 import { fetchNews } from "@/utils/newsFunctions";
 import useNewsStore from "@/store/newsStore";
 import { scaleNewsContainer } from "@/utils/homeFunctions";
+import LoadingScreen from "@/components/loadingScreen";
  
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
@@ -144,6 +145,8 @@ const HomePage = () => {
   useEffect(() => {
     if (!isLoadInView) return;
 
+    updateFetchedNewsError('');
+
     fetchNews({
       lastDoc,
       fetchedNews,
@@ -163,6 +166,9 @@ const HomePage = () => {
     if (fetchedNews[0]) {
       setAvailableNews(memoizedAvailableNews);
     } else {
+      
+      updateFetchedNewsError('');
+
       fetchNews({
         lastDoc,
         fetchedNews,
@@ -176,7 +182,7 @@ const HomePage = () => {
   }, [memoizedAvailableNews]);
 
   const homeClass = `${styles.page} ${
-    unMountLoadingScreen ? styles.fixedHeight : styles.autoHeight
+    !unMountLoadingScreen ? styles.fixedHeight : styles.autoHeight
   }`;
 
   return (
@@ -214,7 +220,7 @@ const HomePage = () => {
         </div>
         <MenuNav />
         {isNavbarOpen && <JellyBlob />}
-        {/* {!unMountLoadingScreen && <LoadingScreen />} */}
+        {!unMountLoadingScreen && <LoadingScreen />}
       </div>
     </SmoothScrolling>
   );
