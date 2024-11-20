@@ -13,7 +13,6 @@ import fragmentShader from "./shaders/fragment.glsl";
 import './bulgeTxt.css';
 import useHomeStore from "@/store/homeStore";
 import { useDomToCanvas } from "@/utils/hooks/useDomToCanvas";
-import useAuthStore from "@/store/authStore";
 
 
 function Lights({ lightMode }) {
@@ -30,7 +29,6 @@ function SceneComp({ lightMode }) {
   const [sceneReady, setSceneReady] = useState(false)
   const setIsSceneReady = useHomeStore((state) => state.setIsSceneReady);
   
-  const websiteDarkTheme = useAuthStore((state) => state.websiteDarkTheme);
 
   const materialRef = useRef();
   const textureDOM = useDomToCanvas(domEl, () => setSceneReady(true)); // Pass callback to signal readiness

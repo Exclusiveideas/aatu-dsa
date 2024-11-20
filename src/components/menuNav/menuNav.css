@@ -194,3 +194,31 @@
 .menuItems.small {
   font-size: 20px;
 }
+
+
+.menuNav_portalBtn_wrap, .menuNav_themeToggle_wrap{
+  display: none;
+}
+
+
+
+
+
+
+@media (max-width: 768px) {
+  .menuNav_portalBtn_wrap, .menuNav_themeToggle_wrap {
+    transform: scale(.8);
+    display: block;
+    margin-top: .5rem;
+  }
+
+  
+.menuItems.large {
+  font-size: 30px;
+}
+
+.menuItems.small {
+  font-size: 17px;
+}
+
+}

@@ -28,7 +28,7 @@ const Navbar = () => {
     }
   }, []);
 
-
+ 
   
 
   return (
@@ -43,9 +43,13 @@ const Navbar = () => {
         />
       </a>
       <div className="rightEnd"> 
-        <CTAButton linkTo="/portal/auth">Portal</CTAButton>
+        <div className="portalBtn_wrap">
+          <CTAButton linkTo="/portal/auth">Portal</CTAButton>
+        </div>
         <OpenMenuIcon />
-        <ThemeToggleBtn />
+        <div className="themeToggle_wrap">
+          <ThemeToggleBtn />
+        </div>
       </div>
     </div>
   );

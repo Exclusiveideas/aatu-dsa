@@ -86,7 +86,6 @@ const Experiment = () => {
           baseMaterial={MeshPhysicalMaterial}
           vertexShader={vertexShader}
           fragmentShader={fragmentShader}
-          silent
           roughness={roughness}
           metalness={metalness}
           reflectivity={reflectivity}
@@ -100,7 +99,6 @@ const Experiment = () => {
           baseMaterial={MeshDepthMaterial}
           vertexShader={vertexShader}
           uniforms={uniforms}
-          silent
           depthPacking={RGBADepthPacking}
           attach="customDepthMaterial"
         />

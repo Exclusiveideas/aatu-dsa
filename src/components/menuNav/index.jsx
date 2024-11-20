@@ -2,6 +2,8 @@ import { Poppins } from 'next/font/google';
 import './menuNav.css';
 import useHomeStore from '@/store/homeStore';
 import { useEffect, useRef } from 'react';
+import CTAButton from '../ctaButton';
+import ThemeToggleBtn from '../themeToggleBtn';
 
 
 const poppins = Poppins({
@@ -38,9 +40,15 @@ const MenuNav = () => {
             <a href="https://tech-u.edu.ng/">{item}</a>
           </div>
         ))}
+        <div className="menuNav_portalBtn_wrap">
+          <CTAButton linkTo="/portal/auth">Student Portal</CTAButton>
+        </div>
+        <div className="menuNav_themeToggle_wrap">
+          <ThemeToggleBtn />
+        </div>
       </div>
     </div>
   );
-};
+}; 
 
 export default MenuNav;

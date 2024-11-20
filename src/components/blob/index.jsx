@@ -1,12 +1,15 @@
 import "./blob.css";
 import { useLayoutEffect, useRef, useCallback, useEffect } from "react";
 import gsap, { Expo } from "gsap";
+import useWindowWidth from "@/utils/hooks/useWindowWidth";
 
 const Blob = () => {
   // React Refs for Jelly Blob and Text
   const jellyRef = useRef(null);
   const pos = useRef({ x: 0 });
   const setJellyX = useRef(null);
+
+  const { windowWidth } = useWindowWidth()
 
   // Throttle function to limit the frequency of mousemove events
   const throttle = (callback, limit) => {
@@ -42,6 +45,7 @@ const Blob = () => {
   );
 
   useLayoutEffect(() => {
+    if(windowWidth < 550) return
     window.addEventListener("mousemove", setFromEvent);
 
     return () => {

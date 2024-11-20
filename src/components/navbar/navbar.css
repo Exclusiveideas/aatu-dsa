@@ -51,10 +51,22 @@
 }
 
 
-@media (max-width: 550px) {}
 
+@media (max-width: 768px) {
+  .portalBtn_wrap, .themeToggle_wrap{
+    display: none;
+  }
 
-@media (max-width: 768px) {}
-
-
-@media (max-width: 1200px) {}
+  .navbar_logo {
+    transform: scale(.7);
+  }
+  .navbarWrapper {
+    padding-top: .5rem;
+    padding-left: .5rem;
+    padding-right: 1rem;
+    padding-bottom: .5rem;
+  }
+  .svgWrapper {
+    transform: scale(.8);
+  }
+}

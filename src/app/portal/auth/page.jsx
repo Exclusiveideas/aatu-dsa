@@ -117,6 +117,17 @@ const AuthPage = () => {
         <div className="authTheme_toggleWrapper">
           <ThemeToggleBtn />
         </div>
+        <div className="rightAuth_logoCont">
+            <a href="/">
+              <Image
+                src={"/imgs/logo.png"}
+                width={340}
+                height={150}
+                alt="tech-u logo"
+                className="login_logo"
+              />
+            </a>
+          </div>
           {authLogin ? (
             <LoginComp
               setAuthLogin={setAuthLogin}

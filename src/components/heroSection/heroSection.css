@@ -2,32 +2,42 @@
 .heroSectWrapper {
     background-color: var(--heroSection-bg); 
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     position: relative;
     transition: all 0.3s ease-in;
+    box-sizing: border-box;
 }
 
 .heroSectBody {
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
+  position: relative;
 }
  
+.hero_dark_bg {
+  background-color: var(--heroInfo-bg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+}
 
 .heroInfo {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
     z-index: 3;
-
-  background-color: var(--heroInfo-bg);
-  transition: all 0.3s ease-in;
-  isolation: isolate;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in;
+    isolation: isolate;
 }
 
 .infoBox {
@@ -46,6 +56,19 @@
   position: relative;
   min-height: 10rem;
   background-color: transparent;
+  box-sizing: border-box;
+}
+
+.heroTitleWrapper {
+  width: 100%;
+  position: relative;
+  box-sizing: border-box; 
+}
+
+.heroTitle {
+  font-size: 10vw;
+  color: #fff;
+  font-weight: 400;
 }
 
 .headerCaption {
@@ -76,50 +99,53 @@
   left: -140%;
 }
 
+
+.heroCtaBtnWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 5rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Media Queries */
 
 
 
 @media (max-width: 550px) {
-
   .heroInfo {
     padding-left: 0rem;
   }
 
   .infoBox {
-    align-items: center;
-    justify-content: center;
-
-    padding: .8rem;
-    text-align: center;
-    gap: 1.3rem;
+    padding: 0 1rem;
   }
 
-  .infoBox h1 {
-    font-size: 13vw;
-    margin-top: 0;
-    width: 100%;
+  
+.headerCaption {
+  font-size: .7em;
+  width: 100%;
+  font-weight: 300;
+}
+
+  .marginLeft {
+    margin-left: 0rem;
   }
 
-  .infoBox p {
-    font-size: 3vw;
-    line-height: 4.5vw;
-    max-width: 100%;
-  }
-
-
-  .heroBtn>.portalBtn {
-    transform: scale(.9);
-  }
-
-  .heroBtn>.portalBtn>.pulsatingBox {
-    display: flex;
-    transform: scale(.8);
-  }
-
-  .arrowContainer {
-    gap: 1.3vw;
+  .heroCtaBtnWrapper {
+    margin-left: 0;
   }
 
 }
-

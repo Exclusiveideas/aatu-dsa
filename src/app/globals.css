@@ -33,12 +33,16 @@
   --signup-addImg-circle-pulse: #ffa2a237;
 
   /* Loading Screen */
-  --loading-screen-bg: #FFEBE0;
-  --loading-screen-counter-color: #343434;
+  --loading-screen-bg: #16191b;
+  --loading-screen-counter-color: #fff;
 
 
   --background: #ffffff;
   --foreground: #171717;
+
+  --button-primary: #FFA2A2;
+  --button-secondary: #CA0202
+  --button-secondary: #ed9537;
 }
 
 [data-theme='dark'] {
@@ -68,42 +72,14 @@
   --signup-addImg-circle-pulse: #16191b35; 
 
   /* Loading Screen */
-  --loading-screen-bg: #16191b;
-  --loading-screen-counter-color: #fff;
 }
 
 
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Home page */
-    --heroSection-bg: #16191b;
-    --heroInfo-bg: #16191b65;
-    --heroCaption-color: #ffffffc6;
-    
-    --blob-bg-color: #3e958f;
-    
-    --ctaBtn-bgColor: #3E958F;
-    --ctaBtn-alt-bgColor: #307f7a;
-    --toggle-theme-border-color: #fff;
-  
-    
-    /* Auth Page */
-    --authPage-bgImage_cover: #16191b92;
-    --authTitle-text-color: #fff;
-  
-    --auth-btn-bgColor: #16191b85;
-    --auth-btn-alt-bgColor: #16191b85;
-    --auth-btn-alt-border: #16191b85;
-    --auth-btn-hover-bgColor: #16191b;
-    --auth-btn-alt-hover-bgColor: #16191b;
-  
-    --signup-addImg-circle: #16191b;
-    --signup-addImg-circle-pulse: #16191b35; 
-  
-    /* Loading Screen */
-    --loading-screen-bg: #16191b;
-    --loading-screen-counter-color: #fff;
+    --background: #0a0a0a;
+    --foreground: #ededed;
   }
 }
 

@@ -38,6 +38,7 @@
 
 .library_img {
     width: 100%;
+    height: 100%;
     object-fit: cover;
     transition: all 0.3s ease-in;
     filter: blur(10px) saturate(70%);
@@ -115,6 +116,10 @@
     box-sizing: border-box;
 }
 
+.rightAuth_logoCont {
+    display: none;
+}
+
 .login_logo {
     cursor: pointer;
     width: 230px;
@@ -141,11 +146,9 @@
 }
 
 .moveableWrapper {
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100%;
-    top: 0;
-    left: 0;
 
     display: flex;
     flex-direction: column;
@@ -169,8 +172,6 @@
 
 
 /* Media Queries */
-
-
 @media (max-width: 979px) {
     .leftAuthWrapper {
         display: none;
@@ -180,6 +181,17 @@
         width: 100%;
     }
 
+    .moveableWrapper {
+        padding-top: 15%;
+    }
+
+    .rightAuth_logoCont {
+        display: block;
+        transform: scale(.85);
+        margin-bottom: -10%;
+    }
+
+
 }
 
 @media (max-width: 600px) {
@@ -188,9 +200,6 @@
         transform: scale(.8);
     }
 
-    .moveableWrapper {
-        padding-top: 0;
-    }
 
 
     .inputBox {

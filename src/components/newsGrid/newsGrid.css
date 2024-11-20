@@ -94,3 +94,37 @@
   .grid__item:hover .dark_overlay {
     background-color: rgba(0, 0, 0, 0.5);
   }
+
+  
+
+  
+
+
+  /* Media Queries */
+
+
+@media (max-width: 800px) {
+
+  .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+  
+
+@media (max-width: 700px) {
+
+  .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+
+@media (max-width: 550px) {
+
+  .grid {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1rem;
+    }
+
+}
