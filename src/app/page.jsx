@@ -18,6 +18,7 @@ import { fetchNews } from "@/utils/newsFunctions";
 import useNewsStore from "@/store/newsStore";
 import { scaleNewsContainer } from "@/utils/homeFunctions";
 import LoadingScreen from "@/components/loadingScreen";
+import useWindowWidth from "@/utils/hooks/useWindowWidth";
  
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
@@ -35,6 +36,8 @@ const HomePage = () => {
 
   const isNavbarOpen = useHomeStore((state) => state.isNavbarOpen);
   const unMountLoadingScreen = useHomeStore((state) => state.unMountLoadingScreen);
+
+  const {windowWidth} = useWindowWidth();
 
   
   const newsSectionRef = useRef(null);
@@ -181,8 +184,8 @@ const HomePage = () => {
     }
   }, [memoizedAvailableNews]);
 
-  const homeClass = `${styles.page} ${
-    !unMountLoadingScreen ? styles.fixedHeight : styles.autoHeight
+  const homeClass = `${styles.page} ${windowWidth > 550 ?
+    (!unMountLoadingScreen ? styles.fixedHeight : styles.autoHeight) : styles.autoHeight
   }`;
 
   return (
@@ -220,7 +223,7 @@ const HomePage = () => {
         </div>
         <MenuNav />
         {isNavbarOpen && <JellyBlob />}
-        {!unMountLoadingScreen && <LoadingScreen />}
+        {windowWidth > 550 && !unMountLoadingScreen && <LoadingScreen />}
       </div>
     </SmoothScrolling>
   );
