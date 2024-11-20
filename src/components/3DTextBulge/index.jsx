@@ -45,7 +45,7 @@ function SceneComp({ lightMode }) {
 
   const mouseLerped = useRef({ x: 0, y: 0 });
 
-  useFrame((state, delta) => {
+  useFrame((state, _) => {
     if (materialRef.current && sceneReady) {
       const mouse = state.mouse;
       mouseLerped.current.x = THREE.MathUtils.lerp(mouseLerped.current.x, mouse.x, 0.1);

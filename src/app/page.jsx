@@ -194,7 +194,7 @@ const HomePage = () => {
         </div>
         <div ref={newsRef} className={`${styles.newsSection} section`}>
           <h1 ref={newsTitleRef} className={styles.newSectionTitle}>
-            Here's What's Going On!
+            Here&apos;s What&apos;s Going On!
           </h1>
           <NewsSection
             newsSectionRef={newsSectionRef}
@@ -213,7 +213,7 @@ const HomePage = () => {
               />
             ) : (
               <div className={styles.uptoDateCont}>
-                <p>You're up to date 😉</p>
+                <p>You&apos;re up to date 😉</p>
               </div>
             )}
           </div>

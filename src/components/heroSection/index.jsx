@@ -57,7 +57,7 @@ const HeroSection = ({ targetRef }) => {
 
             <div className="heroCtaBtnWrapper">
               <CTAButtonAlt onClick={handleScrollToElement}>
-                What's going on?
+                What&apos;s going on?
               </CTAButtonAlt>
             </div>
           </div>

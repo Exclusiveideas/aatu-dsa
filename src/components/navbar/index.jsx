@@ -101,4 +101,7 @@ const OpenMenuIcon = memo(() => {
   );
 });
 
+
+OpenMenuIcon.displayName = 'OpenMenuIcon';
+
 export default Navbar;

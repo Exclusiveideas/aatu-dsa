@@ -75,7 +75,7 @@ export const NewsPreview = ({ news }) => {
           </p>
         </div>
         <div
-          style={{ backgroundImage: `url(${"/imgs/welcome.jpeg"})` }}
+          style={{ backgroundImage: `url(${news?.img ?? "/imgs/welcome.jpeg"})` }}
           className="grid__item_bg"
         ></div>
         <div className="dark_overlay"></div>

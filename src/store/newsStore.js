@@ -9,7 +9,7 @@ const useNewsStore = create()(
       fetchNewsError: "",
       isFetching: false,
       updateFetchedNews: (updatedNewsList) =>
-        set((state) => ({
+        set(() => ({
           fetchedNews: updatedNewsList,
         })),
       updateLastDoc: (lastDoc) =>
