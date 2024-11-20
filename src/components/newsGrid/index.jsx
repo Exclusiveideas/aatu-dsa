@@ -62,6 +62,10 @@ export const NewsPreview = ({ news }) => {
     if(news?.id) router.push(`/news?newsID=${news?.id}`);
   };
 
+  const image = news?.img?.stringValue ?? "/imgs/welcome.jpeg";
+
+  console.log('img: ', image)
+
   return (
     <figure
       onClick={handleNewsClick}
@@ -75,7 +79,7 @@ export const NewsPreview = ({ news }) => {
           </p>
         </div>
         <div
-          style={{ backgroundImage: `url(${news?.img ?? "/imgs/welcome.jpeg"})` }}
+          style={{ backgroundImage: `url(${image})` }}
           className="grid__item_bg"
         ></div>
         <div className="dark_overlay"></div>

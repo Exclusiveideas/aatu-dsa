@@ -81,15 +81,15 @@ const NewsPage = () => {
         <Navbar />
         <div className="headerSection">
           <div className="imgContainer">
-            <div className="blackOverlay"></div>
+            <div className="news_header_blackOverlay"></div>
             <img
               src={
-                currentNews?.imageLink ? `${currentNews?.imageLink}` : demoImage
+                currentNews?.img?.stringValue ?? demoImage
               }
               alt="news image"
+              className="news_image"
             />
           </div>
-
           <div className="infoWrapper">
             {currentNews?.message ? (
               <h4 className="headerTxt">
@@ -113,7 +113,7 @@ const NewsPage = () => {
                       fontSize: "18px",
                     }}
                   />
-                  <p>{currentNews?.createdOn || "no available date"}</p>
+                  <p>{currentNews?.createdOn || ""}</p>
                 </>
               ) : (
                 <Skeleton

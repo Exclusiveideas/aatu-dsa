@@ -36,6 +36,11 @@
   --loading-screen-bg: #16191b;
   --loading-screen-counter-color: #fff;
 
+  /* News Page */
+    --newsPage-bg-color: #FFEBE0;
+    --newsPage-txt-color: #000000c6;
+    --newsPage-header-overlay: #6b5f58;
+
 
   --background: #ffffff;
   --foreground: #171717;
@@ -71,7 +76,10 @@
   --signup-addImg-circle: #16191b;
   --signup-addImg-circle-pulse: #16191b35; 
 
-  /* Loading Screen */
+  /* News Page */
+  --newsPage-bg-color: #16191b;
+  --newsPage-txt-color: #ffffff;
+  --newsPage-header-overlay: #1b1b1b;
 }
 
 
