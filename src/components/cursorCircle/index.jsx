@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useCallback } from "react";
+import { useLayoutEffect, useRef } from "react";
 import gsap, { Expo } from "gsap";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -45,7 +45,7 @@ const JellyBlob = () => {
   }, []);
 
   // Start Animation loop
-  const loop = useCallback(() => {
+  const loop = () => {
 
     const rotation = getAngle(vel.current.x, vel.current.y); // Mouse Move Angle
     const scale = getScale(vel.current.x, vel.current.y); // Blob Squeeze Amount
@@ -66,11 +66,16 @@ const JellyBlob = () => {
     setJellyRotate.current(rotation);
     setJellyScaleX.current(1 + scale * 0.3);
     setJellyScaleY.current(1 - scale * 0.3);
-  }, []);
+
+    
+    // Continue animation loop
+    requestAnimationFrame(loop);
+  };
 
   // Run on Mouse Move
   useLayoutEffect(() => {
-    let animationFrameId;
+    if (!window) return
+
 
     
     const setFromEvent = (e) => {
@@ -78,9 +83,7 @@ const JellyBlob = () => {
       const x = e.clientX;
       const y = e.clientY;
 
-      cancelAnimationFrame(animationFrameId);
-      animationFrameId = requestAnimationFrame(() => {
-        gsap.to(pos.current, {
+      gsap.to(pos.current, {
           x: x,
           y: y,
           duration: 1.5,
@@ -90,16 +93,18 @@ const JellyBlob = () => {
             vel.current.y = y - pos.current.y;
           },
         });
-        loop();
-      });
+
+
     };
 
     window.addEventListener("mousemove", setFromEvent);
+    
+    loop();
+
 
     // Cleanup on unmount
     return () => {
       window.removeEventListener("mousemove", setFromEvent);
-      cancelAnimationFrame(animationFrameId);
     };
   }, [loop]);
 

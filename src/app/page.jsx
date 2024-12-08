@@ -43,7 +43,6 @@ const HomePage = () => {
   const newsSectionRef = useRef(null);
   const heroesRef = useRef(null);
   const newsRef = useRef(null);
-  const newsTitleRef = useRef(null);
   const heroDarkBgRef = useRef(null);
 
   const fetchedNews = useNewsStore((state) => state.fetchedNews);
@@ -57,14 +56,13 @@ const HomePage = () => {
   const updateIsFetching = useNewsStore((state) => state.updateIsFetching);
 
   useEffect(() => {
-    if (!newsSectionRef?.current || !newsRef.current || !newsTitleRef.current)
+    if (!newsSectionRef?.current || !newsRef.current)
       return;
     const tlAnimation = gsap.timeline();
-    const newsTitle = newsTitleRef.current;
 
     tlAnimation.to(heroesRef.current, {
       opacity: 0.2,
-      filter: "blur(15px)",
+      filter: "blur(10px)",
       duration: 1,
       scrollTrigger: {
         trigger: heroesRef.current,
@@ -74,7 +72,7 @@ const HomePage = () => {
         scrub: 1,
         pin: true,
         pinSpacing: false,
-      },
+      }
     });
     tlAnimation.to(
       newsRef.current,
@@ -101,37 +99,6 @@ const HomePage = () => {
       start: "top 25%",
       scrub: true,
       end: () => `+=${contentRefDistance.current}`,
-
-      onEnter: () => {
-        gsap.to(newsTitle, {
-          opacity: 1,
-          duration: 0.2,
-          ease: CustomEase.create("custom", "M0,0 C0.709,0 1,0.307 1,1"),
-        });
-      },
-      onEnterBack: () => {
-        gsap.to(newsTitle, {
-          opacity: 1,
-          duration: 0.2,
-          ease: CustomEase.create("custom", "M0,0 C0.709,0 1,0.307 1,1"),
-        });
-      },
-      onLeave: () => {
-        gsap.to(newsTitle, {
-          scale: 1,
-          opacity: 0,
-          duration: 0.2,
-          ease: CustomEase.create("custom", "M0,0 C0.709,0 1,0.307 1,1"),
-        });
-      },
-      onLeaveBack: () => {
-        gsap.to(newsTitle, {
-          scale: 1,
-          opacity: 0,
-          duration: 0.2,
-          ease: CustomEase.create("custom", "M0,0 C0.709,0 1,0.307 1,1"),
-        });
-      },
     });
 
     return () => {
@@ -195,12 +162,9 @@ const HomePage = () => {
         <Navbar />
         <div ref={heroesRef} className={`${styles.heroSection} section`}>
           <div ref={heroDarkBgRef} className={styles.hero_dark_bg}></div>
-          <HeroSection targetRef={newsTitleRef} />
+          <HeroSection targetRef={newsRef} />
         </div>
         <div ref={newsRef} className={`${styles.newsSection} section`}>
-          <h1 ref={newsTitleRef} className={styles.newSectionTitle}>
-            Here&apos;s What&apos;s Going On!
-          </h1>
           <NewsSection
             newsSectionRef={newsSectionRef}
             contentRefDistance={contentRefDistance}
