@@ -267,7 +267,7 @@ export const ForgotPassword = ({
             {islogging ? (
               <CircularProgress size="13px" className="circularProgress" />
             ) : (
-              <p>Reset Password</p>
+              <p>Reset</p>
             )}
           </button>
         </div>

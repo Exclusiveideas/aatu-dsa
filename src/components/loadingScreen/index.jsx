@@ -4,6 +4,7 @@ import useHomeStore from "@/store/homeStore";
 import Image from "next/image";
 import LinearProgress from '@mui/material/LinearProgress';
 import gsap from "gsap";
+import useWindowWidth from "@/utils/hooks/useWindowWidth";
  
 const LoadingScreen = () => {
   const [counter, setCounter] = useState(0);
@@ -15,6 +16,7 @@ const LoadingScreen = () => {
   const isSceneReady = useHomeStore((state) => state.isSceneReady);
   const setUnMountLoadingScreen = useHomeStore((state) => state.setUnMountLoadingScreen);
 
+  const {windowWidth} = useWindowWidth();
   
 
   useEffect(() => {

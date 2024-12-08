@@ -16,7 +16,6 @@
 
 .loadingScreen p {
   font-family: 'Nohemi', 'Mabry Pro', Arial, Helvetica, sans-serif;
-
 }
 
 .imgWrapper {
@@ -40,9 +39,11 @@
 
 .progressBox {
   width: 100%;
+  padding: 0;
   position: absolute;
-  bottom: 0;
+  bottom: .5rem;
   left: 0;
+  box-sizing: border-box;
 }
  
 
