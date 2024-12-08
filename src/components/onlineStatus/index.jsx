@@ -26,7 +26,6 @@ const OnlineStatus = () => {
       const onlineStatusCont = onlineStatusContRef.current;
 
       if (!isOnline) {
-        console.log('offline')
         gsap.to(onlineStatusCont, {
           left: 0,
           duration: 0.8,

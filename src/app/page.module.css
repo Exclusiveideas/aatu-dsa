@@ -4,15 +4,14 @@
 
 
   background: var(--bg-black-2);
-  /* background-color: var(--heroSection-bg); */
   color: var(--foreground);
   width: 100vw;
   overflow-x: hidden;
-  min-height: 100vh;
-  overflow-y: auto;
   position: relative;
   scroll-behavior: smooth;
   box-sizing: border-box;
+  overflow-y: hidden;
+  max-height: 100vh;
 }
 
 
@@ -28,12 +27,12 @@
 
 
 .page.fixedHeight {
-  max-height: 100vh;
-  overflow-y: hidden;
 }
 
 .page.autoHeight {
   overflow-y: auto;
+  min-height: 100vh;
+  max-height: max-content;
 }
 
 

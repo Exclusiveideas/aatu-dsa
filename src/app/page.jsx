@@ -152,8 +152,7 @@ const HomePage = () => {
     }
   }, [memoizedAvailableNews]);
 
-  const homeClass = `${styles.page} ${windowWidth > 550 ?
-    (!unMountLoadingScreen ? styles.fixedHeight : styles.autoHeight) : styles.autoHeight
+  const homeClass = `${styles.page} ${(unMountLoadingScreen ? styles.autoHeight : styles.fixedHeight)
   }`;
 
   return (
@@ -189,7 +188,7 @@ const HomePage = () => {
         </div>
         <MenuNav />
         {isNavbarOpen && <JellyBlob />}
-        {windowWidth > 550 && !unMountLoadingScreen && <LoadingScreen />}
+        <LoadingScreen />
       </div>
     </SmoothScrolling>
   );

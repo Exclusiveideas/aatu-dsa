@@ -64,8 +64,6 @@ export const NewsPreview = ({ news }) => {
 
   const image = news?.img?.stringValue ?? "/imgs/welcome.jpeg";
 
-  console.log('img: ', image)
-
   return (
     <figure
       onClick={handleNewsClick}

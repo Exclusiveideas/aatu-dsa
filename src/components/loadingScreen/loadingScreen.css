@@ -1,5 +1,4 @@
 .loadingScreen {
-
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -12,6 +11,7 @@
   z-index: 100;
   color: white;
   opacity: 1;
+  box-sizing: border-box;
 }
 
 .loadingScreen p {
@@ -37,19 +37,12 @@
   -moz-filter: grayscale(0%);
 }
 
-.counterWrapper {
+
+.progressBox {
+  width: 100%;
   position: absolute;
-  bottom: 1rem;
-  left: 4rem;
-  box-sizing: border-box;
-
-}
-
-.counterWrapper p {
-  font-size: 10rem;
-  font-weight: 1000;
-  line-height: 90%;
-  color: var(--loading-screen-counter-color);
+  bottom: 0;
+  left: 0;
 }
  
 

@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import "./loadingScreen.css";
 import useHomeStore from "@/store/homeStore";
-import gsap from "gsap";
 import Image from "next/image";
+import LinearProgress from '@mui/material/LinearProgress';
+import gsap from "gsap";
  
 const LoadingScreen = () => {
   const [counter, setCounter] = useState(0);
@@ -13,6 +14,8 @@ const LoadingScreen = () => {
 
   const isSceneReady = useHomeStore((state) => state.isSceneReady);
   const setUnMountLoadingScreen = useHomeStore((state) => state.setUnMountLoadingScreen);
+
+  
 
   useEffect(() => {
     if (counter >= 100) {
@@ -82,7 +85,7 @@ const LoadingScreen = () => {
 
 
   return (
-    <div ref={loaderRef} className="loadingScreen">
+    <div ref={loaderRef} className={`loadingScreen`}>
       <div className="imgWrapper">
         <Image
           src="/imgs/logo.png"
@@ -94,8 +97,8 @@ const LoadingScreen = () => {
         />
         <div className="loader"></div>
       </div>
-      <div className="counterWrapper">
-        <p>{counter}%</p>
+      <div className="progressBox">
+       <LinearProgress  variant="determinate" value={counter} />
       </div>
     </div>
   );
