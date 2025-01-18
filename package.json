@@ -26,6 +26,7 @@
     "bcryptjs": "^2.4.3",
     "blotter": "^2.1.0",
     "dayjs": "^1.11.13",
+    "dompurify": "^3.2.3",
     "dotenv": "^16.4.5",
     "dotenv-safe": "^9.1.0",
     "downloadjs": "^1.4.7",

@@ -13,6 +13,7 @@ import SmoothScrolling from "@/components/smoothScrolling";
 import MenuNav from "@/components/menuNav";
 import useHomeStore from "@/store/homeStore";
 import JellyBlob from "@/components/cursorCircle";
+import DOMPurify from "dompurify";
 
 const NewsPageWithSuspense = () => (
   <Suspense
@@ -171,15 +172,12 @@ const NewsPage = () => {
 };
 
 const TextContent = ({ content }) => {
-  const sanitizedContent = content
-    .replace(/\n/g, "<br/>")
-    .replace(/ /g, "&nbsp;");
+const DomSanitizedContent = DOMPurify.sanitize(content);
 
   return (
     <div
       className="txtContent"
-      style={{ whiteSpace: "pre-wrap" }}
-      dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+      dangerouslySetInnerHTML={{ __html: DomSanitizedContent }}
     />
   );
 };
